@@ -225,11 +225,10 @@
                         <div class="row mt-2">
                             <div class="col">
                                 <label for="kurs1">Kurs:</label>
-                                <select class="form-control form-control-lg" id="kurs1">
-                                    <option value="Excel for beginners">Excel for beginners</option>
-                                    <option value="Excel functions">Excel functions</option>
-                                    <option value="Excel tables">Excel tables</option>
-                                    <option value="Excel intermediate">Excel intermediate</option>
+                                <select class="form-control form-control-lg" id="kurs1" name="kurs1">
+                                    @foreach($courses as $course)
+                                        <option value="{{ $course }}">{{ $course->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
             
@@ -250,10 +249,9 @@
                             <div class="col">
                                 <label for="kurs2">Kurs:</label>
                                 <select class="form-control form-control-lg" id="kurs2" name="kurs2">
-                                    <option value="Excel for beginners">Excel for beginners</option>
-                                    <option value="Excel functions">Excel functions</option>
-                                    <option value="Excel tables">Excel tables</option>
-                                    <option value="Excel intermediate">Excel intermediate</option>
+                                    @foreach($courses as $course)
+                                        <option value="{{ $course }}">{{ $course->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                 
