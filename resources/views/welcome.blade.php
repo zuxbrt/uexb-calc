@@ -72,7 +72,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        {{-- <a href="{{ url('/home') }}">Home</a> --}}
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,7 +84,7 @@
             @endif
 
             <div class="content">
-                
+
                 <form action="/" enctype="multipart/form-data" method="post">
                     @csrf
                     @method('POST')
@@ -222,35 +222,50 @@
                             <textarea type="text" id="napomene" class="form-control" style="min-height:100px;"></textarea>
                         </div>
 
-                        <div class="row mt-2">
-                            <div class="col">
-                                <label for="kurs1">Kurs:</label>
-                                <select class="form-control form-control-lg" id="kurs1" name="kurs1">
-                                    @foreach($courses as $course)
-                                        <option value="{{ $course }}">{{ $course->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-            
-                            <div class="col">
-                                <label for="polaznici1kurs">Broj Polaznika</label>
-                                <input id="polaznici1kurs" type="text" class="form-control form-control-lg @error('polaznici1kurs') is-invalid @enderror" 
-                                name="polaznici1kurs" value="{{ old('polaznici1kurs') }}" autocomplete="polaznici1kurs" autofocus>
-                        
-                                @error('polaznici1kurs')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="row mt-2 justify-content-center" style="text-align: center;">Odaberite kurseve:</div>
+                        <div class="d-inline-flex mt-2">
+                            @foreach($availableCourses as $course)
+                                <div class="col">
+                                <div onclick="selectCourse()" id="{{$course->id}}" style="background: #c5e1a5; color: black; height:auto; min-height: 55px; cursor: pointer; border-radius: 5px; padding: 5px;">
+                                        {{$course->name}}
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
+                        
+                        @foreach ($selectedCourses as $singleCourse)
+                            <div class="row mt-2">
+                                
+                                <div class="col">
+                                    <label for="kurs1">Kurs:</label>
+                                    <select class="form-control form-control-lg" id="kurs1" name="kurs1">
+                                        @foreach($availableCourses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                
+                                <div class="col">
+                                    <label for="polaznici1kurs">Broj Polaznika</label>
+                                    <input id="polaznici1kurs" type="text" class="form-control form-control-lg @error('polaznici1kurs') is-invalid @enderror" 
+                                    name="polaznici1kurs" value="{{ old('polaznici1kurs') }}" autocomplete="polaznici1kurs" autofocus>
+                            
+                                    @error('polaznici1kurs')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endforeach
+                        
 
-                        <div class="row mt-2">
+                        {{-- <div class="row mt-2">
                             <div class="col">
                                 <label for="kurs2">Kurs:</label>
                                 <select class="form-control form-control-lg" id="kurs2" name="kurs2">
                                     @foreach($courses as $course)
-                                        <option value="{{ $course }}">{{ $course->name }}</option>
+                                        <option value="{{ $course->id }}">{{ $course->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -266,7 +281,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
             
                         <div class="row justify-content-end pt-4 mr-1">
                             <button type="submit" class="btn btn-primary">Posalji zahtjev</button>
