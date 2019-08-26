@@ -74,11 +74,11 @@
                     @auth
                         {{-- <a href="{{ url('/home') }}">Home</a> --}}
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        {{-- <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 </div>
             @endif
@@ -226,7 +226,7 @@
                         <div class="d-inline-flex mt-2">
                             @foreach($availableCourses as $course)
                                 <div class="col">
-                                <div onclick="selectCourse()" id="{{$course->id}}" style="background: #c5e1a5; color: black; height:auto; min-height: 55px; cursor: pointer; border-radius: 5px; padding: 5px;">
+                                <div id="{{$course->id}}" style="background: #c5e1a5; color: black; height:auto; min-height: 55px; cursor: pointer; border-radius: 5px; padding: 5px;">
                                         {{$course->name}}
                                     </div>
                                 </div>

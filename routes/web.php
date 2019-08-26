@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', 'Controller@index');
-
-Route::post('/', 'Controller@store');
+Route::get('/', 'MainController@index');
+Route::post('/', 'MainController@store');
 
 // disable registration
 //Auth::routes();
