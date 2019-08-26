@@ -15,8 +15,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #1b5e20;
-                color: white;
+                background-color: white;
+                color: black;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -45,6 +45,9 @@
 
             .content {
                 margin-top: 7%;
+                padding: 10%;
+                padding-top: 15%;
+                padding-bottom: 5%;
                 text-align: center;
             }
 
@@ -223,14 +226,17 @@
                         </div>
 
                         <div class="row mt-2 justify-content-center" style="text-align: center;">Odaberite kurseve:</div>
-                        <div class="d-inline-flex mt-2">
+                        <div class="d-flex flex-wrap mt-2 justify-content-center">
+
                             @foreach($availableCourses as $course)
-                                <div class="col">
-                                <div id="{{$course->id}}" style="background: #c5e1a5; color: black; height:auto; min-height: 55px; cursor: pointer; border-radius: 5px; padding: 5px;">
-                                        {{$course->name}}
+                                <div class="col" id="availableCoursesDiv" style="min-height: 100px;">
+                                    <div id="{{$course->id}}" style="background: white; min-height: 100px; color: black; cursor: pointer; font-weight: 600;
+                                        border: 1px solid black; border-radius: 5px;">
+                                                {{$course->name}}
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                         
                         @foreach ($selectedCourses as $singleCourse)
@@ -303,4 +309,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script>
+    $( "#availableCoursesDiv" ).click(function() {
+        let selectedCourses = {!! json_encode($availableCourses->toArray()) !!};
+        alert(selectedCourses);
+        //alert( "Handler called." );        
+    });
+    </script>
 </html>

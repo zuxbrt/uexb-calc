@@ -50,10 +50,9 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret">Meni</span>  
-                                     {{-- {{ Auth::user()->name }} --}}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -75,7 +74,22 @@
 
                                 </div>
 
-                            </li>
+                            </li> --}}
+                            <a class="nav-link dropdown-item" role="button" href="/courses">Kursevi</a>
+                            <a class="nav-link dropdown-item" role="button" href="/coupons">Kuponi</a>
+                            <a class="nav-link dropdown-item" role="button" href="/customers">Kupci</a>
+                            <a class="nav-link dropdown-item" role="button" href="/administration">Administracija</a>
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" style="padding: 8px; font-weight: bold;"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
                         @endguest
                     </ul>
                 </div>

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('coupon.index');
+        $coupons = Coupon::all();
+        return view('coupon.index', compact('coupons'));
     }
 
     /**
@@ -23,8 +30,8 @@ class CouponController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        return view('coupon.create');
     }
 
     /**
@@ -35,7 +42,15 @@ class CouponController extends Controller
      */
     public function store() // Request $request
     {
-        //
+        // validate required values
+        $attributes = request()->validate([
+            'name' => ['required', 'min:5'],
+            'discount' => ['required'],
+            'code' => ['required', 'min:15']
+        ]);
+
+        $coupon = Coupon::create($attributes);
+        return redirect('/coupons');
     }
 
     /**
@@ -46,7 +61,7 @@ class CouponController extends Controller
      */
     public function show(Coupon $coupon)
     {
-        //
+        return view('coupon.view', compact('coupon'));
     }
 
     /**
@@ -69,7 +84,8 @@ class CouponController extends Controller
      */
     public function update(Request $request, Coupon $coupon)
     {
-        //
+        $coupon->update(request(['name', 'discount', 'code']));
+        return redirect('/coupons');
     }
 
     /**

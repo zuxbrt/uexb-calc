@@ -20,7 +20,10 @@ Auth::routes(['register' => false]);
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('/courses', 'CourseController@index');
-Route::get('/coupons', 'CouponController@index');
+
+Route::resource('/courses', 'CourseController');
+Route::resource('coupons', 'CouponController');
+
 Route::get('/customers', 'CustomerController@index');
+
 Route::get('/administration', 'AdminController@index');
