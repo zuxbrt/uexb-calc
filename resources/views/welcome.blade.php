@@ -226,10 +226,10 @@
                         </div>
 
                         <div class="row mt-2 justify-content-center" style="text-align: center;">Odaberite kurseve:</div>
-                        <div class="d-flex flex-wrap mt-2 justify-content-center">
+                        <div class="d-flex flex-wrap mt-2 justify-content-center" id="availableCoursesDiv">
 
                             @foreach($availableCourses as $course)
-                                <div class="col" id="availableCoursesDiv" style="min-height: 100px;">
+                                <div class="col" style="min-height: 100px;">
                                     <div id="{{$course->id}}" style="background: white; min-height: 100px; color: black; cursor: pointer; font-weight: 600;
                                         border: 1px solid black; border-radius: 5px;">
                                                 {{$course->name}}
@@ -310,9 +310,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-    $( "#availableCoursesDiv" ).click(function() {
-        let selectedCourses = {!! json_encode($availableCourses->toArray()) !!};
-        alert(selectedCourses);
+    $( "#availableCoursesDiv" ).click(function(event) {
+        courses = {!! json_encode($availableCourses->toArray()) !!};
+        let id = parseInt(event.target.id);
+
+        let isSelected = document.getElementById(id).classList.value;
+       
+        if(isSelected === undefined || isSelected === ''){
+            document.getElementById(id).classList.add('selected');
+
+            let selectedCourse = [];
+            this.selectedCourse = selectedCourse;
+
+            courses.forEach(course => {
+                if(course.id === id){
+                    console.log(course);
+                    //{!! json_encode($selectedCourses) !!}.push(course);
+                }
+            });
+
+        //console.log({!! json_encode($selectedCourses) !!});
+        } else {
+            document.getElementById(id).classList.remove('selected');
+        }
+        
+        
+
         //alert( "Handler called." );        
     });
     </script>
