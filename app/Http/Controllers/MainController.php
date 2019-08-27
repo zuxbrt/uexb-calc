@@ -10,9 +10,8 @@ class MainController extends Controller
 
     public function index()
     {
-        $availableCourses = Course::all();
-        $selectedCourses = [];
-        return view('welcome', compact('selectedCourses', 'availableCourses'));
+        $courses = Course::all();
+        return view('welcome', compact('courses'));
     }
 
     /**

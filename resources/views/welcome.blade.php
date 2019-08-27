@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
 
         <!-- Bootstrap 4.0 css -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -44,10 +45,10 @@
             }
 
             .content {
-                margin-top: 7%;
-                padding: 10%;
-                padding-top: 15%;
-                padding-bottom: 5%;
+                /* padding: 10%; */
+                /* padding-bottom: 5%; */
+                top: 0;
+                width: 100%;
                 text-align: center;
             }
 
@@ -68,31 +69,436 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            #main-header{
+                position: relative;
+                z-index: 99999;
+                width: 100%;
+                height: 90px;
+                background-color: #fff;
+                /* -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                box-shadow: 0 1px 0 rgba(0,0,0,.1); */
+                font-weight: 500;
+                line-height: 23px;
+                -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                box-shadow: 0 1px 0 rgba(0,0,0,.1);
+            }
+
+            #logoContainer{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 80%;
+                max-width: 1080px;
+                margin: auto;
+            }
+
+            #logoImg{
+                width: 250px;
+                height: auto;
+                margin-top: 25px;
+            }
+
+            #navigation-menu{
+                padding-top: 33px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                margin-left: auto;
+                margin-right: 0;
+            }
+
+            #links-ul{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+
+            .link-menu, .link-menu-button{
+                margin-left: 15px;
+                margin-right: 15px;
+                cursor: pointer;
+                font-family: 'Work Sans',Helvetica,Arial,Lucida,sans-serif;
+                font-weight: 600;
+            }
+
+            .link-menu{
+                padding-top: 5px;
+            }
+
+            .greytext{
+                color: rgba(0,0,0,.6);
+            }
+
+            .link-menu-button{
+                color: white;
+            }
+
+            .greytext, .link-menu-button{
+                font-size: 16px;
+            }
+
+            .link-menu-button{
+                background-color: #73ae56;
+                width: 125px;
+                height: 35px;
+                padding-left: 28px;
+                padding-top: 6px;
+                border-radius: 25px;
+                -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+                box-shadow: 0 1px 0 rgba(0,0,0,.1);
+            }
+
+            .nohover:hover{
+                text-decoration: none;
+            }
+
+            .course-column{
+                text-align: center;
+                background-color: #73ae56;
+                height: 75px;
+                padding-top: 25px;
+                width: 33%;
+                margin-bottom: 20px;
+                color: white;
+                font-weight: 600;
+                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                border-radius: 30px;
+            }
+
+
+            /* RADIO CHECK STYLES */
+
+            input[type='radio'] {
+                margin-top: 22px;
+                margin-right: 10px;
+                text-decoration: none;
+                width: 30px;
+                height: 30px;
+                border-radius: 30px;
+                top: -1px;
+                left: -1px;
+                position: relative;
+                background-color: #d1d3d1;
+                content: '';
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid #73ae56;
+            }
+
+            input[type='radio']:after {
+                text-decoration: none;
+                width: 30px;
+                height: 30px;
+                border-radius: 30px;
+                top: -2px;
+                left: -2px;
+                position: relative;
+                background-color: white;
+                content: '';
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid #73ae56;
+            }
+
+            input[type='radio']:checked:after {
+                text-decoration: none;
+                width: 30px;
+                height: 30px;
+                border-radius: 30px;
+                top: -2px;
+                left: -2px;
+                position: relative;
+                background-color: #73ae56;
+                content: '';
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid #73ae56;
+            }
+
+
+            .custom-range-div{
+                width: 33%;
+                position: relative;
+                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                border-radius: 30px;
+            }
+
+
+
+
+            /* RADIO RANGE STYLES */
+
+            /* Desperate to remove focus outline in firefox */
+            ::-moz-focus-inner {
+                outline:0;
+            }
+
+            :focus {
+                outline:0;
+            }
+
+            .range-input,
+            .custom-range-input,
+            .custom-range-input--vertical {
+                padding: 0;
+                margin: 0;
+                background: transparent;
+                border: none;
+                box-sizing: border-box;
+                background-clip: padding-box;
+                vertical-align: top;
+                outline: none;
+                -webkit-appearance: none;
+            }
+
+
+            /* 
+            Declarations get duplicated because an invalid selector
+            invalidates the entire declaration block
+            */
+
+            .range-input::-webkit-slider-thumb,
+            .custom-range-input::-webkit-slider-thumb,
+            .custom-range-input--vertical::-webkit-slider-thumb {
+            cursor: pointer;
+                -webkit-appearance: none;
+            }
+
+            .range-input::-moz-range-thumb,
+            .custom-range-input::-moz-range-thumb,
+            .custom-range-input--vertical::-moz-range-thumb {
+                cursor: pointer;
+            }
+
+            .custom-range-input,
+            .custom-range-input--vertical {
+                border-radius: 6px;
+                border: 3px solid #73ae56;
+                background: white;
+                height: 75px;
+                border-radius: 30px;
+                width: 100%;
+            }
+
+            .custom-range-input::-moz-range-track,
+            .custom-range-input--vertical::-moz-range-track {
+                border-radius: 6px;
+                background: #d3d7d7;
+                height: 75px;
+                border-radius: 30px;
+            }
+
+            /* 
+            Declarations get duplicated because an invalid selector
+            invalidates the entire declaration block
+            */
+
+            .custom-range-input::-webkit-slider-thumb,
+            .custom-range-input--vertical::-webkit-slider-thumb {
+                height: 75px;
+                width: 70px;
+                /* border-radius: 6px; */
+                background: #73ae56;
+                border-radius: 30px;
+            }
+
+            .custom-range-input::-moz-range-thumb,
+            .custom-range-input--vertical::-moz-range-thumb {
+                height: 75px;
+                width: 100%;
+                /* border-radius: 6px;  */
+                background: white;
+                border-radius: 30px;
+            }
+
+            .custom-range-input--vertical {
+            -webkit-transform:rotate(90deg);
+            -moz-transform:rotate(90deg);
+            -ms-transform:rotate(90deg);  
+                transform:rotate(90deg);  
+            }
+
+            /*
+            Active state
+            */
+
+            .custom-range-input:active::-webkit-slider-thumb,
+            .custom-range-input--vertical:active::-webkit-slider-thumb {
+                border: 1px solid #0940fd;
+                box-shadow: 0 0 0 2px #6fb5f1;
+            }
+
+            input[type=range]:active::-moz-range-thumb {
+                border: 1px solid #0940fd;
+                box-shadow: 0 0 0 2px #6fb5f1;
+            }
+
+            .label-range{
+                position: absolute;
+                top: 27px;
+                left: 18%;
+                right: 15%;
+                color: rgba(0,0,0,.6);
+                font-weight: 600;
+                z-index: 50;
+            }
+            
+            .singleCourse{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .courseInfo{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+            }
+
+            .range-column{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                width: 100%;
+                margin-left: 20px;
+            }
+
+            .not-selected{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                filter: blur(1px);
+            }
+
+            .discountContainer{
+                width: 33%;
+                position: relative;
+                display: flex;
+            }
+            
+            .code-box, .percentage-box{
+                width: 300px;
+                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                border-radius: 30px;
+            }
+
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        {{-- <a href="{{ url('/home') }}">Home</a> --}}
-                    @else
-                        {{-- <a href="{{ route('login') }}">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif --}}
-                    @endauth
+        @if(Route::getCurrentRoute()->uri() == '/')
+                    
+            <div id="main-header">
+                <div id="logoContainer">
+
+                    <a href="http://uciexcel.ba/"><img id="logoImg" src="../images/logo.png"></a>
+
+                    <nav id="navigation-menu">
+                        <ul id="links-ul" style="list-style-type:none;">
+                            <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
+                            <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
+                            <a href="http://uciexcel.ba/#sadrzaj"><li class="link-menu greytext">Vrste treninga</li></a>
+                            <a href="http://uciexcel.ba/#cjenovnik"><li class="link-menu greytext">Cjenovnik</li></a>
+                            <a class="nohover" href="https://uciexcel.ba/prijavni-obrazac">
+                                <li class="link-menu-button">Prijavi se</li>
+                            </a>
+                        </ul>
+                    </nav>
+
                 </div>
-            @endif
+
+            </div>
+
+        @endif
+
+        <div class="flex-center position-ref pt-4">
 
             <div class="content">
-
+                
                 <form action="/" enctype="multipart/form-data" method="post">
                     @csrf
                     @method('POST')
 
-                    <div class="formContent mt-5">
+                    <div class="formContent pl-5 pr-5">
+
+                            <div class="mt-2 justify-content-center" id="availableCoursesDiv" 
+                            style="display:flex; flex-direction:row; flex-wrap:nowrap;">
+    
+                                
+                                
+                                <div class="singleCourse">
+                                    @foreach($courses as $course)
+
+                                    <div class="courseInfo">
+
+                                        <input type="radio" class="courseSelection" id="{{$course->id}}.selected">
+
+                                        <div class="not-selected">
+
+                                            <div class="course-column">
+                                                <div id="{{$course->id}}">
+                                                    {{$course->name}}
+                                                </div>
+                                            </div>
+                        
+                                            <div class="range-column">
+                                                <div class="custom-range-div">
+                                                    <input id="{{$course->id}}.slider" name="polaznici" type='range' class='custom-range-input' 
+                                                        min="0" max="100" onchange="addRange({{$course->id}})" disabled value="0">
+                                                        <div class="label-range"
+                                                            style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" 
+                                                            unselectable="on"
+                                                            onselectstart="return false;" 
+                                                            onmousedown="return false;">
+                                                                <p>Broj polaznika: <span id="{{$course->id}}.sliderValue">0</span></p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {{-- <input id="polaznici1kurs" type="text" class="form-control form-control-lg @error('polaznici1kurs') is-invalid @enderror" 
+                                                        name="polaznici1kurs" value="{{ old('polaznici1kurs') }}" placeholder="Broj polaznika" autocomplete="polaznici1kurs" autofocus>
+                                                        
+                                                        @error('polaznici1kurs')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror --}}
+                
+                                                </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    @endforeach
+
+                                </div>
+
+                                <div id="discountContainer">
+
+                                    <div class="row code-box">
+                                        <h1>Kod</h1>
+                                    </div>
+        
+                                    <div class="row percentage-box">
+                                        <h1>Postotak</h1>
+                                    </div>
+    
+                                </div>
+
+    
+                            </div>
+                    
                         
                         <div class="row">
 
@@ -225,45 +631,7 @@
                             <textarea type="text" id="napomene" class="form-control" style="min-height:100px;"></textarea>
                         </div>
 
-                        <div class="row mt-2 justify-content-center" style="text-align: center;">Odaberite kurseve:</div>
-                        <div class="d-flex flex-wrap mt-2 justify-content-center" id="availableCoursesDiv">
-
-                            @foreach($availableCourses as $course)
-                                <div class="col" style="min-height: 100px;">
-                                    <div id="{{$course->id}}" style="background: white; min-height: 100px; color: black; cursor: pointer; font-weight: 600;
-                                        border: 1px solid black; border-radius: 5px;">
-                                                {{$course->name}}
-                                    </div>
-                                </div>
-                            @endforeach
-
-                        </div>
                         
-                        @foreach ($selectedCourses as $singleCourse)
-                            <div class="row mt-2">
-                                
-                                <div class="col">
-                                    <label for="kurs1">Kurs:</label>
-                                    <select class="form-control form-control-lg" id="kurs1" name="kurs1">
-                                        @foreach($availableCourses as $course)
-                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                
-                                <div class="col">
-                                    <label for="polaznici1kurs">Broj Polaznika</label>
-                                    <input id="polaznici1kurs" type="text" class="form-control form-control-lg @error('polaznici1kurs') is-invalid @enderror" 
-                                    name="polaznici1kurs" value="{{ old('polaznici1kurs') }}" autocomplete="polaznici1kurs" autofocus>
-                            
-                                    @error('polaznici1kurs')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endforeach
                         
 
                         {{-- <div class="row mt-2">
@@ -310,33 +678,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-    $( "#availableCoursesDiv" ).click(function(event) {
-        courses = {!! json_encode($availableCourses->toArray()) !!};
-        let id = parseInt(event.target.id);
+        
 
-        let isSelected = document.getElementById(id).classList.value;
-       
-        if(isSelected === undefined || isSelected === ''){
-            document.getElementById(id).classList.add('selected');
+        function addRange(id) {
+            console.log(id);
+            let slider = document.getElementById(id+".slider");
+            let output = document.getElementById(id+".sliderValue");
+            output.innerHTML = slider.value;
 
-            let selectedCourse = [];
-            this.selectedCourse = selectedCourse;
-
-            courses.forEach(course => {
-                if(course.id === id){
-                    console.log(course);
-                    //{!! json_encode($selectedCourses) !!}.push(course);
-                }
-            });
-
-        //console.log({!! json_encode($selectedCourses) !!});
-        } else {
-            document.getElementById(id).classList.remove('selected');
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+            }
+            let rangeValue = parseInt(slider.value)
+            slider.value = rangeValue + 1
+        
         }
-        
-        
 
-        //alert( "Handler called." );        
-    });
+        function addNamedRange(itemName) { 
+            if(slider.attributes['data-ref-' + itemName]) { return } 
+                slider.setAttribute('data-ref-' + itemName, true) 
+                let rangeValue = parseInt(slider.value) 
+                slider.value = rangeValue + 1
+        }
     </script>
 </html>
