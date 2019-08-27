@@ -166,7 +166,7 @@
             .not-selected{
                 display: flex;
                 flex-direction: row;
-                filter: blur(1px);
+                filter: contrast(60%);
                 width: 100%;
             }
 
@@ -450,6 +450,62 @@
                 font-weight: 600;
             }
 
+            #priceContainer{
+                display: flex;
+                width: 95%;
+                margin-left: auto;
+                margin-right: auto;
+                height: 100px;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                border: 3px solid rgba(0, 0, 0, 0.03);
+                border-radius: 30px;
+            }
+
+            #totalPrice{
+                text-align: center;
+                background-color: #73ae56;
+                height: 50px;
+                padding-top: 15px;
+                width: 250px;
+                margin: 25px;
+                color: white;
+                font-weight: 600;
+                border-radius: 30px;
+            }
+
+            .totalText{
+                height: 50px;
+                padding-top: 35px;
+                padding-left: 25px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                color: rgba(0,0,0,.6);
+                font-weight: 600;
+            }
+
+            .title{
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                color: #73ae56;
+                font-weight: 500;
+                font-family: 'Work Sans',Helvetica,Arial,Lucida,sans-serif;
+            }
+
+            .title:after{
+                content: ""; /* This is necessary for the pseudo element to work. */ 
+                display: block; /* This will put the pseudo element on its own line. */
+                margin: 0 auto; /* This will center the border. */
+                width: 75%; /* Change this to whatever width you want. */
+                padding-top: 15px; /* This creates some space between the element and the border. */
+                border-bottom: 2px solid #73ae56; /* This creates the border. Replace black with whatever color you want. */
+            }
+
         </style>
     </head>
     <body>
@@ -566,9 +622,20 @@
 
     
                             </div>
-                    
+                            
+                            <div class="mt-2" id="priceContainer">
+                                <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
+                                <div id="totalPrice">
+                                    <span id="totalPriceValue">0,00</span> KM
+                                </div>
+                            </div>
                         
-                        <div class="row">
+
+                        <div class="row mt-5" style="width: 100%;">
+                            <p class="title">Forma</p>
+                        </div>
+
+                        <div class="row mt-5">
 
                             <div class="col">
                                 <label for="name">Ime</label>
