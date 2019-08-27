@@ -102,7 +102,7 @@
             }
 
             #navigation-menu{
-                padding-top: 33px;
+                padding-top: 30px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -163,11 +163,14 @@
                 width: 66%;
             }
 
-            .not-selected{
+            .course-block{
                 display: flex;
                 flex-direction: row;
-                filter: contrast(60%);
                 width: 100%;
+            }
+
+            .not-selected{
+                filter: contrast(60%);
             }
 
             .courseInfo{
@@ -202,7 +205,7 @@
             /* RADIO CHECK STYLES */
 
             input[type='radio'] {
-                margin-top: 22px;
+                margin-top: 24px;
                 margin-right: 10px;
                 text-decoration: none;
                 width: 30px;
@@ -555,9 +558,9 @@
 
                                     <div class="courseInfo">
 
-                                        <input type="radio" class="courseSelection" id="{{$course->id}}.selected">
+                                        <input type="radio" class="courseSelection" id="{{$course->id}}.selected" onclick="toggleClass({{$course->id}})">
 
-                                        <div class="not-selected">
+                                    <div class="course-block not-selected" id="courseBlock.{{$course->id}}">
 
                                             <div class="course-column">
                                                 <div id="{{$course->id}}">
@@ -801,7 +804,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-        
+        function toggleClass(id){
+            let classList = document.getElementById('courseBlock.'+id).classList;
+            
+            if (classList.contains("not-selected")) {
+                document.getElementById('courseBlock.'+id).classList.remove('not-selected');
+
+                if(document.getElementById(id+".selected").checked.value !== false){
+                    // todo
+                    document.getElementById(id+".selected").checked = false;
+                }
+            } else {
+                document.getElementById('courseBlock.'+id).classList.add('not-selected');
+                document.getElementById(id+".selected").checked = true;
+            }
+        }
 
         function addRange(id) {
             console.log(id);
