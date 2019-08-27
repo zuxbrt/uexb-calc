@@ -155,13 +155,40 @@
             .nohover:hover{
                 text-decoration: none;
             }
+            
+            .singleCourse{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 66%;
+            }
+
+            .not-selected{
+                display: flex;
+                flex-direction: row;
+                filter: blur(1px);
+                width: 100%;
+            }
+
+            .courseInfo{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+
+            .range-column{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                margin-left: 20px;
+            }
 
             .course-column{
                 text-align: center;
                 background-color: #73ae56;
                 height: 75px;
                 padding-top: 25px;
-                width: 33%;
+                width: 50%;
                 margin-bottom: 20px;
                 color: white;
                 font-weight: 600;
@@ -225,10 +252,6 @@
             .custom-range-div{
                 width: 33%;
                 position: relative;
-                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                border-radius: 30px;
             }
 
 
@@ -248,6 +271,7 @@
             .range-input,
             .custom-range-input,
             .custom-range-input--vertical {
+                min-width: 350px;
                 padding: 0;
                 margin: 0;
                 background: transparent;
@@ -256,6 +280,10 @@
                 background-clip: padding-box;
                 vertical-align: top;
                 outline: none;
+                -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+                border-radius: 30px;
                 -webkit-appearance: none;
             }
 
@@ -285,7 +313,6 @@
                 background: white;
                 height: 75px;
                 border-radius: 30px;
-                width: 100%;
             }
 
             .custom-range-input::-moz-range-track,
@@ -313,7 +340,7 @@
             .custom-range-input::-moz-range-thumb,
             .custom-range-input--vertical::-moz-range-thumb {
                 height: 75px;
-                width: 100%;
+                /* width: 100%; */
                 /* border-radius: 6px;  */
                 background: white;
                 border-radius: 30px;
@@ -342,55 +369,85 @@
             }
 
             .label-range{
+                text-align: center;
                 position: absolute;
-                top: 27px;
-                left: 18%;
-                right: 15%;
+                width: 200px;
+                top: 25px;
+                left: 90px;
                 color: rgba(0,0,0,.6);
                 font-weight: 600;
                 z-index: 50;
             }
-            
-            .singleCourse{
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-            }
 
-            .courseInfo{
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                width: 100%;
-            }
-
-            .range-column{
-                display: flex;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                width: 100%;
-                margin-left: 20px;
-            }
-
-            .not-selected{
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-                filter: blur(1px);
-            }
-
-            .discountContainer{
-                width: 33%;
+            #discountContainer{
+                width: 30%;
                 position: relative;
                 display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
             }
             
             .code-box, .percentage-box{
-                width: 300px;
+                width: 100%;
+                min-height: 230px;
                 -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
                 -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
                 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
                 border-radius: 30px;
+            }
+
+            .code-box{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                margin-top: 2%;
+                margin-left: 5%;
+                padding: 30px;
+                padding-top: 60px;
+                text-align: left;
+            }
+
+            .percentage-box{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                padding: 30px;
+                padding-top: 40px;
+                text-align: left;
+                margin-top: 8%;
+                margin-left: 5%;
+            }
+
+            .code-input, #popustValue{
+                height: 65px;
+                border: 3px solid #73ae56;
+                background: white;
+                border-radius: 30px;
+                outline: none;
+            }
+
+            .code-input{
+                margin-top: 35px;
+            }
+
+            #popustValue{
+                margin-top: 55px;
+            }
+
+            .popustValue:disabled{
+                background-color: white !important;
+            }
+
+            .code-input:active{
+                outline: none;
+            }
+
+            .kupon-text, .popust-text{
+                height: 20px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                color: rgba(0,0,0,.6);
+                font-weight: 600;
             }
 
         </style>
@@ -432,7 +489,7 @@
 
                     <div class="formContent pl-5 pr-5">
 
-                            <div class="mt-2 justify-content-center" id="availableCoursesDiv" 
+                            <div class="mt-2" id="availableCoursesDiv" 
                             style="display:flex; flex-direction:row; flex-wrap:nowrap;">
     
                                 
@@ -487,11 +544,22 @@
                                 <div id="discountContainer">
 
                                     <div class="row code-box">
-                                        <h1>Kod</h1>
+                                        <label class="kupon-text" for="popustKupon">Kod posebnog popusta:</label>
+                                        <input id="popustKupon" type="text" class="form-control code-input @error('popustKupon') is-invalid @enderror" 
+                                        name="popustKupon" value="{{ old('popustKupon') }}" autocomplete="popustKupon" autofocus>
+                                    
+                                        @error('popustKupon')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
         
                                     <div class="row percentage-box">
-                                        <h1>Postotak</h1>
+                                        <label class="popust-text">Za odabrane treninge i broj prijavljenih polaznika, ostvarujete popust od:</label>
+                                        <input id="popustValue" type="text" class="form-control code-input" 
+                                        style="text-align:center; background-color: white !important; font-weight: 600; font-size: 20px;"
+                                        value="0%" disabled>
                                     </div>
     
                                 </div>
@@ -608,18 +676,6 @@
                             name="odgovornoLice" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
             
                             @error('odgovornoLice')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-            
-                        <div class="row pt-1 pl-3 pr-3">
-                            <label for="popustKupon">Kupon za popust</label>
-                            <input id="popustKupon" type="text" class="form-control form-control-lg @error('popustKupon') is-invalid @enderror" 
-                            name="popustKupon" value="{{ old('popustKupon') }}" autocomplete="popustKupon" autofocus>
-                
-                            @error('popustKupon')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
