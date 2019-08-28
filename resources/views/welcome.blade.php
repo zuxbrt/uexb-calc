@@ -181,6 +181,11 @@
                 filter: contrast(60%);
             }
 
+            .selected{
+                transition: filter 0.5s ease-in-out;
+                filter: contrast(100%);
+            }
+
             .courseInfo{
                 display: flex;
                 flex-direction: row;
@@ -604,7 +609,7 @@
                 left: 65%;
             }
 
-            .label-text .label-text-type{
+            .label-text, .label-text-type{
                 margin-left: 5px;
                 color: rgba(0,0,0,.6);
                 font-weight: bold;
@@ -622,18 +627,26 @@
 
             #company-details{
                 display: flex;
+                -moz-transition: height .5s;
+                -ms-transition: height .5s;
+                -o-transition: height .5s;
+                -webkit-transition: height .5s;
+                transition: height .5s;
+                height: 130px;
+                overflow: hidden;
             }
 
             .send-request{
                 text-align: center;
                 background-color: #73ae56;
                 height: 50px;
-                padding-top: 15px;
+                padding-top: 10px;
                 width: 150px;
                 margin: 25px;
                 color: white;
                 font-weight: 600;
                 border-radius: 30px;
+                transition: color 0.5s ease-in-out;
             }
 
 
@@ -699,7 +712,7 @@
                                             <div class="range-column">
                                                 <div class="custom-range-div">
                                                     <input id="{{$course->id}}.slider" name="polaznici" type='range' class='custom-range-input' 
-                                                        min="0" max="100" onchange="addRange({{$course->id}})" disabled value="0">
+                                                        min="0" max="100" onchange="addRange({{$course->id}})" oninput="addRange({{$course->id}})" disabled value="0">
                                                         <div class="label-range"
                                                             style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" 
                                                             unselectable="on"
@@ -867,7 +880,7 @@
                     
                                 <div class="row ml-2 mr-2 justify-content-between" id="company-details">
 
-                                    <div class="row company-info ml-1">
+                                    <div class="row company-info mr-1 ml-1">
                                         <label for="idFirme" class="label-text">ID Firme</label>
                                         <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
                                         name="idFirme" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
@@ -891,7 +904,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="row company-info mr-1">
+                                    <div class="row company-info" style="margin-right: 1.2rem!important;">
                                         <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
                                         name="odgovornoLice" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
@@ -916,7 +929,7 @@
                             
                     
                                 <div class="row justify-content-end">
-                                    <button type="submit" class="btn send-request">Posalji zahtjev</button>
+                                    <button type="submit" class="btn send-request">Pošalji zahtjev</button>
                                 </div>
         
                             
@@ -944,9 +957,11 @@
             
             if (classList.contains("not-selected")) {
                 document.getElementById('courseBlock.'+id).classList.remove('not-selected');
+                document.getElementById('courseBlock.'+id).classList.add('selected');
                 document.getElementById(id+".selected").checked = true;
                 document.getElementById(id+".slider").disabled = false;
             } else {
+                document.getElementById('courseBlock.'+id).classList.remove('selected');
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
                 document.getElementById(id+".selected").checked = false;
                 document.getElementById(id+".slider").disabled = true;
@@ -954,7 +969,6 @@
         }
 
         function addRange(id) {
-            console.log(id);
             let slider = document.getElementById(id+".slider");
             let output = document.getElementById(id+".sliderValue");
             output.innerHTML = slider.value;
@@ -962,29 +976,24 @@
             slider.oninput = function() {
                 output.innerHTML = this.value;
             }
+
             let rangeValue = parseInt(slider.value);
             slider.value = rangeValue + 1;
         
         }
 
-        function addNamedRange(itemName) { 
-            if(slider.attributes['data-ref-' + itemName]) { return } 
-                slider.setAttribute('data-ref-' + itemName, true) 
-                let rangeValue = parseInt(slider.value) 
-                slider.value = rangeValue + 1
-        }
-
         
         function togglePersonType(){
             let value = document.getElementById('personStateInput').checked;
+            console.log(value);
             if(value === true){
                 document.getElementById('person-type-1').style.color = "#000000";
                 document.getElementById('person-type-2').style.color = "white";
-                document.getElementById('company-details').style.display = "none";
+                document.getElementById('company-details').style.height = "0";
             } else {
                 document.getElementById('person-type-1').style.color = "white";
                 document.getElementById('person-type-2').style.color = "#000000";
-                document.getElementById('company-details').style.display = "flex";
+                document.getElementById('company-details').style.height = "127px";
             }
         }
 
