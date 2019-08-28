@@ -118,125 +118,11 @@ input[type='radio']:checked:after {
 
 
 
-/* RADIO RANGE STYLES */
-
-/* Desperate to remove focus outline in firefox */
-::-moz-focus-inner {
-    outline:0;
-}
-
-:focus {
-    outline:0;
-}
-
-.range-input,
-.custom-range-input,
-.custom-range-input--vertical {
-    min-width: 350px;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    border: none;
-    box-sizing: border-box;
-    background-clip: padding-box;
-    vertical-align: top;
-    outline: none;
-    -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    border-radius: 30px;
-    -webkit-appearance: none;
-    text-decoration: none;
-    outline: none;
-}
-
-
-/* 
-Declarations get duplicated because an invalid selector
-invalidates the entire declaration block
-*/
-
-.range-input::-webkit-slider-thumb,
-.custom-range-input::-webkit-slider-thumb,
-.custom-range-input--vertical::-webkit-slider-thumb {
-    cursor: pointer;
-    -webkit-appearance: none;
-}
-
-.range-input::-moz-range-thumb,
-.custom-range-input::-moz-range-thumb,
-.custom-range-input--vertical::-moz-range-thumb {
-    cursor: pointer;
-}
-
-.custom-range-input,
-.custom-range-input--vertical {
-    border-radius: 6px;
-    border: 3px solid #73ae56;
-    background: white;
-    height: 75px;
-    border-radius: 30px;
-}
-
-.custom-range-input::-moz-range-track,
-.custom-range-input--vertical::-moz-range-track {
-    border-radius: 6px;
-    background: #d3d7d7;
-    height: 75px;
-    border-radius: 30px;
-}
-
-/* 
-Declarations get duplicated because an invalid selector
-invalidates the entire declaration block
-*/
-
-.custom-range-input::-webkit-slider-thumb,
-.custom-range-input--vertical::-webkit-slider-thumb {
-    height: 75px;
-    width: 75px;
-    /* border-radius: 6px; */
-    background: #73ae56;
-    border-radius: 30px;
-}
-
-.custom-range-input::-moz-range-thumb,
-.custom-range-input--vertical::-moz-range-thumb {
-    height: 75px;
-    /* width: 100%; */
-    /* border-radius: 6px;  */
-    background: white;
-    border-radius: 30px;
-}
-
-.custom-range-input--vertical {
--webkit-transform:rotate(90deg);
--moz-transform:rotate(90deg);
--ms-transform:rotate(90deg);  
-    transform:rotate(90deg);  
-}
-
-/*
-Active state
-*/
-
-.custom-range-input:active::-webkit-slider-thumb,
-.custom-range-input--vertical:active::-webkit-slider-thumb {
-    border: 1px solid #0940fd;
-    box-shadow: 0 0 0 2px #6fb5f1;
-}
-
-input[type=range]:active::-moz-range-thumb {
-    border: 1px solid #0940fd;
-    box-shadow: 0 0 0 2px #6fb5f1;
-}
-
 .label-range{
     text-align: center;
     position: absolute;
     width: 200px;
-    top: 25px;
-    left: 90px;
+    top: 0;
     color: rgba(0,0,0,.6);
     font-weight: 600;
     z-index: 50;
@@ -287,6 +173,17 @@ input[type=range]:active::-moz-range-thumb {
     background: white;
     border-radius: 30px;
     outline: none;
+}
+
+.participants-input{
+    height: 45px;
+    border: 3px solid #73ae56;
+    background: white;
+    border-radius: 30px;
+    outline: none;
+    text-align: center;
+    margin-top: 25px;
+    margin-left: 15px;
 }
 
 .code-input{
@@ -494,4 +391,44 @@ input:checked[type="checkbox"]:after {
     font-weight: 600;
     border-radius: 30px;
     transition: color 0.5s ease-in-out;
+}
+
+.price-fade{
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
 }

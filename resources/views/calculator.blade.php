@@ -224,14 +224,11 @@
                         
                                             <div class="range-column">
                                                 <div class="custom-range-div">
-                                                    <input id="{{$course->id}}.slider" name="polaznici" type='range' class='custom-range-input' 
-                                                        min="0" max="100" onchange="addRange({{$course->id}})" oninput="addRange({{$course->id}})" disabled value="0">
-                                                        <div class="label-range"
-                                                            style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" 
-                                                            unselectable="on"
-                                                            onselectstart="return false;" 
-                                                            onmousedown="return false;">
-                                                                <p>Broj polaznika: <span id="{{$course->id}}.sliderValue">0</span></p>
+                                                    <input id="{{$course->id}}.participants" name="polaznici" type='text' class='participants-input' 
+                                                        min="0" max="100" onchange="participants({{$course->id}})"
+                                                        disabled value="0">
+                                                        <div class="label-range">
+                                                                <p>Broj polaznika: </span></p>
                                                             </div>
                                                         </div>
                                                         
@@ -466,25 +463,33 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
+        let courseParticipants = [];
+        let totalPrice = 0;
+
         function toggleClass(id){
             let classList = document.getElementById('courseBlock.'+id).classList;
-            console.log(document.getElementById(id+".selected").checked);
             
             if (classList.contains("not-selected")) {
                 document.getElementById('courseBlock.'+id).classList.remove('not-selected');
                 document.getElementById('courseBlock.'+id).classList.add('selected');
                 document.getElementById(id+".selected").checked = true;
-                document.getElementById(id+".slider").disabled = false;
+                document.getElementById(id+".participants").disabled = false;
+
+                this.calculateCoursesPrice(id, true);
+                this.setCourseParticipants(id, false);
             } else {
                 document.getElementById('courseBlock.'+id).classList.remove('selected');
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
                 document.getElementById(id+".selected").checked = false;
-                document.getElementById(id+".slider").disabled = true;
+                document.getElementById(id+".participants").disabled = true;
+
+                this.calculateCoursesPrice(id, false);
+                this.setCourseParticipants(id, false);
             }
         }
 
         function addRange(id) {
-            let slider = document.getElementById(id+".slider");
+            let slider = document.getElementById(id+".participants");
             let output = document.getElementById(id+".sliderValue");
             output.innerHTML = slider.value;
 
@@ -494,13 +499,12 @@
 
             let rangeValue = parseInt(slider.value);
             slider.value = rangeValue + 1;
-        
         }
 
         
         function togglePersonType(){
             let value = document.getElementById('personStateInput').checked;
-            console.log(value);
+
             if(value === true){
                 document.getElementById('person-type-1').style.color = "#000000";
                 document.getElementById('person-type-2').style.color = "white";
@@ -511,6 +515,44 @@
                 document.getElementById('company-details').style.height = "127px";
             }
         }
+
+        function calculateCoursesPrice(courseId, courseAdded){
+            document.getElementById('totalPriceValue').classList.add("price-fade");
+
+            let courses = {!! json_encode($courses) !!};
+            let coursePrice = 0;
+                
+            for (const key of Object.keys(courses)) {
+                if(courses[key].id === courseId){
+                    this.price = courses[key].price;
+                }
+            }
+
+            if(courseAdded === true){
+                totalPrice += parseInt(price);
+                console.log(totalPrice);
+
+            } else {
+                totalPrice -= parseInt(price);
+                console.log(totalPrice);
+            }
+
+
+            document.getElementById('totalPriceValue').innerHTML = totalPrice;
+
+            setTimeout(function(){
+                document.getElementById('totalPriceValue').classList.toggle("price-fade");
+            }, 1000);
+            
+        }
+
+        function calculateDiscount(value){
+            totalParticipants += parseInt(value);
+            console.log(totalParticipants);
+        }
+
+        function setCourseParticipants(courseId){}
+        
 
     </script>
 </html>
