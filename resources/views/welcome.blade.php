@@ -98,7 +98,7 @@
             #logoImg{
                 width: 250px;
                 height: auto;
-                margin-top: 25px;
+                margin-top: 22px;
             }
 
             #navigation-menu{
@@ -155,6 +155,13 @@
             .nohover:hover{
                 text-decoration: none;
             }
+
+            .courses-data{
+                width: 100%;
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+
             
             .singleCourse{
                 position: relative;
@@ -170,6 +177,7 @@
             }
 
             .not-selected{
+                transition: filter 0.5s ease-in-out;
                 filter: contrast(60%);
             }
 
@@ -454,8 +462,8 @@
             }
 
             #priceContainer{
+                width: 90%;
                 display: flex;
-                width: 95%;
                 margin-left: auto;
                 margin-right: auto;
                 height: 100px;
@@ -509,6 +517,126 @@
                 border-bottom: 2px solid #73ae56; /* This creates the border. Replace black with whatever color you want. */
             }
 
+            .form-bottom-container{
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 1rem;
+            }
+
+
+
+            .text-input{
+                height: 65px;
+                border: 3px solid #EEEEEE;
+                background: #F5F5F5;
+                border-radius: 30px;
+                outline: none;
+                margin-bottom: 30px;
+            }
+
+
+
+            input[type="checkbox"] {
+                position:relative;
+                width:100%;
+                height:65px;
+                -webkit-appearance: none;
+                background: #EEEEEE;
+                outline: none;
+                border-radius: 20px;
+            }
+
+            input:checked[type="checkbox"]:nth-of-type(1) {
+                /* background: linear-gradient(0deg, #e67e22, #f39c12); */
+            }
+
+            input:checked[type="checkbox"]:nth-of-type(2) {
+                /* background: linear-gradient(0deg, #70a1ff, #1e90ff); */
+            }
+
+            input[type="checkbox"]:before {
+                content:'';
+                position:absolute;
+                top:0;
+                left:0;
+                width:50%;
+                height:55px;
+                background: #73ae56;
+                border-radius: 15px;
+                margin: 5px;
+                transform: scale(.98,.96);
+                transition:.5s;
+            }
+
+            input:checked[type="checkbox"]:before {
+                left:47.8%;
+            }
+
+            input[type="checkbox"]:after{
+                content:'';
+                position:absolute;
+                top:calc(50% - 2px);
+                left:70px;
+                width:4px;
+                height:4px;
+                border-radius: 50%;
+                transition:.5s;
+            }
+
+            input:checked[type="checkbox"]:after {
+                left:110px;
+            }
+
+            #person-type-1, #person-type-2{
+                font-weight: 600;
+                position: absolute;
+                top: 55px;
+                transition: color 0.5s ease-in-out;
+            }
+
+            #person-type-1{
+                left: 21.5%;
+                color: white;
+            }
+
+            #person-type-2{
+                left: 65%;
+            }
+
+            .label-text .label-text-type{
+                margin-left: 5px;
+                color: rgba(0,0,0,.6);
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-align: left;
+            }
+
+            .label-text-type{
+                /* margin-bottom: 0; */
+            }
+
+            .company-info{
+                width: 30%;
+            }
+
+            #company-details{
+                display: flex;
+            }
+
+            .send-request{
+                text-align: center;
+                background-color: #73ae56;
+                height: 50px;
+                padding-top: 15px;
+                width: 150px;
+                margin: 25px;
+                color: white;
+                font-weight: 600;
+                border-radius: 30px;
+            }
+
+
         </style>
     </head>
     <body>
@@ -546,9 +674,9 @@
                     @csrf
                     @method('POST')
 
-                    <div class="formContent pl-5 pr-5">
+                    <div class="form-top-container">
 
-                            <div class="mt-2" id="availableCoursesDiv" 
+                            <div class="mt-2 courses-data" id="availableCoursesDiv" 
                             style="display:flex; flex-direction:row; flex-wrap:nowrap;">
     
                                 
@@ -637,155 +765,161 @@
                         <div class="row mt-5" style="width: 100%;">
                             <p class="title">Forma</p>
                         </div>
+                    
+                    </div>
 
-                        <div class="row mt-5">
 
-                            <div class="col">
-                                <label for="name">Ime</label>
-                                <input id="name" type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" 
-                                name="ime" value="{{ old('name') }}"  autocomplete="ime" autofocus>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-        
-                            <div class="col">
-                                <label for="prezime">Prezime</label>
-                                <input id="prezime" type="text" class="form-control form-control-lg @error('prezime') is-invalid @enderror" 
-                                name="prezime" value="{{ old('prezime') }}"  autocomplete="prezime" autofocus>
-    
-                                @error('prezime')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
 
-                        </div>
-            
-            
-                        <div class="row mt-2">
-        
-                            <div class="col-md-6">
 
-                                <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" 
-                                name="email" value="{{ old('email') }}"  autocomplete="email">
-            
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-    
-                            </div>
-        
-                            <div class="col">
-                                <label for="telefon">Telefon</label>
-                                <input id="telefon" type="text" class="form-control form-control-lg @error('telefon') is-invalid @enderror" 
-                                name="telefon" value="{{ old('telefon') }}"  autocomplete="telefon" autofocus>
-    
-                                @error('telefon')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-            
-                        </div>
-            
-            
-                        <div class="row mt-4 justify-content-around">
-            
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="lice" id="radio2" value="pravno" checked>
-                                <label class="form-check-label" for="radio2">
-                                    <h6 class="pt-1">Pravno Lice</h6>
-                                </label>
-                            </div>
-            
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="lice" id="radio1" value="fizicko" >
-                                <label class="form-check-label" for="radio1">
-                                    <h6 class="pt-1">Fizicko Lice</h6>
-                                </label>
-                            </div>
-            
-                        </div>
-            
-                        <div class="row pt-1 pl-3 pr-3">
-                            <label for="idFirme">ID Firme</label>
-                            <input id="idFirme" type="text" class="form-control form-control-lg @error('idFirme') is-invalid @enderror" 
-                            name="idFirme" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
-    
-                            @error('idFirme')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-            
-                        <div class="row pt-1 pl-3 pr-3">
-                            <label for="adresaFirme">Adresa Firme</label>
-                            <input id="adresaFirme" type="text" class="form-control form-control-lg @error('adresaFirme') is-invalid @enderror" 
-                            name="adresaFirme" value="{{ old('adresaFirme') }}"  autocomplete="adresaFirme" autofocus>
-        
-                            @error('adresaFirme')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-            
-                        <div class="row pt-1 pl-3 pr-3">
-                            <label for="odgovornoLice">Odgovorno Lice</label>
-                            <input id="odgovornoLice" type="text" class="form-control form-control-lg @error('odgovornoLice') is-invalid @enderror" 
-                            name="odgovornoLice" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
-            
-                            @error('odgovornoLice')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-            
-                        <div class="row mt-1 pl-3 pr-3">
-                            <label for="napomene">Napomene</label>
-                            <textarea type="text" id="napomene" class="form-control" style="min-height:100px;"></textarea>
-                        </div>
 
-                        
-                        
+                    <div class="form-bottom-container">
 
-                        {{-- <div class="row mt-2">
-                            <div class="col">
-                                <label for="kurs2">Kurs:</label>
-                                <select class="form-control form-control-lg" id="kurs2" name="kurs2">
-                                    @foreach($courses as $course)
-                                        <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <div class="row mt-5">
+
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="name" class="label-text">Ime</label>
+                                            <input id="name" type="text" class="form-control form-control-lg text-input @error('name') is-invalid @enderror" 
+                                            name="ime" value="{{ old('name') }}"  autocomplete="ime" autofocus>
                 
-                            <div class="col">
-                                <label for="polaznici2kurs">Broj Polaznika</label>
-                                <input id="polaznici2kurs" type="text" class="form-control form-control-lg @error('polaznici2kurs') is-invalid @enderror" 
-                                name="polaznici2kurs" value="{{ old('polaznici2kurs') }}" autocomplete="polaznici2kurs" autofocus>
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="prezime" class="label-text">Prezime</label>
+                                            <input id="prezime" type="text" class="form-control form-control-lg text-input @error('prezime') is-invalid @enderror" 
+                                            name="prezime" value="{{ old('prezime') }}"  autocomplete="prezime" autofocus>
+                
+                                            @error('prezime')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="email" class="label-text">Email</label>
+                                            <input id="email" type="email" class="form-control form-control-lg text-input @error('email') is-invalid @enderror" 
+                                            name="email" value="{{ old('email') }}"  autocomplete="email">
+                                
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+        
+                                </div>
+                    
+                    
+                                <div class="row mt-2">
+                
+                
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="telefon" class="label-text">Telefon</label>
+                                            <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
+                                            name="telefon" value="{{ old('telefon') }}"  autocomplete="telefon" autofocus>
+                    
+                                            @error('telefon')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="city" class="label-text">Grad</label>
+                                            <input id="city" type="text" class="form-control form-control-lg text-input @error('city') is-invalid @enderror" 
+                                            name="city" value="{{ old('city') }}"  autocomplete="city" autofocus>
                         
-                                @error('polaznici2kurs')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> --}}
-            
-                        <div class="row justify-content-end pt-4 mr-1">
-                            <button type="submit" class="btn btn-primary">Posalji zahtjev</button>
-                        </div>
+                                            @error('city')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>                        
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="row ml-2 mr-2">
+                                            <label for="city" class="label-text-type">Lice</label>
+                                            <input id="personStateInput" type="checkbox" name="" onchange="togglePersonType()">
+                                            <span id="person-type-1">Pravno</span>
+                                            <span id="person-type-2">Fizičko</span>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                    
+                    
+                                <div class="row ml-2 mr-2 justify-content-between" id="company-details">
+
+                                    <div class="row company-info ml-1">
+                                        <label for="idFirme" class="label-text">ID Firme</label>
+                                        <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
+                                        name="idFirme" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
+                    
+                                        @error('idFirme')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="row company-info mr-1">
+                                        <label for="adresaFirme" class="label-text">Adresa Firme</label>
+                                        <input id="adresaFirme" type="text" class="form-control form-control-lg text-input @error('adresaFirme') is-invalid @enderror" 
+                                        name="adresaFirme" value="{{ old('adresaFirme') }}"  autocomplete="adresaFirme" autofocus>
+                        
+                                        @error('adresaFirme')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="row company-info mr-1">
+                                        <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
+                                        <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
+                                        name="odgovornoLice" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
+                            
+                                        @error('odgovornoLice')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    
+                                </div>
+                
+                    
+                    
+                                <div class="row ml-2 mr-2 mt-0">
+                                    <label for="napomene" class="label-text">Napomene</label>
+                                    <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px;"></textarea>
+                                </div>
+        
+                                
+                            
+                    
+                                <div class="row justify-content-end">
+                                    <button type="submit" class="btn send-request">Posalji zahtjev</button>
+                                </div>
+        
+                            
 
                     </div>
 
@@ -806,17 +940,16 @@
     <script>
         function toggleClass(id){
             let classList = document.getElementById('courseBlock.'+id).classList;
+            console.log(document.getElementById(id+".selected").checked);
             
             if (classList.contains("not-selected")) {
                 document.getElementById('courseBlock.'+id).classList.remove('not-selected');
-
-                if(document.getElementById(id+".selected").checked.value !== false){
-                    // todo
-                    document.getElementById(id+".selected").checked = false;
-                }
+                document.getElementById(id+".selected").checked = true;
+                document.getElementById(id+".slider").disabled = false;
             } else {
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
-                document.getElementById(id+".selected").checked = true;
+                document.getElementById(id+".selected").checked = false;
+                document.getElementById(id+".slider").disabled = true;
             }
         }
 
@@ -829,8 +962,8 @@
             slider.oninput = function() {
                 output.innerHTML = this.value;
             }
-            let rangeValue = parseInt(slider.value)
-            slider.value = rangeValue + 1
+            let rangeValue = parseInt(slider.value);
+            slider.value = rangeValue + 1;
         
         }
 
@@ -840,5 +973,20 @@
                 let rangeValue = parseInt(slider.value) 
                 slider.value = rangeValue + 1
         }
+
+        
+        function togglePersonType(){
+            let value = document.getElementById('personStateInput').checked;
+            if(value === true){
+                document.getElementById('person-type-1').style.color = "#000000";
+                document.getElementById('person-type-2').style.color = "white";
+                document.getElementById('company-details').style.display = "none";
+            } else {
+                document.getElementById('person-type-1').style.color = "white";
+                document.getElementById('person-type-2').style.color = "#000000";
+                document.getElementById('company-details').style.display = "flex";
+            }
+        }
+
     </script>
 </html>
