@@ -224,22 +224,20 @@
                         
                                             <div class="range-column">
                                                 <div class="custom-range-div">
-                                                    <input id="{{$course->id}}.participants" name="polaznici" type='text' class='participants-input' 
-                                                        min="0" max="100" onchange="participants({{$course->id}})"
+                                                    <input id="{{$course->id}}.participants" name="polaznici{{$course->id}}kurs" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
+                                                        min="0" max="100" onInput="setParticipants({{$course->id}})"
                                                         disabled value="0">
                                                         <div class="label-range">
                                                                 <p>Broj polaznika: </span></p>
                                                             </div>
                                                         </div>
-                                                        
-                                                        {{-- <input id="polaznici1kurs" type="text" class="form-control form-control-lg @error('polaznici1kurs') is-invalid @enderror" 
-                                                        name="polaznici1kurs" value="{{ old('polaznici1kurs') }}" placeholder="Broj polaznika" autocomplete="polaznici1kurs" autofocus>
-                                                        
-                                                        @error('polaznici1kurs')
+
+                                                        @error('polaznici{{$course->id}}kurs')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
-                                                        @enderror --}}
+                                                        @enderror
+                                                        
                 
                                                 </div>
 
@@ -463,9 +461,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-        let courseParticipants = [];
-        let totalPrice = 0;
+        // global variables
+        var courseParticipants = [];
+        var totalPrice = 0;
+        var totalParticipants = 0;
 
+
+
+        // toggle active/inactive course
         function toggleClass(id){
             let classList = document.getElementById('courseBlock.'+id).classList;
             
@@ -476,32 +479,38 @@
                 document.getElementById(id+".participants").disabled = false;
 
                 this.calculateCoursesPrice(id, true);
-                this.setCourseParticipants(id, false);
+                this.setCourseParticipants(id, true);
+                this.setParticipants(id);
             } else {
                 document.getElementById('courseBlock.'+id).classList.remove('selected');
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
                 document.getElementById(id+".selected").checked = false;
                 document.getElementById(id+".participants").disabled = true;
-
+            
                 this.calculateCoursesPrice(id, false);
                 this.setCourseParticipants(id, false);
             }
+
+            this.setTotalParticipants();
         }
 
-        function addRange(id) {
-            let slider = document.getElementById(id+".participants");
-            let output = document.getElementById(id+".sliderValue");
-            output.innerHTML = slider.value;
+        // set participants value for course
+        function setParticipants(id) {
+            let input = document.getElementById(id+".participants");
 
-            slider.oninput = function() {
-                output.innerHTML = this.value;
+            let inputValue = parseInt(input.value);
+
+            if(isNaN(inputValue)){
+                courseParticipants[id] = 0;
+            } else {
+                courseParticipants[id] = inputValue;
             }
 
-            let rangeValue = parseInt(slider.value);
-            slider.value = rangeValue + 1;
+            this.setTotalParticipants();
+            this.calculateDiscount();
         }
 
-        
+        // change person type
         function togglePersonType(){
             let value = document.getElementById('personStateInput').checked;
 
@@ -516,6 +525,7 @@
             }
         }
 
+        // calculate courses price
         function calculateCoursesPrice(courseId, courseAdded){
             document.getElementById('totalPriceValue').classList.add("price-fade");
 
@@ -530,28 +540,78 @@
 
             if(courseAdded === true){
                 totalPrice += parseInt(price);
-                console.log(totalPrice);
+                // console.log(totalPrice);
 
             } else {
                 totalPrice -= parseInt(price);
-                console.log(totalPrice);
+                // console.log(totalPrice);
             }
 
-
-            document.getElementById('totalPriceValue').innerHTML = totalPrice;
-
-            setTimeout(function(){
-                document.getElementById('totalPriceValue').classList.toggle("price-fade");
-            }, 1000);
-            
+            this.setPrice(totalPrice);
         }
 
-        function calculateDiscount(value){
-            totalParticipants += parseInt(value);
-            console.log(totalParticipants);
+        // calculate total price of course
+        function calculateDiscount(){
+            let discount = 0;
+            let priceWithDiscount = 0;
+            let price = totalPrice;
+
+            if(totalParticipants > 1 && totalParticipants <= 2){
+                discount = 5;
+            } else if(totalParticipants >= 3 && totalParticipants <= 5){
+                discount = 10;
+            } else if(totalParticipants >= 6 && totalParticipants <= 10){
+                discount = 15;
+            } else if(totalParticipants >= 11 && totalParticipants <= 15){
+                discount = 20;
+            } else if(totalParticipants >= 15 && totalParticipants <= 20){
+                discount = 25;
+            } else if(totalParticipants >= 21){
+                discount = 30;
+            } else {
+                discount = 0;
+            }
+
+            if(discount !== 0){
+                let discountValue = (discount / 100) * price;
+                priceWithDiscount = price - discount;
+            } else {
+                priceWithDiscount = price;
+            }
+
+            document.getElementById('popustValue').value = discount+'%';
+            // console.log("Price", priceWithDiscount);
+            // console.log('Participants', totalParticipants);
+            this.setPrice(priceWithDiscount);
         }
 
-        function setCourseParticipants(courseId){}
+        // set value of course participants
+        function setCourseParticipants(id, state){
+            if(state !== false){
+                // if active it cant be 0
+            } else {
+                courseParticipants[id] = 0;
+            }
+        }
+
+        // set total number of participants
+        function setTotalParticipants(){
+            let count = 0;
+            courseParticipants.forEach(element => {
+                count += element;
+            });
+
+            totalParticipants = count;
+        }
+
+        // set courses price
+        function setPrice(price){
+            document.getElementById('totalPriceValue').innerHTML = price;
+
+            // setTimeout(function(){
+            //     document.getElementById('totalPriceValue').classList.toggle("price-fade");
+            // }, 1000);
+        }
         
 
     </script>
