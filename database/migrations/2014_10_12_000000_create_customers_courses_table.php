@@ -17,6 +17,7 @@ class CreateCustomersCoursesTable extends Migration
             $table->increments('id');
             $table->string('customer_id');
             $table->string('course_id');
+            $table->decimal('course_participants');
             $table->timestamps();
         });
     }

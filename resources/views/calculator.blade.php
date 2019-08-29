@@ -224,7 +224,7 @@
                         
                                             <div class="range-column">
                                                 <div class="custom-range-div">
-                                                    <input id="{{$course->id}}.participants" name="polaznici{{$course->id}}kurs" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
+                                                    <input id="{{$course->id}}.participants" name="polaznicikurs-{{$course->id}}" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
                                                         min="0" max="100" onInput="setParticipants({{$course->id}})" 
                                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
                                                         disabled value="0">
@@ -305,7 +305,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="name" class="label-text">Ime</label>
                                             <input id="name" type="text" class="form-control form-control-lg text-input @error('name') is-invalid @enderror" 
-                                            name="ime" value="{{ old('name') }}"  autocomplete="ime" autofocus>
+                                            name="name" value="{{ old('name') }}"  autocomplete="ime" autofocus>
                 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">

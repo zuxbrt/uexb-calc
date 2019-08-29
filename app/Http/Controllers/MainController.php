@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Course;
+use App\Customer;
+use App\CustomerCompanyInfo;
 
 class MainController extends Controller
 {
@@ -19,31 +21,48 @@ class MainController extends Controller
     */
     public function store()
     {
-        dd(request()->all());
+        //dd(request()->all());
+        $attributes =request()->validate(
+            [
+                'name' => 'required',
+                'surname' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'city' => 'required',
 
-        $name = request('name');
-        $surname = request('surname');
-        $email = request('email');
-        $phone = request('phone');
-        $city = request('city');
+            ]
+        );
+
 
         if(request('status') !== 'f'){
-           $companyId = request('company_id');
-           $companyAdress = request('company_address');
-           $companyPerson = request('assignee');
-        }
-       
-        // course prices
-        $idKurseva = [$kurs1, $kurs2];
-        $cijenaKurseva = 0;
-        foreach($idKurseva as $id){
-            $kurs = Course::where('id', $id)->get();
-            $cijena_kursa = $kurs->pluck('price');
-            //$cijenaKurseva += $cijena_kursa[0];
-            $cijenaKurseva = [$cijena_kursa[0]];
+            $attributes['status'] = 'pravno';
+
+            $companyAttributes =request()->validate(
+                [   
+                    'company_id' => 'required',
+                    'company_address' => 'required',
+                    'assignee' => 'required'
+                ]
+            );
+        } else {
+            $attributes['status'] = 'fizicko';
         }
 
-        dd($total);
+        Customer::create($attributes);
+        CustomerCompanyInfo::create($companyAttributes);
+       
+        // // course prices
+        // $idKurseva = [$kurs1, $kurs2];
+        // $cijenaKurseva = 0;
+        // foreach($idKurseva as $id){
+        //     $kurs = Course::where('id', $id)->get();
+        //     $cijena_kursa = $kurs->pluck('price');
+        //     //$cijenaKurseva += $cijena_kursa[0];
+        //     $cijenaKurseva = [$cijena_kursa[0]];
+        // }
+
+        return view('/');
+
     }
 
 }
