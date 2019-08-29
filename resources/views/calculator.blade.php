@@ -225,7 +225,8 @@
                                             <div class="range-column">
                                                 <div class="custom-range-div">
                                                     <input id="{{$course->id}}.participants" name="polaznici{{$course->id}}kurs" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
-                                                        min="0" max="100" onInput="setParticipants({{$course->id}})"
+                                                        min="0" max="100" onInput="setParticipants({{$course->id}})" 
+                                                        onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
                                                         disabled value="0">
                                                         <div class="label-range">
                                                                 <p>Broj polaznika: </span></p>
@@ -611,6 +612,12 @@
             // setTimeout(function(){
             //     document.getElementById('totalPriceValue').classList.toggle("price-fade");
             // }, 1000);
+        }
+
+
+
+        function setInputFilter(event){
+            
         }
         
 
