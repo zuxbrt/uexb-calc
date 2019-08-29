@@ -13,10 +13,12 @@ class CreateCustomersCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers_courses', function (Blueprint $table) {
+        Schema::create('customers_company_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('customer_id');
-            $table->string('course_id');
+            $table->string('company_id');
+            $table->string('company_address');
+            $table->string('assignee');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateCustomersCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers_courses');
+        Schema::dropIfExists('customers_company_info');
     }
 }

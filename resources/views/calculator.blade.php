@@ -228,16 +228,16 @@
                                                         min="0" max="100" onInput="setParticipants({{$course->id}})" 
                                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
                                                         disabled value="0">
-                                                        <div class="label-range">
-                                                                <p>Broj polaznika: </span></p>
-                                                            </div>
+                                                    <div class="label-range">
+                                                            <p>Broj polaznika: </span></p>
                                                         </div>
+                                                    </div>
 
-                                                        @error('polaznici{{$course->id}}kurs')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
+                                                    @error('polaznici{{$course->id}}kurs')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                         
                 
                                                 </div>
@@ -266,9 +266,9 @@
         
                                     <div class="row percentage-box">
                                         <label class="popust-text">Za odabrane treninge i broj prijavljenih polaznika, ostvarujete popust od:</label>
-                                        <input id="popustValue" type="text" class="form-control code-input" 
-                                        style="text-align:center; background-color: white !important; font-weight: 600; font-size: 20px;"
-                                        value="0%" disabled>
+                                        <input id="popustValue" type="text" class="form-control code-input" name="popust"
+                                            style="text-align:center; background-color: white !important; font-weight: 600; font-size: 20px;"
+                                            value="0%" disabled>
                                     </div>
     
                                 </div>
@@ -319,7 +319,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="prezime" class="label-text">Prezime</label>
                                             <input id="prezime" type="text" class="form-control form-control-lg text-input @error('prezime') is-invalid @enderror" 
-                                            name="prezime" value="{{ old('prezime') }}"  autocomplete="prezime" autofocus>
+                                            name="surname" value="{{ old('prezime') }}"  autocomplete="prezime" autofocus>
                 
                                             @error('prezime')
                                                 <span class="invalid-feedback" role="alert">
@@ -353,7 +353,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="telefon" class="label-text">Telefon</label>
                                             <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
-                                            name="telefon" value="{{ old('telefon') }}"  autocomplete="telefon" autofocus>
+                                            name="phone" value="{{ old('telefon') }}"  autocomplete="telefon" autofocus>
                     
                                             @error('telefon')
                                                 <span class="invalid-feedback" role="alert">
@@ -380,7 +380,7 @@
                                     <div class="col">
                                         <div class="row ml-2 mr-2">
                                             <label for="city" class="label-text-type">Lice</label>
-                                            <input id="personStateInput" type="checkbox" name="" onchange="togglePersonType()">
+                                            <input id="personStateInput" type="checkbox" name="person" value="f" onchange="togglePersonType()">
                                             <span id="person-type-1">Pravno</span>
                                             <span id="person-type-2">Fizičko</span>
                                         </div>
@@ -394,7 +394,7 @@
                                     <div class="row company-info mr-1 ml-1">
                                         <label for="idFirme" class="label-text">ID Firme</label>
                                         <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
-                                        name="idFirme" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
+                                        name="company_id" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
                     
                                         @error('idFirme')
                                             <span class="invalid-feedback" role="alert">
@@ -406,7 +406,7 @@
                                     <div class="row company-info mr-1">
                                         <label for="adresaFirme" class="label-text">Adresa Firme</label>
                                         <input id="adresaFirme" type="text" class="form-control form-control-lg text-input @error('adresaFirme') is-invalid @enderror" 
-                                        name="adresaFirme" value="{{ old('adresaFirme') }}"  autocomplete="adresaFirme" autofocus>
+                                        name="company_address" value="{{ old('adresaFirme') }}"  autocomplete="adresaFirme" autofocus>
                         
                                         @error('adresaFirme')
                                             <span class="invalid-feedback" role="alert">
@@ -418,7 +418,7 @@
                                     <div class="row company-info" style="margin-right: 1.2rem!important;">
                                         <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
-                                        name="odgovornoLice" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
+                                        name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
                             
                                         @error('odgovornoLice')
                                             <span class="invalid-feedback" role="alert">
@@ -433,7 +433,7 @@
                     
                                 <div class="row ml-2 mr-2 mt-0">
                                     <label for="napomene" class="label-text">Napomene</label>
-                                    <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px;"></textarea>
+                                    <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px;" name="notes"></textarea>
                                 </div>
         
                                 
