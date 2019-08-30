@@ -75,96 +75,10 @@
                 margin-bottom: 30px;
             }
 
-            #main-header{
-                position: relative;
-                z-index: 99999;
-                width: 100%;
-                height: 90px;
-                background-color: #fff;
-                /* -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                box-shadow: 0 1px 0 rgba(0,0,0,.1); */
-                font-weight: 500;
-                line-height: 23px;
-                -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                box-shadow: 0 1px 0 rgba(0,0,0,.1);
-            }
-
-            #logoContainer{
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                width: 80%;
-                max-width: 1080px;
-                margin: auto;
-            }
-
-            #logoImg{
-                width: 250px;
-                height: auto;
-                margin-top: 22px;
-            }
-
-            #navigation-menu{
-                padding-top: 30px;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                margin-left: auto;
-                margin-right: 0;
-            }
-
-            #links-ul{
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-            }
-
-            .link-menu, .link-menu-button{
-                margin-left: 15px;
-                margin-right: 15px;
-                cursor: pointer;
-                font-family: 'Work Sans',Helvetica,Arial,Lucida,sans-serif;
-                font-weight: 600;
-            }
-
-            .link-menu{
-                padding-top: 5px;
-            }
-
-            .greytext{
-                color: rgba(0,0,0,.6);
-            }
-
-            .link-menu-button{
-                color: white;
-            }
-
-            .greytext, .link-menu-button{
-                font-size: 16px;
-            }
-
-            .link-menu-button{
-                background-color: #73ae56;
-                width: 125px;
-                height: 35px;
-                padding-left: 28px;
-                padding-top: 6px;
-                border-radius: 25px;
-                -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-                box-shadow: 0 1px 0 rgba(0,0,0,.1);
-            }
-
-            .nohover:hover{
-                text-decoration: none;
-            }
-
             
         </style>
     </head>
-    <body>
+    <body onload="setDivHeight()">
 
         @if(Route::getCurrentRoute()->uri() == '/')
                     
@@ -173,7 +87,7 @@
 
                     <a href="http://uciexcel.ba/"><img id="logoImg" src="../images/logo.png"></a>
 
-                    <nav id="navigation-menu">
+                    {{-- <nav id="navigation-menu">
                         <ul id="links-ul" style="list-style-type:none;">
                             <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
                             <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
@@ -183,6 +97,25 @@
                                 <li class="link-menu-button">Prijavi se</li>
                             </a>
                         </ul>
+                    </nav> --}}
+
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                            id="toggleNavButton">
+                              <span class="navbar-toggler-icon"></span>
+                            </button>
+                          
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                              <ul class="navbar-nav mr-auto">
+                                    <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
+                                    <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
+                                    <a href="http://uciexcel.ba/#sadrzaj"><li class="link-menu greytext">Vrste treninga</li></a>
+                                    <a href="http://uciexcel.ba/#cjenovnik"><li class="link-menu greytext">Cjenovnik</li></a>
+                                    <a class="nohover" href="https://uciexcel.ba/prijavni-obrazac">
+                                    <li class="link-menu-button">Prijavi se</li>
+                                        </a>
+                                </ul>
+                            </div>
                     </nav>
 
                 </div>
@@ -283,7 +216,7 @@
                         
 
                         <div class="row mt-5" style="width: 100%;">
-                            <p class="title">Forma</p>
+                            <p class="title" id="titleForma">Forma</p>
                         </div>
                     
                     </div>
@@ -293,11 +226,9 @@
 
 
 
-                    <div class="form-bottom-container" style="width: 80%;
-                    margin-left: auto;
-                    margin-right: auto;">
+                    <div class="form-bottom-container" id="form-bottom">
 
-                            <div class="row mt-5">
+                            <div class="row mt-5" id="section-one">
 
                                     <div class="col">
                                         <div class="row ml-2 mr-2">
@@ -344,11 +275,11 @@
                                 </div>
                     
                     
-                                <div class="row mt-2">
+                                <div class="row mt-2" id="section-two">
                 
                 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row">
                                             <label for="telefon" class="label-text">Telefon</label>
                                             <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
                                             name="phone" value="{{ old('telefon') }}"  autocomplete="phone" autofocus>
@@ -362,7 +293,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row">
                                             <label for="city" class="label-text">Grad</label>
                                             <input id="city" type="text" class="form-control form-control-lg text-input @error('city') is-invalid @enderror" 
                                             name="city" value="{{ old('city') }}"  autocomplete="city" autofocus>
@@ -376,7 +307,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row">
                                             <label for="city" class="label-text-type">Lice</label>
                                             <input id="personStateInput" type="checkbox" name="person" value="f" onchange="togglePersonType()">
                                             <span id="person-type-1">Pravno</span>
@@ -387,9 +318,10 @@
                                 </div>
                     
                     
-                                <div class="row ml-2 mr-2 justify-content-between" id="company-details">
+                                <div class="row justify-content-between" id="company-details">
 
-                                    <div class="row company-info mr-1 ml-1">
+                                    <div class="col" id="companyId">
+                                    <div class="row company-info">
                                         <label for="idFirme" class="label-text">ID Firme</label>
                                         <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
                                         name="company_id" value="{{ old('idFirme') }}"  autocomplete="company_id" autofocus>
@@ -400,8 +332,10 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
 
-                                    <div class="row company-info mr-1">
+                                <div class="col" id="companyAdress">
+                                    <div class="column company-info">
                                         <label for="adresaFirme" class="label-text">Adresa Firme</label>
                                         <input id="adresaFirme" type="text" class="form-control form-control-lg text-input @error('adresaFirme') is-invalid @enderror" 
                                         name="company_address" value="{{ old('adresaFirme') }}"  autocomplete="company_adress" autofocus>
@@ -412,8 +346,10 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
 
-                                    <div class="row company-info" style="margin-right: 1.2rem!important;">
+                                <div class="col" id="companyAssignee">
+                                    <div class="row company-info">
                                         <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
                                         name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="assignee" autofocus>
@@ -424,7 +360,8 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    
+                                </div>    
+
                                 </div>
                 
                     
@@ -464,8 +401,6 @@
         var courseParticipants = [];
         var totalPrice = 0;
         var totalParticipants = 0;
-
-
 
         // toggle active/inactive course
         function toggleClass(id){
@@ -512,6 +447,7 @@
         // change person type
         function togglePersonType(){
             let value = document.getElementById('personStateInput').checked;
+            let isDevice = this.checkDevice();
 
             if(value === true){
                 document.getElementById('person-type-1').style.color = "#000000";
@@ -520,7 +456,7 @@
             } else {
                 document.getElementById('person-type-1').style.color = "white";
                 document.getElementById('person-type-2').style.color = "#000000";
-                document.getElementById('company-details').style.height = "127px";
+                this.setDivHeight();
             }
         }
 
@@ -612,13 +548,36 @@
             // }, 1000);
         }
 
-
-
         function setInputFilter(event){
             
         }
         
+        // set div height
+        function setDivHeight(){
+            let isDevice = this.checkDevice();
 
+            if(isDevice === true){
+                // alert('mobile');
+                document.getElementById('company-details').style.height = "390px";
+            } else {
+                document.getElementById('company-details').style.height = "127px";
+            }
+        }
+
+        // check if mobile device
+        function checkDevice(){
+            if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) ||
+                navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) ||
+                navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/) ||
+                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i)){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        
         
 
     </script>
