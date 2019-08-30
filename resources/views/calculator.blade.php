@@ -25,6 +25,8 @@
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
+                width: 100%;
+                overflow: auto;
             }
 
             .full-height {
@@ -197,13 +199,9 @@
                     @csrf
                     @method('POST')
 
-                    <div class="form-top-container" 
-                    style="width: 90%;
-                    margin-left: auto;
-                    margin-right: auto;">
+                    <div class="form-top-container" id="formTopContainer">
 
-                            <div class="mt-2 courses-data" id="availableCoursesDiv" 
-                            style="display:flex; flex-direction:row; flex-wrap:nowrap;">
+                            <div class="mt-2 courses-data" id="availableCoursesDiv">
     
                                 
                                 

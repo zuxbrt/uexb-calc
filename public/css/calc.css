@@ -1,5 +1,15 @@
 /* calculator styles */
+#formTopContainer{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+#availableCoursesDiv{
+    display:flex; 
+    flex-direction:row; 
+    flex-wrap:nowrap;
+}
 
 .courses-data{
     width: 100%;
@@ -432,3 +442,51 @@ input:checked[type="checkbox"]:after {
         opacity:1;
     }
 }
+
+
+
+/* For mobile phones: */
+@media only screen and (max-width: 768px) {
+    .singleCourse{
+        width: 100% !important;
+    }
+
+    #availableCoursesDiv{
+        flex-direction: column !important;
+    }
+
+    .course-block{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        position: relative;
+    }
+
+    .course-column{
+        height: 150px;
+        width: 100% !important; 
+    }
+
+    .range-column{
+        position: absolute;
+        top: 60px;
+    }
+
+    #navigation-menu{
+        display: none !important;
+    }
+
+    #logoContainer{
+        margin-left: 20px !important;
+    }
+}
+
+  @media only screen and (min-width: 600px) {
+    /* For tablets: */
+    
+  }
+  
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    
+  }
