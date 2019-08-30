@@ -305,7 +305,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="name" class="label-text">Ime</label>
                                             <input id="name" type="text" class="form-control form-control-lg text-input @error('name') is-invalid @enderror" 
-                                            name="name" value="{{ old('name') }}"  autocomplete="ime" autofocus>
+                                            name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -319,7 +319,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="prezime" class="label-text">Prezime</label>
                                             <input id="prezime" type="text" class="form-control form-control-lg text-input @error('prezime') is-invalid @enderror" 
-                                            name="surname" value="{{ old('prezime') }}"  autocomplete="prezime" autofocus>
+                                            name="surname" value="{{ old('prezime') }}"  autocomplete="surname" autofocus>
                 
                                             @error('prezime')
                                                 <span class="invalid-feedback" role="alert">
@@ -353,7 +353,7 @@
                                         <div class="row ml-2 mr-2">
                                             <label for="telefon" class="label-text">Telefon</label>
                                             <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
-                                            name="phone" value="{{ old('telefon') }}"  autocomplete="telefon" autofocus>
+                                            name="phone" value="{{ old('telefon') }}"  autocomplete="phone" autofocus>
                     
                                             @error('telefon')
                                                 <span class="invalid-feedback" role="alert">
@@ -394,7 +394,7 @@
                                     <div class="row company-info mr-1 ml-1">
                                         <label for="idFirme" class="label-text">ID Firme</label>
                                         <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
-                                        name="company_id" value="{{ old('idFirme') }}"  autocomplete="idFirme" autofocus>
+                                        name="company_id" value="{{ old('idFirme') }}"  autocomplete="company_id" autofocus>
                     
                                         @error('idFirme')
                                             <span class="invalid-feedback" role="alert">
@@ -406,7 +406,7 @@
                                     <div class="row company-info mr-1">
                                         <label for="adresaFirme" class="label-text">Adresa Firme</label>
                                         <input id="adresaFirme" type="text" class="form-control form-control-lg text-input @error('adresaFirme') is-invalid @enderror" 
-                                        name="company_address" value="{{ old('adresaFirme') }}"  autocomplete="adresaFirme" autofocus>
+                                        name="company_address" value="{{ old('adresaFirme') }}"  autocomplete="company_adress" autofocus>
                         
                                         @error('adresaFirme')
                                             <span class="invalid-feedback" role="alert">
@@ -418,7 +418,7 @@
                                     <div class="row company-info" style="margin-right: 1.2rem!important;">
                                         <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
-                                        name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="odgovornoLice" autofocus>
+                                        name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="assignee" autofocus>
                             
                                         @error('odgovornoLice')
                                             <span class="invalid-feedback" role="alert">
@@ -619,6 +619,8 @@
         function setInputFilter(event){
             
         }
+        
+
         
 
     </script>

@@ -96,6 +96,11 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
-        //
+        if(!auth()->User()){
+            abort(403);
+        } else {
+            $coupon->delete();
+            return redirect('/coupons/');
+        }
     }
 }

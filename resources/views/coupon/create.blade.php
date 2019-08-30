@@ -1,3 +1,6 @@
+<!-- code generator script -->
+<script src="{{ asset('js/cg.js')}}"></script>
+
 @extends('layouts.app')
 
 <style>
@@ -60,10 +63,12 @@
         
                 </div>
 
-                <div class="row pl-3 pr-3 mt-2">
+                <div class="row pl-3 pr-3 mt-2" style="position:relative;">
+
                         <label for="name">Kod</label>
                         <input id="code" type="text" class="form-control form-control-lg @error('code') is-invalid @enderror" 
                         name="code" value="{{ old('code') }}"  autocomplete="code" autofocus>
+                        <span id="generateButton" onclick="generateCode()">Generate Code</span>
 
                         @error('code')
                             <span class="invalid-feedback" role="alert">
@@ -81,5 +86,6 @@
             </form>
     </div>
 </div>
+
 
 @endsection

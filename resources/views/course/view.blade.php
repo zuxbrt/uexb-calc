@@ -67,6 +67,18 @@
                 </div>
 
             </form>
+
+
+            <form action="/courses/{{$course->id}}" enctype="multipart/form-data" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="row justify-content-center mt-2">
+
+                    <div class="row justify-content-end pt-4">
+                        <button type="submit" class="btn btn-danger">Obrisi kurs</button>
+                    </div>
+                </div>
+            </form>
     </div>
 </div>
 

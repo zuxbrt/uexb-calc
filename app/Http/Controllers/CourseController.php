@@ -52,4 +52,14 @@ class CourseController extends Controller
         $course->update(request(['name', 'price']));
         return redirect('/courses');
     }
+
+    public function destroy(Course $course)
+    {
+        if(!auth()->User()){
+            abort(403);
+        } else {
+            $course->delete();
+            return redirect('/courses/');
+        }
+    }
 }

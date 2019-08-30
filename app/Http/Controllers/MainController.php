@@ -21,25 +21,24 @@ class MainController extends Controller
     */
     public function store()
     {
-        //dd(request()->all());
+        dd(request()->all());
         $attributes =request()->validate(
             [
-                'name' => 'required',
-                'surname' => 'required',
+                'name' => 'required|min:3',
+                'surname' => 'required|min:3',
                 'email' => 'required',
-                'phone' => 'required',
-                'city' => 'required',
+                'phone' => 'required|numeric',
+                'city' => 'required|min:3',
 
             ]
         );
-
 
         if(request('status') !== 'f'){
             $attributes['status'] = 'pravno';
 
             $companyAttributes =request()->validate(
                 [   
-                    'company_id' => 'required',
+                    'company_id' => 'required|numberic',
                     'company_address' => 'required',
                     'assignee' => 'required'
                 ]
@@ -47,6 +46,9 @@ class MainController extends Controller
         } else {
             $attributes['status'] = 'fizicko';
         }
+
+        dd($attributes);
+        dd($companyAttributes);
 
         Customer::create($attributes);
         CustomerCompanyInfo::create($companyAttributes);
