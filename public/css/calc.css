@@ -31,7 +31,7 @@
     margin-top: 22px;
 }
 
-#navigation-menu{
+#navigation-menu-desktop{
     padding-top: 30px;
     display: flex;
     flex-direction: row;
@@ -81,6 +81,26 @@
     -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 0 rgba(0,0,0,.1);
 }
+
+#mobile-nav-icon{
+    display: none;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+#navigation-menu-mobile{
+    /* display: none; */
+    flex-direction: column;
+    background-color: white;
+    position: fixed;
+    top: 90px;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 12px;
+}
+
 
 .nohover:hover{
     text-decoration: none;
@@ -459,6 +479,7 @@ input:checked[type="checkbox"]:after {
     position: absolute;
     top: 55px;
     transition: color 0.5s ease-in-out;
+    user-select: none;
 }
 
 #person-type-1{
@@ -507,6 +528,7 @@ input:checked[type="checkbox"]:after {
     padding-top: 10px;
     width: 150px;
     margin: 25px;
+    margin-bottom: 80px;
     color: white;
     font-weight: 600;
     border-radius: 30px;
@@ -553,6 +575,74 @@ input:checked[type="checkbox"]:after {
     }
 }
 
+.input-box{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1135px) and (min-width: 992px){
+    .greytext, .link-menu-button {
+        font-size: 14px !important;
+        text-align: center;
+    }
+
+    .link-menu-button{
+        padding-left: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 1050px){
+    #mobile-nav-icon{
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1050px){
+    #navigation-menu-mobile{
+        display: none !important;
+    }
+
+    #formTopContainer{
+        margin-top: 90px;
+    }
+}
+
+@media only screen and (max-width: 1050px){
+    #navigation-menu-desktop{
+        display: none !important;
+    }
+
+    .link-menu-button{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .greytext, .link-menu-button {
+        margin-bottom: 5px;
+    }
+
+    #mobile-menu-container{
+        display: none;
+    }
+  }
+
+
+@media only screen and (min-width: 992px){
+    #navbarSupportedContent{
+        display: none !important;
+    }
+
+}
 
 
 /* For mobile phones: */
@@ -575,12 +665,19 @@ input:checked[type="checkbox"]:after {
         flex-direction: column;
         flex-wrap: nowrap;
         position: relative;
+        max-width: 250px !important;
+    }
+
+    .courseInfo{
+        max-width: 290px !important;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .course-column{
-        height: 160px;
-        min-width: 240px !important;
-        margin-left: 15px;
+        position: relative;
+        height: 180px;
+        width: 250px !important;
     }
 
     .participants-input{
@@ -598,11 +695,8 @@ input:checked[type="checkbox"]:after {
 
     .range-column{
         position: absolute;
-        top: 60px;
-    }
-
-    #navigation-menu{
-        display: none !important;
+        top: 80px;
+        margin-left: 10px;
     }
 
     #logoContainer{
@@ -618,7 +712,7 @@ input:checked[type="checkbox"]:after {
     }
 
     input[type='radio'] {
-        margin-top: 60px !important;
+        margin-top: 70px !important;
     }
 
     #discountContainer{

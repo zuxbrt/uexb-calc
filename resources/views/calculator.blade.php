@@ -87,7 +87,7 @@
 
                     <a href="http://uciexcel.ba/"><img id="logoImg" src="../images/logo.png"></a>
 
-                    {{-- <nav id="navigation-menu">
+                    <nav id="navigation-menu-desktop">
                         <ul id="links-ul" style="list-style-type:none;">
                             <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
                             <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
@@ -97,26 +97,25 @@
                                 <li class="link-menu-button">Prijavi se</li>
                             </a>
                         </ul>
-                    </nav> --}}
-
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                            id="toggleNavButton">
-                              <span class="navbar-toggler-icon"></span>
-                            </button>
-                          
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                              <ul class="navbar-nav mr-auto">
-                                    <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
-                                    <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
-                                    <a href="http://uciexcel.ba/#sadrzaj"><li class="link-menu greytext">Vrste treninga</li></a>
-                                    <a href="http://uciexcel.ba/#cjenovnik"><li class="link-menu greytext">Cjenovnik</li></a>
-                                    <a class="nohover" href="https://uciexcel.ba/prijavni-obrazac">
-                                    <li class="link-menu-button">Prijavi se</li>
-                                        </a>
-                                </ul>
-                            </div>
                     </nav>
+
+                </div>
+
+                <div id="mobile-nav">
+                    <img id="mobile-nav-icon" src="../images/menu.svg" onclick="toggleMobileMenu()">
+                    <div id="mobile-menu-container"class="not-opened">
+                        <div id="navigation-menu-mobile">
+                            <ul id="links-ul-mobile" style="list-style-type:none;">
+                                <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
+                                <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
+                                <a href="http://uciexcel.ba/#sadrzaj"><li class="link-menu greytext">Vrste treninga</li></a>
+                                <a href="http://uciexcel.ba/#cjenovnik"><li class="link-menu greytext">Cjenovnik</li></a>
+                                <a class="nohover" href="https://uciexcel.ba/prijavni-obrazac">
+                                    <li class="link-menu-button">Prijavi se</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -210,7 +209,7 @@
                             <div class="mt-2" id="priceContainer">
                                 <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
                                 <div id="totalPrice">
-                                    <span id="totalPriceValue">0,00</span> KM
+                                    <span id="totalPriceValue">0</span> KM
                                 </div>
                             </div>
                         
@@ -231,7 +230,7 @@
                             <div class="row mt-5" id="section-one">
 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row input-box">
                                             <label for="name" class="label-text">Ime</label>
                                             <input id="name" type="text" class="form-control form-control-lg text-input @error('name') is-invalid @enderror" 
                                             name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
@@ -245,7 +244,7 @@
                                     </div>
                 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row input-box">
                                             <label for="prezime" class="label-text">Prezime</label>
                                             <input id="prezime" type="text" class="form-control form-control-lg text-input @error('prezime') is-invalid @enderror" 
                                             name="surname" value="{{ old('prezime') }}"  autocomplete="surname" autofocus>
@@ -259,7 +258,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="row ml-2 mr-2">
+                                        <div class="row input-box">
                                             <label for="email" class="label-text">Email</label>
                                             <input id="email" type="email" class="form-control form-control-lg text-input @error('email') is-invalid @enderror" 
                                             name="email" value="{{ old('email') }}"  autocomplete="email">
@@ -279,7 +278,7 @@
                 
                 
                                     <div class="col">
-                                        <div class="row">
+                                        <div class="row input-box">
                                             <label for="telefon" class="label-text">Telefon</label>
                                             <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
                                             name="phone" value="{{ old('telefon') }}"  autocomplete="phone" autofocus>
@@ -293,7 +292,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="row">
+                                        <div class="row input-box">
                                             <label for="city" class="label-text">Grad</label>
                                             <input id="city" type="text" class="form-control form-control-lg text-input @error('city') is-invalid @enderror" 
                                             name="city" value="{{ old('city') }}"  autocomplete="city" autofocus>
@@ -307,7 +306,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="row">
+                                        <div class="row input-box">
                                             <label for="city" class="label-text-type">Lice</label>
                                             <input id="personStateInput" type="checkbox" name="person" value="f" onchange="togglePersonType()">
                                             <span id="person-type-1">Pravno</span>
@@ -366,9 +365,9 @@
                 
                     
                     
-                                <div class="row ml-2 mr-2 mt-0">
+                                <div class="row mt-0">
                                     <label for="napomene" class="label-text">Napomene</label>
-                                    <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px;" name="notes"></textarea>
+                                    <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px; max-height: 200px;" name="notes"></textarea>
                                 </div>
         
                                 
@@ -402,17 +401,43 @@
         var totalPrice = 0;
         var totalParticipants = 0;
 
+        $("#person-type-2").click(function() {
+            document.getElementById('personStateInput').checked = true;
+            document.getElementById('person-type-1').style.color = "#000000";
+            document.getElementById('person-type-2').style.color = "white";
+            document.getElementById('company-details').style.height = "0";
+        }); 
+
+        $("#person-type-1").click(function() {
+            document.getElementById('personStateInput').checked = false;
+            document.getElementById('person-type-1').style.color = "white";
+            document.getElementById('person-type-2').style.color = "#000000";
+
+            if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) ||
+                navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) ||
+                navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/) ||
+                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i)){
+
+                document.getElementById('company-details').style.height = "390px";
+            } else {
+                document.getElementById('company-details').style.height = "127px";
+            }
+            
+        }); 
+
         // toggle active/inactive course
         function toggleClass(id){
             let classList = document.getElementById('courseBlock.'+id).classList;
-            
+                        
+            // if not selected
             if (classList.contains("not-selected")) {
                 document.getElementById('courseBlock.'+id).classList.remove('not-selected');
                 document.getElementById('courseBlock.'+id).classList.add('selected');
                 document.getElementById(id+".selected").checked = true;
                 document.getElementById(id+".participants").disabled = false;
+                document.getElementById(id+'.participants').value = 1;
 
-                this.calculateCoursesPrice(id, true);
+                this.calculateCoursesPrice(id, true);                
                 this.setCourseParticipants(id, true);
                 this.setParticipants(id);
             } else {
@@ -420,12 +445,14 @@
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
                 document.getElementById(id+".selected").checked = false;
                 document.getElementById(id+".participants").disabled = true;
-            
+                document.getElementById(id+'.participants').value = 0;
+
                 this.calculateCoursesPrice(id, false);
                 this.setCourseParticipants(id, false);
+                this.setTotalParticipants();
+                this.calculateDiscount();
             }
 
-            this.setTotalParticipants();
         }
 
         // set participants value for course
@@ -462,12 +489,13 @@
 
         // calculate courses price
         function calculateCoursesPrice(courseId, courseAdded){
-            document.getElementById('totalPriceValue').classList.add("price-fade");
+            document.getElementById('totalPriceValue').classList.add("price-fade");            
 
             let courses = {!! json_encode($courses) !!};
-            let coursePrice = 0;
+            //let coursePrice = 0;
                 
             for (const key of Object.keys(courses)) {
+                console.log(courseParticipants);
                 if(courses[key].id === courseId){
                     this.price = courses[key].price;
                 }
@@ -482,7 +510,12 @@
                 // console.log(totalPrice);
             }
 
-            this.setPrice(totalPrice);
+            this.setPrice(totalPrice, courseParticipants);
+        }
+
+        // set courses price
+        function setPrice(price){
+            document.getElementById('totalPriceValue').innerHTML = price;
         }
 
         // calculate total price of course
@@ -538,19 +571,6 @@
 
             totalParticipants = count;
         }
-
-        // set courses price
-        function setPrice(price){
-            document.getElementById('totalPriceValue').innerHTML = price;
-
-            // setTimeout(function(){
-            //     document.getElementById('totalPriceValue').classList.toggle("price-fade");
-            // }, 1000);
-        }
-
-        function setInputFilter(event){
-            
-        }
         
         // set div height
         function setDivHeight(){
@@ -576,9 +596,20 @@
             }
         }
 
+        // toggle mobile menu
+        function toggleMobileMenu(){
+            let isDevice = this.checkDevice();
 
-        
-        
+            console.log(document.getElementById('mobile-menu-container').classList.contains('not-opened'));
+
+            if(document.getElementById('mobile-menu-container').classList.contains('not-opened')){
+                document.getElementById('mobile-menu-container').style.display = "flex";
+                document.getElementById('mobile-menu-container').classList.remove('not-opened')
+            } else {
+                document.getElementById('mobile-menu-container').style.display = "none";
+                document.getElementById('mobile-menu-container').classList.add('not-opened');
+            }
+        }
 
     </script>
 </html>
