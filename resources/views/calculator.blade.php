@@ -185,7 +185,9 @@
                                     <div class="row code-box">
                                         <label class="kupon-text" for="popustKupon">Kod posebnog popusta:</label>
                                         <input id="popustKupon" type="text" class="form-control code-input @error('popustKupon') is-invalid @enderror" 
-                                        name="popustKupon" value="{{ old('popustKupon') }}" autocomplete="popustKupon" autofocus>
+                                        name="popustKupon" value="{{ old('popustKupon') }}" autocomplete="popustKupon" autofocus oninput="validateCouponCode()">
+                                        <div class="invalidCoupon" id="invalidCouponAlert">Neispravan kupon</div>
+                                        <div class="validCoupon" id="validCouponAlert"></div>
                                     
                                         @error('popustKupon')
                                             <span class="invalid-feedback" role="alert">
@@ -495,7 +497,7 @@
             //let coursePrice = 0;
                 
             for (const key of Object.keys(courses)) {
-                console.log(courseParticipants);
+                //console.log(courseParticipants);
                 if(courses[key].id === courseId){
                     this.price = courses[key].price;
                 }
@@ -519,11 +521,12 @@
         }
 
         // calculate total price of course
-        function calculateDiscount(){
+        function calculateDiscount(couponDiscount){
             let discount = 0;
             let priceWithDiscount = 0;
             let price = totalPrice;
 
+            // set discount percentage
             if(totalParticipants > 1 && totalParticipants <= 2){
                 discount = 5;
             } else if(totalParticipants >= 3 && totalParticipants <= 5){
@@ -538,6 +541,11 @@
                 discount = 30;
             } else {
                 discount = 0;
+            }
+
+            // if coupon discount exists
+            if(couponDiscount){
+                discount = discount + couponDiscount;
             }
 
             if(discount !== 0){
@@ -609,6 +617,32 @@
                 document.getElementById('mobile-menu-container').style.display = "none";
                 document.getElementById('mobile-menu-container').classList.add('not-opened');
             }
+        }
+
+        // validation of coupon code
+        function validateCouponCode(){
+            document.getElementById('validCouponAlert').style.display = 'none;';
+            document.getElementById('invalidCouponAlert').style.display = 'none;';
+            this.calculateDiscount();
+
+            let coupons = {!! json_encode($coupons) !!};
+            //console.log(coupons);
+            let input = document.getElementById('popustKupon');
+
+
+            if(input.value.length > 24){
+                for (const key of Object.keys(coupons)) {
+                    //console.log(coupons[key]);
+                    if(coupons[key].code === input.value){
+                        document.getElementById('validCouponAlert').innerHTML  = coupons[key].name;
+                        document.getElementById('validCouponAlert').style.display = 'block';
+                        this.calculateDiscount(parseInt(coupons[key].discount));
+                    } else {
+                        document.getElementById('invalidCouponAlert').style.display = 'block;'
+                    }
+                }
+            }
+
         }
 
     </script>

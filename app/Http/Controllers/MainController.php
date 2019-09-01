@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Customer;
 use App\CustomerCompanyInfo;
+use App\Coupon;
 
 class MainController extends Controller
 {
@@ -13,7 +14,8 @@ class MainController extends Controller
     public function index()
     {
         $courses = Course::all();
-        return view('calculator', compact('courses'));
+        $coupons = Coupon::all();
+        return view('calculator', compact('courses', 'coupons'));
     }
 
     /**
@@ -21,20 +23,32 @@ class MainController extends Controller
     */
     public function store()
     {
-        dd(request()->all());
-        $attributes =request()->validate(
+        // setting customer type
+        if(request('person') === 'f'){
+            $customerStatus = 'fizicko';
+        } else {
+            $customerStatus = 'pravno';
+        }
+
+        $attributes = request()->validate(
             [
                 'name' => 'required|min:3',
                 'surname' => 'required|min:3',
                 'email' => 'required',
                 'phone' => 'required|numeric',
                 'city' => 'required|min:3',
-
+                'status' => $customerStatus
             ]
         );
 
+        $customer = Customer::create($attributes);
+
+
+        dd($customer);
+        //dd(request()->all());
+
+
         if(request('status') !== 'f'){
-            $attributes['status'] = 'pravno';
 
             $companyAttributes =request()->validate(
                 [   
@@ -43,15 +57,15 @@ class MainController extends Controller
                     'assignee' => 'required'
                 ]
             );
+
+            CustomerCompanyInfo::create($companyAttributes)->save();
+            $customer::create($attributes)->save();
         } else {
-            $attributes['status'] = 'fizicko';
+           
+            $customer::create($attributes)->save();
         }
 
-        dd($attributes);
-        dd($companyAttributes);
-
-        Customer::create($attributes);
-        CustomerCompanyInfo::create($companyAttributes);
+        //Customer::create($attributes)->save();
        
         // // course prices
         // $idKurseva = [$kurs1, $kurs2];

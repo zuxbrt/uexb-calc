@@ -23,7 +23,6 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resource('/courses', 'CourseController');
 Route::resource('coupons', 'CouponController');
-
-Route::get('/customers', 'CustomerController@index');
+Route::resource('/customers', 'CustomerController');
 
 Route::get('/administration', 'AdminController@index');

@@ -14,7 +14,7 @@ class CreateCustomersCoursesTable extends Migration
     public function up()
     {
         Schema::create('customers_courses', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('customer_id');
             $table->string('course_id');
             $table->decimal('course_participants');

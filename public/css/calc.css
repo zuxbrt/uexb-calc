@@ -580,6 +580,20 @@ input:checked[type="checkbox"]:after {
     margin-right: 0 !important;
 }
 
+.invalidCoupon, .validCoupon{
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+#validCouponAlert, #invalidCouponAlert{
+    font-weight: bold;
+}
+
+#validCouponAlert, #invalidCouponAlert{
+    display: none;
+}
+
 
 
 

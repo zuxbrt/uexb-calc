@@ -14,7 +14,7 @@ class CreateCustomersCompanyInfoTable extends Migration
     public function up()
     {
         Schema::create('customers_company_info', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('customer_id');
             $table->string('company_id');
             $table->string('company_address');
