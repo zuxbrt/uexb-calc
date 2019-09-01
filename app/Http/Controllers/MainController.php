@@ -23,13 +23,7 @@ class MainController extends Controller
     */
     public function store()
     {
-        // setting customer type
-        if(request('person') === 'f'){
-            $customerStatus = 'fizicko';
-        } else {
-            $customerStatus = 'pravno';
-        }
-
+        // validating main attributes
         $attributes = request()->validate(
             [
                 'name' => 'required|min:3',
@@ -37,19 +31,13 @@ class MainController extends Controller
                 'email' => 'required',
                 'phone' => 'required|numeric',
                 'city' => 'required|min:3',
-                'status' => $customerStatus
             ]
         );
 
-        $customer = Customer::create($attributes);
-
-
-        dd($customer);
-        //dd(request()->all());
-
-
-        if(request('status') !== 'f'){
-
+        // check person status
+        if(request('person') === 'f'){
+            $attributes['status'] = 'fizicko';
+        } else {
             $companyAttributes =request()->validate(
                 [   
                     'company_id' => 'required|numberic',
@@ -58,12 +46,25 @@ class MainController extends Controller
                 ]
             );
 
-            CustomerCompanyInfo::create($companyAttributes)->save();
-            $customer::create($attributes)->save();
-        } else {
-           
-            $customer::create($attributes)->save();
+            $attributes['status'] = 'pravno';
+
+            $customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
         }
+
+        // checking if code is used
+        if(request('code') === null){
+            $attributes['code'] = '';
+        } else {
+            $attributes['code'] = request('code');
+        }
+
+        $customer = Customer::create($attributes);
+
+        dd($customer);
+
+
+        //dd($customer);
+        //dd(request()->all());
 
         //Customer::create($attributes)->save();
        
@@ -77,7 +78,7 @@ class MainController extends Controller
         //     $cijenaKurseva = [$cijena_kursa[0]];
         // }
 
-        return view('/');
+        //return view('calculator');
 
     }
 

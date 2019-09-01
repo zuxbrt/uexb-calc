@@ -184,12 +184,12 @@
 
                                     <div class="row code-box">
                                         <label class="kupon-text" for="popustKupon">Kod posebnog popusta:</label>
-                                        <input id="popustKupon" type="text" class="form-control code-input @error('popustKupon') is-invalid @enderror" 
-                                        name="popustKupon" value="{{ old('popustKupon') }}" autocomplete="popustKupon" autofocus oninput="validateCouponCode()">
+                                        <input id="popustKupon" type="text" class="form-control code-input @error('code') is-invalid @enderror" 
+                                        name="code" value="{{ old('code') }}" autocomplete="code" autofocus oninput="validateCouponCode()">
                                         <div class="invalidCoupon" id="invalidCouponAlert">Neispravan kupon</div>
                                         <div class="validCoupon" id="validCouponAlert"></div>
                                     
-                                        @error('popustKupon')
+                                        @error('code')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -211,7 +211,7 @@
                             <div class="mt-2" id="priceContainer">
                                 <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
                                 <div id="totalPrice">
-                                    <span id="totalPriceValue">0</span> KM
+                                    <span id="totalPriceValue" name="fee">0</span> KM
                                 </div>
                             </div>
                         
