@@ -54,7 +54,7 @@ class MainController extends Controller
 
             $attributes['status'] = 'pravno';
 
-            //$customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
+            $customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
         }
 
 
@@ -148,7 +148,7 @@ class MainController extends Controller
 
         //Customer::create($attributes)->save();
 
-        return redirect('/');
+        return redirect('/pdf', compact('customerId'));
 
     }
 

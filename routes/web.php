@@ -15,8 +15,8 @@ Route::get('/', 'MainController@index');
 Route::post('/', 'MainController@store');
 
 // disable registration
-//Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes();
+//Auth::routes(['register' => false]);
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -24,5 +24,7 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::resource('/courses', 'CourseController');
 Route::resource('coupons', 'CouponController');
 Route::resource('/customers', 'CustomerController');
+
+Route::get('/pdf', 'PDFController@index');
 
 Route::get('/administration', 'AdminController@index');
