@@ -15,7 +15,9 @@ class MainController extends Controller
     {
         $courses = Course::all();
         $coupons = Coupon::all();
-        return view('calculator', compact('courses', 'coupons'));
+        //$courses = [];
+        //$coupons = [];
+        return view('index', compact('courses', 'coupons'));
     }
 
     /**
@@ -23,6 +25,9 @@ class MainController extends Controller
     */
     public function store()
     {
+        // extracting all attributes
+        $allAttributes = request()->all();
+
         // validating main attributes
         $attributes = request()->validate(
             [
@@ -48,37 +53,85 @@ class MainController extends Controller
 
             $attributes['status'] = 'pravno';
 
-            $customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
+            //$customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
         }
 
-        // checking if code is used
-        if(request('code') === null){
-            $attributes['code'] = '';
+        // validate code if exists
+        if(request('code') !== null){
+            $coupon = Coupon::where('code', request('code'))->get();
+            $couponName = $coupon->pluck('name')[0];
+            $couponDiscount =$coupon->pluck('discount')[0];
+
+            $attributes['coupon'] = $couponName;
         } else {
-            $attributes['code'] = request('code');
+            $coupon = null;
+        }
+        
+        // init values
+        $selectedCourses = [];
+        $totalParticipants = 0;
+        $totalPrice = 0;
+
+        // extract course ids and course participants
+        foreach($allAttributes as $key => $value){
+            if(preg_match('/polaznicikurs-/',$key)){
+                $selectedCourses[substr($key, 14)] = $value;
+                $totalParticipants += $value;
+            }
         }
 
-        $customer = Customer::create($attributes);
+        // get courses price
+        foreach($selectedCourses as $courseId => $courseParticipants){
+            $courseData = Course::where('id', $courseId)->get();
+            $coursePrice = $courseData->pluck('price');
+            $totalPrice += $coursePrice[0];
+        }
 
-        dd($customer);
+        // init values
+        $discount = 0;
+        $priceWithDiscount = 0;
 
+        // set discount percentage
+        if($totalParticipants > 1 && $totalParticipants <= 2){
+            $discount = 5;
+        } elseif($totalParticipants >= 3 && $totalParticipants <= 5){
+            $discount = 10;
+        } elseif($totalParticipants >= 6 && $totalParticipants <= 10){
+            $discount = 15;
+        } elseif($totalParticipants >= 11 && $totalParticipants <= 15){
+            $discount = 20;
+        } elseif($totalParticipants >= 15 && $totalParticipants <= 20){
+            $discount = 25;
+        } elseif($totalParticipants >= 21){
+            $discount = 30;
+        } else {
+            $discount = 0;
+        }
 
-        //dd($customer);
-        //dd(request()->all());
+        // if coupon discount exists
+        if($coupon !== null){
+            $discount = $discount + $couponDiscount;
+        }
+
+        // calculate final price
+        if($discount !== 0){
+            $discountValue = ($discount / 100) * $totalPrice;
+            $priceWithDiscount = $totalPrice - $discount;
+        } else {
+            $priceWithDiscount = $totalPrice;
+        }
+
+        // set total price
+        $attributes['fee'] = $priceWithDiscount;
+        dd($attributes);
+
+        // todo insert custopmer courses by ids
+
+        // $customer = Customer::create($attributes);
 
         //Customer::create($attributes)->save();
-       
-        // // course prices
-        // $idKurseva = [$kurs1, $kurs2];
-        // $cijenaKurseva = 0;
-        // foreach($idKurseva as $id){
-        //     $kurs = Course::where('id', $id)->get();
-        //     $cijena_kursa = $kurs->pluck('price');
-        //     //$cijenaKurseva += $cijena_kursa[0];
-        //     $cijenaKurseva = [$cijena_kursa[0]];
-        // }
 
-        //return view('calculator');
+        return redirect('/');
 
     }
 

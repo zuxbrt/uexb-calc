@@ -210,9 +210,9 @@
                             
                             <div class="mt-2" id="priceContainer">
                                 <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
-                                <div id="totalPrice">
-                                    <span id="totalPriceValue" name="fee">0</span> KM
-                                </div>
+                                <input id="totalPriceValue" type="text" class="form-control code-input" name="fee"
+                                    value="0 KM" disabled>
+
                             </div>
                         
 
@@ -248,8 +248,8 @@
                                     <div class="col">
                                         <div class="row input-box">
                                             <label for="prezime" class="label-text">Prezime</label>
-                                            <input id="prezime" type="text" class="form-control form-control-lg text-input @error('prezime') is-invalid @enderror" 
-                                            name="surname" value="{{ old('prezime') }}"  autocomplete="surname" autofocus>
+                                            <input id="prezime" type="text" class="form-control form-control-lg text-input @error('surname') is-invalid @enderror" 
+                                            name="surname" value="{{ old('surname') }}"  autocomplete="surname" autofocus>
                 
                                             @error('prezime')
                                                 <span class="invalid-feedback" role="alert">
@@ -517,7 +517,11 @@
 
         // set courses price
         function setPrice(price){
-            document.getElementById('totalPriceValue').innerHTML = price;
+            document.getElementById('totalPriceValue').value = price + ' KM';
+
+            setTimeout(function(){ 
+                document.getElementById('totalPriceValue').classList.remove("price-fade");
+            }, 1000);   
         }
 
         // calculate total price of course

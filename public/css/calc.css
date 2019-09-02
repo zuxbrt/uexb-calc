@@ -542,6 +542,20 @@ input:checked[type="checkbox"]:after {
     -o-animation: fadein 2s; /* Opera */
 }
 
+#totalPriceValue{
+    text-align: center;
+    height: 65px;
+    background: #73ae56;
+    border-radius: 30px;
+    outline: none;
+    width: 300px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 15px;
+    color: white;
+    font-weight: 700;
+}
+
 @keyframes fadein {
     from {
         opacity:0;
