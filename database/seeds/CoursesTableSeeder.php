@@ -11,31 +11,34 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('courses')->insert(
-            [
-                'name' => 'Upoznajmo Excel',
-                'price' => 130,
-            ],
-            [
-                'name' => '101 upotreba Excel funkcija',
-                'price' => 200
-            ],
-            [
-                'name' => 'Analiza podataka uz Pivot tabele',
-                'price' => 250
-            ],
-            [
-                'name' => 'Excel za finansijsku analizu',
-                'price' => 150
-            ],
-            [
-                'name' => 'Tajne uspješnog vizuelnog predstavljanja u Excelu',
-                'price' => 200
-            ],
-            [
-                'name' => 'Tajne uspješnog vizuelnog predstavljanja u Excelu',
-                'price' => 250
-            ]
-    );
+        DB::table('courses')->insert([
+            'name' => 'Upoznajmo Excel',
+            'price' => 130,
+        ]);
+        
+        DB::table('courses')->insert([
+            'name' => '101 upotreba Excel funkcija',
+            'price' => 200
+        ]);
+
+        DB::table('courses')->insert([
+            'name' => 'Analiza podataka uz Pivot tabele',
+            'price' => 250
+        ]);
+
+        DB::table('courses')->insert([
+            'name' => 'Excel za finansijsku analizu',
+            'price' => 150
+        ]);
+            
+        DB::table('courses')->insert([
+            'name' => 'Tajne uspješnog vizuelnog predstavljanja u Excelu',
+            'price' => 200
+        ]);
+
+        DB::table('courses')->insert([
+            'name' => 'Tajne uspješnog vizuelnog predstavljanja u Excelu',
+            'price' => 250
+        ]);
     }
 }
