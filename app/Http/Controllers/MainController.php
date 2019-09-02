@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Customer;
 use App\CustomerCompanyInfo;
+use App\CustomersCourses;
 use App\Coupon;
 
 class MainController extends Controller
@@ -56,13 +57,20 @@ class MainController extends Controller
             //$customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
         }
 
-        // validate code if exists
+
+        // validate coupon code if exists
         if(request('code') !== null){
             $coupon = Coupon::where('code', request('code'))->get();
-            $couponName = $coupon->pluck('name')[0];
-            $couponDiscount =$coupon->pluck('discount')[0];
 
-            $attributes['coupon'] = $couponName;
+            // validate coupon
+            if(isset($coupon[0])){
+                $couponName = $coupon->pluck('name')[0];
+                $couponDiscount =$coupon->pluck('discount')[0];
+                $attributes['coupon'] = $couponName;
+            } else {
+                $attributes['coupon'] = '';
+            }
+
         } else {
             $coupon = null;
         }
@@ -109,7 +117,7 @@ class MainController extends Controller
         }
 
         // if coupon discount exists
-        if($coupon !== null){
+        if(isset($coupon[0])){
             $discount = $discount + $couponDiscount;
         }
 
@@ -123,11 +131,20 @@ class MainController extends Controller
 
         // set total price
         $attributes['fee'] = $priceWithDiscount;
-        dd($attributes);
+        $attributes['discount'] = $discount;
 
-        // todo insert custopmer courses by ids
+        // create customer and return its id
+        $customerId = Customer::insertGetId($attributes);
 
-        // $customer = Customer::create($attributes);
+        // store customer selected courses
+        foreach($selectedCourses as $singleCourseId => $singleCourseParticipants){
+
+            $customerCourses = CustomersCourses::create([
+                'customer_id' => $customerId,
+                'course_id' => $singleCourseId,
+                'course_participants' => $singleCourseParticipants
+            ]);
+        }
 
         //Customer::create($attributes)->save();
 
