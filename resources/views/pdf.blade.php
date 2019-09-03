@@ -1,3 +1,4 @@
+<html id="allContent">
 
 <title>Predracun</title>
 </head>
@@ -225,7 +226,7 @@
         }
 
 </style>    
-<body>
+<body onload="getHtmlContent()">
     <div class="row"><img src="../images/logo.png" style="height: 60px; width:350px; margin-left: 10px; margin-top: 30px;"></div>
     <div class="column">
         <div class="row around">
@@ -407,7 +408,23 @@
         @method('POST')
 
         <button type="submit" class="btn">save pdf</button>
+        <input type="hidden" value="" name="htmlcontent" id="htmlContentValue">
     </form>
   
 </body>
-</body>
+
+<script>
+
+    windo
+    function getHtmlContent(){
+        var x = document.getElementById('allContent').innerHTML;
+        document.getElementById('htmlContentValue').value = x;
+        // x = window.indexOf(">", x);    
+        // var y = window.lastIndexOf("</html>"); 
+        // let data = window.slice(x + 1, y);
+
+        // console.log(data);
+    }
+</script>
+
+</html>

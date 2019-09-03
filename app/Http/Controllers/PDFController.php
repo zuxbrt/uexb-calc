@@ -68,10 +68,9 @@ class PDFController extends Controller
     }
 
     public function save(Request $request){
+        dd(request('htmlcontent'));
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('
-            teletina
-        ');
+        $pdf->loadHTML(request("htmlcontent"));
         return $pdf->stream();
     }
 
