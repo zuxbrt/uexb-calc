@@ -350,7 +350,7 @@
         <div id="topContent">
             
             <div class="padded-right">
-                @if($customerData->status == 'fizicko')
+                @if($customerData->status === 'fizicko')
                 <div class="column">
                     <p class="uncolored-text-full" style="width: 200px; margin-left: 28px;">{{$customerData->name}} {{$customerData->surname}}</p>                             
                 </div>
@@ -359,10 +359,10 @@
                     </div>
                 @else
                     <div class="row right-size">
-                        <div class="row"><p class="uncolored-text-full">Adresa firme: {{$companyInfo->company_address}}</p></div>               
+                        <div class="row"><p class="uncolored-text-full">Adresa firme: {{$companyInfo['company_address']}}</p></div>               
                     </div>
                     <div class="row right-size">
-                        <div class="row"><p class="uncolored-text-full">ID: {{$companyInfo->company_id}}</p></div> 
+                        <div class="row"><p class="uncolored-text-full">ID: {{$companyInfo['company_id']}}</p></div> 
                     </div>
                     <div class="row right-size">
                         <div class="row"><p class="uncolored-text-full">PDV: 4200736080005</p></div>        
