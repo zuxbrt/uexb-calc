@@ -16,8 +16,6 @@ class MainController extends Controller
     {
         $courses = Course::all();
         $coupons = Coupon::all();
-        //$courses = [];
-        //$coupons = [];
         return view('index', compact('courses', 'coupons'));
     }
 
@@ -133,6 +131,15 @@ class MainController extends Controller
         $attributes['fee'] = $priceWithDiscount;
         $attributes['discount'] = $discount;
 
+        // form bill number
+        $date = new \DateTime();
+        $date = date_format($date, 'd/m/Y');
+        $day = substr($date, 0, 2);
+        $month = substr($date, 3, 2);
+        $year = substr($date, 8, 11);
+        $bill_number = 'UCI-'.$day.'/'.$month.'/'.$year;
+        $attributes['bill_number'] = $bill_number;
+
         // create customer and return its id
         $customerId = Customer::insertGetId($attributes);
 
@@ -148,7 +155,7 @@ class MainController extends Controller
 
         //Customer::create($attributes)->save();
 
-        return redirect('/pdf', compact('customerId'));
+        return redirect('/pdf');
 
     }
 

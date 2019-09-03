@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use App;
 use App\Customer;
 use App\Course;
 use App\CustomersCourses;
+use App\CustomerCompanyInfo;
 
 class PDFController extends Controller
 {
@@ -15,30 +17,62 @@ class PDFController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($customerId = 1)
+    public function index()
     {
+        
         // customer info
-        $customerData = Customer::where('id', $customerId)->first();
+        $customerData = Customer::all()->last();
 
-        //dd($customerData);
+        // set discount value
+        $customerData['discount'] = intval($customerData['discount']);
+        $customerData['fee'] = intval($customerData['fee']);
+
+        // if customer status is not default, get customer company details
+        if($customerData['status'] === 'pravno'){
+            $companyInfo = CustomerCompanyInfo::where('customer_id', $customerData['id'])->get()->toArray();
+        }  else {
+            $companyInfo = [];
+        }
 
         // extracting courses data
-        $coursesData = CustomersCourses::where('customer_id', $customerId)->get()->toArray();
+        $coursesData = CustomersCourses::where('customer_id', $customerData['id'])->get()->toArray();
         $courseIds = [];
         foreach($coursesData as $key => $value){
             array_push($courseIds, $value['course_id']);
         }
+        
+        $coursesInfo = [];
+        $priceWithoutDiscount = 0;
 
-        $courses = [];
-        foreach($courseIds as $singleCoursePosition => $singleCourseId){
-            $courseData = Course::where('id', $singleCourseId)->get();
-            $course = $courseData->pluck('name');
-            array_push($courses, $course[0]);
+        foreach($coursesData as $item => $val){
+            $courseData = Course::where('id', $val['course_id'])->get();
+            $course_name = $courseData->pluck('name')[0];
+            $course_price = $courseData->pluck('price')[0];
+            $course_participants = intval($val['course_participants']);
+
+            $priceWithoutDiscount += intval($course_price);
+
+            $aCourse = [
+                'course_name' => $course_name,
+                'course_price' => $course_price,
+                'course_participants' => $course_participants
+            ]; 
+
+            array_push($coursesInfo, $aCourse);
         }
+        
+        return view('pdf', compact(
+            'customerData', 'companyInfo', 'coursesInfo', 'priceWithoutDiscount'
+            )
+        );
+    }
 
-        // $pdf = PDF::loadView('pdf', $content);  
-        // return $pdf->download('medium.pdf');
-        return view('pdf', compact('customerData', 'courses'));
+    public function save(Request $request){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML('
+            teletina
+        ');
+        return $pdf->stream();
     }
 
     /**

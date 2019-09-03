@@ -18,7 +18,9 @@ class CreateCustomersCoursesTable extends Migration
             $table->string('customer_id');
             $table->string('course_id');
             $table->decimal('course_participants', 8);
-            $table->timestamps();
+            
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 
