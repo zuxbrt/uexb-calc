@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Customer;
-use App\CustomerCompanyInfo;
+use App\CustomersCompanyInfo;
 use App\CustomersCourses;
 use App\Coupon;
 
@@ -42,19 +42,8 @@ class MainController extends Controller
         if(request('person') === 'f'){
             $attributes['status'] = 'fizicko';
         } else {
-            $companyAttributes =request()->validate(
-                [   
-                    'company_id' => 'required|numberic',
-                    'company_address' => 'required',
-                    'assignee' => 'required'
-                ]
-            );
-
             $attributes['status'] = 'pravno';
-
-            $customerCompanyInfo = CustomerCompanyInfo::create($companyAttributes);
         }
-
 
         // validate coupon code if exists
         if(request('code') !== null){
@@ -140,8 +129,22 @@ class MainController extends Controller
         $bill_number = 'UCI-'.$day.'/'.$month.'/'.$year;
         $attributes['bill_number'] = $bill_number;
 
-        // create customer and return its id
+        // create customer, company info and return its id
         $customerId = Customer::insertGetId($attributes);
+
+        if($attributes['status'] === 'pravno'){
+            $companyAttributes =request()->validate(
+                [   
+                    'company_id' => 'required|numeric',
+                    'company_address' => 'required',
+                    'assignee' => 'required'
+                ]
+            );
+
+            $companyAttributes['customer_id'] = $customerId;
+
+            $customerCompanyInfo = CustomersCompanyInfo::create($companyAttributes);
+        }
 
         // store customer selected courses
         foreach($selectedCourses as $singleCourseId => $singleCourseParticipants){

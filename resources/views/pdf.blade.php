@@ -1,9 +1,16 @@
 <html id="allContent">
-
-<title>Predracun</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="csrf-token" content="{{ Session::token() }}"> 
 </head>
+<title>Predracun</title>
+
 
 <style>
+        body {
+            font-family: DejaVu Sans;
+        }
+
         #contentDashboard{
             background-color: green;
         }
@@ -21,7 +28,7 @@
         }
 
         .around {
-            justify-content: space-between;
+            justify-content: space-around;
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 5px;
@@ -30,7 +37,7 @@
 
         .bold{
             font-weight: 700;
-            font-size: 19px;
+            font-size: 14px;
         }
 
         .lightBold{
@@ -99,8 +106,8 @@
             margin: 0;
             padding: 0;
             line-height: 1;
-            width: 120px;
-            font-size: 18px;
+            width: 200px;
+            font-size: 14px;
         }
 
         .uncolored-text-full{
@@ -110,7 +117,7 @@
             /* min-width: 100%; */
             border-bottom: 1px solid black;
             width: 150px;
-            text-align: left;
+            /* text-align: left; */
             font-size: 18px;
         }
 
@@ -122,7 +129,7 @@
         }
 
         .uncolored-text{
-            text-align: left;
+            /* text-align: left; */
             border-bottom: 1px solid black;
         }
 
@@ -162,7 +169,7 @@
 
         .tb, .ti, .ti-d{
             text-align: right;
-            font-size: 16px;
+            font-size: 12px;
             padding: 5px;
         }
 
@@ -225,25 +232,76 @@
             font-size: 18px;
         }
 
+        .right, .right-wide{
+            margin-left: auto;
+            margin-right: 0;
+            text-align: right;
+            padding-left: 10px;
+            padding-right: 10px;
+            /* margin-top: 5px; */
+        }
+
+        .right{
+            width: 100px;
+        }
+
+        .right-wide{
+            width: 250px;
+        }
+
+        .left, .left-wide, .left-wide-xl{
+            margin-left: 0;
+            margin-right: auto;
+            text-align: left;
+            padding-left: 10px;
+            padding-right: 10px;
+            /* margin-top: 5px; */
+        }
+
+        .left{
+            width: 150px;
+        }
+
+        .left-wide{
+            width: 250px;
+        }
+        .left-wide-xl{
+            width: 450px;
+        }
+
+        .bold-text{
+            font-weight: 700;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
 </style>    
 <body onload="getHtmlContent()">
-    <div class="row"><img src="../images/logo.png" style="height: 60px; width:350px; margin-left: 10px; margin-top: 30px;"></div>
-    <div class="column">
-        <div class="row around">
-            <div class="row bold">OD SMARTLAB</div>
-            <div class="row lightbold">www.smartlab.ba</div>
+    <div class="row"><img src="../public/images/logo.png" style="height: 60px; width:350px; margin-left: 10px; margin-top: 30px;"></div>
+    <div class="row">
+        <div class="left bold-text">
+            OD SMARTLAB
+        </div>
+        <div class="right">
+            www.smartlab.ba
         </div>
     </div>
-    <div class="column">
-        <div class="row around">
-            <div class="row lightbold">Behdžeta Mutevelića 13 | 71000 Sarajevo</div>
-            <div class="row lightbold">info@smartlab.ba</div>
+    <div class="row">
+        <div class="left-wide-xl">
+            Behdžeta Mutevelića 13 | 71000 Sarajevo
+        </div>
+        <div class="right">
+            info@smartlab.ba
         </div>
     </div>
-    <div class="column">
-        <div class="row around">
-            <div class="row lightbold">ID: 4302792040005 | PDV: 302792040005 </div>
-            <div class="row lightbold">tel: +387 33 956 222</div>
+    <div class="row">
+        <div class="left-wide-xl">
+            BID: 4302792040005 | PDV: 302792040005
+        </div>
+        <div class="right-wide">
+            tel: +387 33 956 222
         </div>
     </div>
 
@@ -251,57 +309,60 @@
 
     <div id="info-main">
 
-        <div class="row">
-            <div class="row separated">
-                <div class="line-separator"></div>
-                <p class="info-item">Predračun<p>
-                <div class="line-separator"></div>
+            <div class="row">
+                <div style="border-bottom: 2px solid black; width: 150px; margin-left: 20px; text-align: center;">
+                    <p class="info-item">Predračun</div><p>
+                </div>
+
+                    <div class="column">
+                        <p class="colored-text" style="width: 200px;">Broj računa:</p>         
+                        <p class="uncolored-text" style="margin-left: 205px;">{{$customerData->bill_number}}</p>
+                    </div>
+                    
+                    <div class="column">
+                        <p class="colored-text" style="width: 200px;">BF:</p>                             
+                        <p class="uncolored-text" style="margin-left: 205px;">/</p>
+                    </div>
+
+                    <div class="column">
+                        <p class="colored-text" style="width: 200px;">Datum Izdavanja:</p>                             
+                        <p class="uncolored-text" style="margin-left: 205px;">{{$customerData->date_created}}</p>
+                    </div>
+
+                    <div class="column">
+                        <p class="colored-text" style="width: 200px;">Rok za plaćanje</p>                             
+                        <p class="uncolored-text" style="margin-left: 205px;">5 dana</p>
+                    </div>
+
+                    <div class="column">
+                        <p class="colored-text" style="width: 200px;">Mjesto izdavanja</p>                             
+                        <p class="uncolored-text" style="margin-left: 205px;">{{$customerData->city}}</p>
+                    </div>
+                </div>
             </div>
-            <div class="row separated">
-                <div class="line-separator"></div>
-                <p class="info-item">Kupac</p>
-                <div class="line-separator"></div>
+                
+
+            <div style="border-bottom: 2px solid black; width: 150px; margin-left: 20px; text-align: center; margin-top: 130px;">
+                <p class="info-item">Kupac</div><p>
             </div>
-        </div>
+
 
         <div id="topContent">
-
-            <div class="padded-left">
-                <div class="row left-size">
-                    <div class="row"><p class="colored-text">Broj računa</p></div>
-                    <div class="row"><p class="uncolored-text">{{$customerData->bill_number}}</p></div> 
-                </div>
-                <div class="row left-size">
-                    <div class="row"><p class="colored-text">BF</p></div> 
-                    <div class="row"><p class="uncolored-text">-</p></div>               
-                </div>
-                <div class="row left-size">
-                    <div class="row"><p class="colored-text">Datum Izdavanja</p></div>         
-                    <div class="row"><p class="uncolored-text"></p></div> 
-                </div>
-                <div class="row left-size">
-                    <div class="row"><p class="colored-text">Rok za plaćanje</p></div>
-                    <div class="row"><p class="uncolored-text">5 dana</p></div>        
-                </div>
-                <div class="row left-size">
-                    <div class="row"><p class="colored-text">Mjesto izdavanja</p></div>            
-                    <div class="row"><p class="uncolored-text">{{$customerData->city}}</p></div>        
-                </div>
-            </div>
             
             <div class="padded-right">
                 @if($customerData->status == 'fizicko')
+                <div class="column">
+                    <p class="uncolored-text-full" style="width: 200px; margin-left: 28px;">{{$customerData->name}} {{$customerData->surname}}</p>                             
+                </div>
                     <div class="row right-size">
-                        <div class="row"><p class="uncolored-text-full">
-                            {{$customerData->name}} {{$customerData->surname}}
-                        </p></div> 
+                        <div class="row"></div> 
                     </div>
                 @else
                     <div class="row right-size">
-                        <div class="row"><p class="uncolored-text-full">Adresa firme: {{$companyData->company_adress}}</p></div>               
+                        <div class="row"><p class="uncolored-text-full">Adresa firme: {{$companyInfo->company_address}}</p></div>               
                     </div>
                     <div class="row right-size">
-                        <div class="row"><p class="uncolored-text-full">ID: {{$companyData->company_id}}</p></div> 
+                        <div class="row"><p class="uncolored-text-full">ID: {{$companyInfo->company_id}}</p></div> 
                     </div>
                     <div class="row right-size">
                         <div class="row"><p class="uncolored-text-full">PDV: 4200736080005</p></div>        
@@ -312,6 +373,7 @@
 
         </div>
 
+        <div class="page-break"></div>
         <hr class="fat-line">
 
         <div id="price-sum">
@@ -336,9 +398,9 @@
                     
                 @endforeach
                 <tr>
-                    <td class="empty"></td>
-                    <td class="empty"></td>
-                    <td class="empty"></td>
+                    <td class="empty" style="border-top: 1px solid black;">&nbsp;</td>
+                    <td class="empty" style="border-top: 1px solid black;">&nbsp;</td>
+                    <td class="empty" style="border-top: 1px solid black;">&nbsp;</td>
                     <td class="ti">Osnovica za PDV (KM)</td>
                     <td class="ti-d bold">{{$priceWithoutDiscount}}</td>
                 </tr>
@@ -382,17 +444,32 @@
         </div>
 
         <div id="payment-info">
-            Plaćanje
+
+            <div class="left">
+                Plaćanje
+            </div>
+            
             <hr class="thin">
-            <div class="column big-text">Sberbank BH d.d.</div>
-            <div class="column big-text">Žiro račun u BiH: 1401041120004178</div>
-            <div class="column big-text">Devizni IBAN: BA39-1401041200470237</div>
-            <div class="column big-text">SWIFT: SABRBA22</div>
+
+            <div class="left">
+                Sberbank BH d.d.
+            </div>
+            <div class="left" style="width: 200px;">
+                Žiro račun u BiH: 1401041120004178
+            </div>
+            <div class="left" style="width: 200px;">
+                Devizni IBAN: BA39-1401041200470237
+            </div>
+            <div class="left" style="width: 200px;">
+                SWIFT: SABRBA22
+            </div>
         </div>
+
+        <div style="margin-top: 110px;"></div>
 
         <div id="director-info">
             Direktor
-
+            <div class="column" style="padding-top: 50px;"></div>
             <hr class="thin-signature">
             <div class="column">Rizah Kabaši</div>
         </div>
@@ -403,27 +480,22 @@
 
     </div>
 
-    <form action="/pdf/save" enctype="multipart/form-data" method="post">
+    <form action="/pdf/save" enctype="multipart/form-data" method="post" name="submitData" style="margin: 0 !important;">
         @csrf
         @method('POST')
 
-        <button type="submit" class="btn">save pdf</button>
-        <input type="hidden" value="" name="htmlcontent" id="htmlContentValue">
+        <button type="submit" class="btn" style="visibility: hidden;"></button>
+        <input type="hidden" value="" name="htmlcontent" id="htmlContentValue" target="_blank">
     </form>
   
 </body>
 
 <script>
 
-    windo
     function getHtmlContent(){
         var x = document.getElementById('allContent').innerHTML;
         document.getElementById('htmlContentValue').value = x;
-        // x = window.indexOf(">", x);    
-        // var y = window.lastIndexOf("</html>"); 
-        // let data = window.slice(x + 1, y);
-
-        // console.log(data);
+        document.forms["submitData"].submit();
     }
 </script>
 
