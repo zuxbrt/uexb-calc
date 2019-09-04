@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use App\PDFWrappers\HtmlWrapper;
 use App;
 use App\Customer;
 use App\Course;
@@ -18,8 +19,10 @@ class PDFController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {   
+        // create html wrapper for pdf
+        $wrapper = new HtmlWrapper();
+
         // customer info
         $customerData = Customer::all()->last();
 
@@ -69,19 +72,18 @@ class PDFController extends Controller
 
             array_push($coursesInfo, $aCourse);
         }
+
+        $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
+
         
-        return view('pdf', compact(
-            'customerData', 'companyInfo', 'coursesInfo', 'priceWithoutDiscount'
-            )
-        );
+        // return view('pdf', compact(
+        //     'customerData', 'companyInfo', 'coursesInfo', 'priceWithoutDiscount'
+        //     )
+        // );
     }
 
     public function save(Request $request){
-        dd(request('htmlcontent'));
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML(request('htmlcontent'));
-        //$pdf->download('predracun.pdf');
-        return $pdf->download('predracun.pdf');
+        
     }
 
     /**
