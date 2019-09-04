@@ -24,6 +24,13 @@ class MainController extends Controller
     */
     public function store()
     {
+        $captchaValidate = request()->validate(
+            [
+                'g-recaptcha-response' => 'required|captcha'
+            ]
+        );
+
+        dd('prosla');
         // extracting all attributes
         $allAttributes = request()->all();
 

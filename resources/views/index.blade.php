@@ -127,7 +127,7 @@
 
             <div class="content">
                 
-                <form action="/" enctype="multipart/form-data" method="post">
+                <form action="/" enctype="multipart/form-data" method="post" id="calculateForm">
                     @csrf
                     @method('POST')
 
@@ -373,13 +373,18 @@
                                 </div>
         
                                 
+                                @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                @endif
                             
                     
                                 <div class="row justify-content-end">
+                                        {!! NoCaptcha::renderJs() !!}
+                                        {!! NoCaptcha::display() !!}
                                     <button type="submit" class="btn send-request">Pošalji zahtjev</button>
-                                </div>
-        
-                            
+                                </div>            
 
                     </div>
 
