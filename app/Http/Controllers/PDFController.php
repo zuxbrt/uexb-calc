@@ -10,6 +10,8 @@ use App\Customer;
 use App\Course;
 use App\CustomersCourses;
 use App\CustomersCompanyInfo;
+use Illuminate\Support\Facades\Storage;
+
 
 class PDFController extends Controller
 {
@@ -73,13 +75,13 @@ class PDFController extends Controller
             array_push($coursesInfo, $aCourse);
         }
 
-        $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
+        // generate pdf
+        // $timestamp = $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
 
-        
-        // return view('pdf', compact(
-        //     'customerData', 'companyInfo', 'coursesInfo', 'priceWithoutDiscount'
-        //     )
-        // );
+        // get generated pdf
+        //$generatedPDF = Storage::get('public/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
+
+        return view('pdf');
     }
 
     public function save(Request $request){

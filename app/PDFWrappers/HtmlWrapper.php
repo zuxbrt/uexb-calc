@@ -15,31 +15,32 @@ class HtmlWrapper
      */
     public function generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount)
     {
+        $customerInfoContent = '';
         if($customerData->status === 'fizicko'){
             $customerInfoContent = '
-            <div class="column" style="display: flex;flex-direction: column;flex-wrap: none;">
-            <p class="uncolored-text-full" style="margin: 0;padding: 0;line-height: 1;border-bottom: 1px solid black;font-size: 18px;width: 200px; margin-left: 28px;">'.$customerData->name.' '.$customerData->surname.'</p>                             
+            <div class="column" style="display:flex;flex-direction:column;flex-wrap:nowrap;">
+            <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">'.$customerData->name.' '.$customerData->surname.'</p>                             
             </div>
-            <div class="row right-size" style="display: flex;flex-direction: row;flex-wrap: nowrap; width: 300px;margin-left: auto;margin-right: auto;">
-            <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap; width: 300px;margin-left: auto;margin-right: auto;"></div> 
+            <div class="row right-size" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:300px;margin-left:auto;margin-right: auto;">
+            <div class="row" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:300px;margin-left:auto;margin-right:auto;"></div> 
             </div>';
         } else {
             $customerInfoContent = '
-            <div class="row right-size" style="width: 300px;margin-left: auto;margin-right: auto;">
-                    <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;display: flex;flex-direction: row;flex-wrap: nowrap;">
-                        <p class="uncolored-text-full" style="margin: 0;padding: 0;line-height: 1;border-bottom: 1px solid black;font-size: 18px;width: 200px; margin-left: 28px;">Adresa firme: '.$companyInfo["company_address"].'</p>
-                    </div>               
-                </div>
-                <div class="row right-size"  style="display: flex;flex-direction: row;flex-wrap: nowrap;display: flex;flex-direction: row;flex-wrap: nowrap;">
-                    <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;">
-                        <p class="uncolored-text-full" style="margin: 0;padding: 0;line-height: 1;border-bottom: 1px solid black;font-size: 18px;width: 200px; margin-left: 28px;">ID: '.$companyInfo["company_id"].'</p>
-                    </div> 
-                </div>
-                <div class="row right-size"  style="display: flex;flex-direction: row;flex-wrap: nowrap;display: flex;flex-direction: row;flex-wrap: nowrap;">
-                    <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;">
-                        <p class="uncolored-text-full" style="margin: 0;padding: 0;line-height: 1;border-bottom: 1px solid black;font-size: 18px;width: 200px; margin-left: 28px;">PDV: 4200736080005</p>
-                    </div>        
-                </div>
+            <div class="row right-size" style="width:300px;margin-left:auto;margin-right:auto;">
+                <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;display: flex;flex-direction: row;flex-wrap: nowrap;">
+                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">Adresa firme: '.$companyInfo["company_address"].'</p>
+                </div>               
+            </div>
+            <div class="row right-size"  style="display: flex;flex-direction:row;flex-wrap:nowrap;display:flex;flex-direction:row;flex-wrap:nowrap;">
+                <div class="row" style="display:flex;flex-direction:row;flex-wrap:nowrap;">
+                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">ID: '.$companyInfo["company_id"].'</p>
+                </div> 
+            </div>
+            <div class="row right-size"  style="display:flex;flex-direction:row;flex-wrap:nowrap;display:flex;flex-direction:row;flex-wrap:nowrap;">
+                <div class="row" style="display:flex;flex-direction:row;flex-wrap:nowrap;">
+                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">PDV: 4200736080005</p>
+                </div>        
+            </div>
             ';
         }
         
@@ -181,7 +182,7 @@ class HtmlWrapper
                             <td class="empty" style="border: none;"></td>
                             <td class="empty" style="border: none;"></td>
                             <td class="ti" style="border-bottom: 1px solid black;text-align: right;font-size: 12px;padding: 5px;">Popust</td>
-                            <td class="ti-d bold" style="text-align: right;font-size: 12px;padding: 5px;border: 1px solid black;font-weight:700;">'.$customerData->discount.'</td>
+                            <td class="ti-d bold" style="text-align: right;font-size: 12px;padding: 5px;border: 1px solid black;font-weight:700;">'.$customerData->discount.'%</td>
                         </tr>
                         <tr>
                             <td class="empty" style="border: none;"></td>
@@ -248,8 +249,12 @@ class HtmlWrapper
     </body>
         ');
 
+    $currentTimeStamp = time();
+
     $output = $pdf->output();
-    Storage::put('public/predracun'.$customerData['id'].'.pdf',$output) ;
+    Storage::put('public/predracun-'.$customerData['id'].'-'.$currentTimeStamp.'.pdf',$output) ;
+
+    return $currentTimeStamp;
     }
 }
 
