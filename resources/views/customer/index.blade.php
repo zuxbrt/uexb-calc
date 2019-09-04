@@ -79,7 +79,7 @@
                 <div class="column col-lg customer-info-column">Ime kupca</div>
                 <div class="column col-lg customer-info-column">Prezime kupca</div>
                 <div class="column col-lg customer-info-column">e-mail</div>
-                <div class="column col-lg customer-info-column">Cijena Kurseva</div>
+                <div class="column col-lg customer-info-column">Cijena Kurseva (bez PDV-a)</div>
             </div>
             @foreach($customers as $customer)
             <a href="/customers/{{$customer->id}}">

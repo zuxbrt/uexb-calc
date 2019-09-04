@@ -11,10 +11,18 @@ use App\Course;
 use App\CustomersCourses;
 use App\CustomersCompanyInfo;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\DataExtractor;
+
 
 
 class PDFController extends Controller
 {
+    public $dataExtractor;
+
+    function __construct(){
+        $this->dataExtractor = new DataExtractor();
+    }
+
     /**
     //  * Display a listing of the resource.
      *
@@ -48,7 +56,7 @@ class PDFController extends Controller
             $companyInfo = [];
         }
 
-        // extracting courses data
+        // extracting courses data ---- todo replace with dataextractor
         $coursesData = CustomersCourses::where('customer_id', $customerData['id'])->get()->toArray();
         $courseIds = [];
         foreach($coursesData as $key => $value){

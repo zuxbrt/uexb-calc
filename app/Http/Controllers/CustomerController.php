@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\CustomersCourses;
+use App\CustomersCompanyInfo;
+use App\Helpers\DataExtractor;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public $dataExtractor;
+
+    function __construct(){
+        $this->dataExtractor = new DataExtractor();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +56,14 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customer.view', compact('customer'));
+        // get courses data
+        $coursesIds = CustomersCourses::where('customer_id', $customer['id'])->get();
+        $courses = $this->dataExtractor->getCoursesData($coursesIds);
+
+        // get company details
+        $companyInfo = CustomersCompanyInfo::where('customer_id', $customer['id'])->get();
+
+        return view('customer.view', compact('customer', 'companyInfo', 'courses'));
     }
 
     /**

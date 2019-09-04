@@ -4,6 +4,7 @@ namespace App\PDFWrappers;
 
 use PDF;
 use App;
+use App\Customer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
@@ -18,24 +19,33 @@ class HtmlWrapper
 
         $check = $this->checkIfExists($customerData['id'], $currentDateTime);
 
+        return $this->createPDFFromHtml(
+            $customerData,
+            $companyInfo,
+            $coursesInfo,
+            $priceWithoutDiscount,
+            $currentDateTime, 
+            $customerData['id']
+        );
+
         // if pdf exists
-        if($check === true){
-            return false;
-        } else {
-            return $this->createPDFFromHtml(
-                $customerData,
-                $companyInfo,
-                $coursesInfo,
-                $priceWithoutDiscount,
-                $currentDateTime, 
-                $customerData['id']
-            );
-        }
+        // if($check === true){
+        //     return false;
+        // } else {
+        //     return $this->createPDFFromHtml(
+        //         $customerData,
+        //         $companyInfo,
+        //         $coursesInfo,
+        //         $priceWithoutDiscount,
+        //         $currentDateTime, 
+        //         $customerData['id']
+        //     );
+        // }
 
     }
 
     /**
-    //  * Check if pdf already exists.
+    //  * Check if pdf already exists. *DISABLED*
      */
     public function checkIfExists($customerId, $currentDateTime)
     {
@@ -294,6 +304,11 @@ class HtmlWrapper
     <script></script>
     </body>
         ');
+
+        // update taxed price of courses
+        $customer = Customer::find($customerDataId);
+        $customer->taxed_fee = $totalPriceOfCourses;
+        $customer->save();
 
         $output = $pdf->output();
         Storage::put('public/pdfs/predracun-'.$customerDataId.'-'.$currentDateTime.'.pdf',$output);

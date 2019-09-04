@@ -233,7 +233,7 @@
 
                                     <div class="col">
                                         <div class="row input-box">
-                                            <label for="name" class="label-text">Ime</label>
+                                            <label for="name" class="label-text">*Ime</label>
                                             <input id="name" type="text" class="form-control form-control-lg text-input @error('name') is-invalid @enderror" 
                                             name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                 
@@ -247,7 +247,7 @@
                 
                                     <div class="col">
                                         <div class="row input-box">
-                                            <label for="prezime" class="label-text">Prezime</label>
+                                            <label for="prezime" class="label-text">*Prezime</label>
                                             <input id="prezime" type="text" class="form-control form-control-lg text-input @error('surname') is-invalid @enderror" 
                                             name="surname" value="{{ old('surname') }}"  autocomplete="surname" autofocus>
                 
@@ -261,7 +261,7 @@
 
                                     <div class="col">
                                         <div class="row input-box">
-                                            <label for="email" class="label-text">Email</label>
+                                            <label for="email" class="label-text">*Email</label>
                                             <input id="email" type="email" class="form-control form-control-lg text-input @error('email') is-invalid @enderror" 
                                             name="email" value="{{ old('email') }}"  autocomplete="email">
                                 
@@ -281,11 +281,11 @@
                 
                                     <div class="col">
                                         <div class="row input-box">
-                                            <label for="telefon" class="label-text">Telefon</label>
-                                            <input id="telefon" type="text" class="form-control form-control-lg text-input @error('telefon') is-invalid @enderror" 
+                                            <label for="telefon" class="label-text">*Telefon</label>
+                                            <input id="telefon" type="text" class="form-control form-control-lg text-input @error('phone') is-invalid @enderror" 
                                             name="phone" value="{{ old('telefon') }}"  autocomplete="phone" autofocus>
                     
-                                            @error('telefon')
+                                            @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -295,7 +295,7 @@
 
                                     <div class="col">
                                         <div class="row input-box">
-                                            <label for="city" class="label-text">Grad</label>
+                                            <label for="city" class="label-text">*Grad</label>
                                             <input id="city" type="text" class="form-control form-control-lg text-input @error('city') is-invalid @enderror" 
                                             name="city" value="{{ old('city') }}"  autocomplete="city" autofocus>
                         
@@ -323,7 +323,7 @@
 
                                     <div class="col" id="companyId">
                                     <div class="row company-info">
-                                        <label for="idFirme" class="label-text">ID Firme</label>
+                                        <label for="idFirme" class="label-text">*ID Firme</label>
                                         <input id="idFirme" type="text" class="form-control form-control-lg text-input @error('idFirme') is-invalid @enderror" 
                                         name="company_id" value="{{ old('idFirme') }}"  autocomplete="company_id" autofocus>
                     
@@ -337,7 +337,7 @@
 
                                 <div class="col" id="companyAdress">
                                     <div class="column company-info">
-                                        <label for="adresaFirme" class="label-text">Adresa Firme</label>
+                                        <label for="adresaFirme" class="label-text">*Adresa Firme</label>
                                         <input id="adresaFirme" type="text" class="form-control form-control-lg text-input @error('adresaFirme') is-invalid @enderror" 
                                         name="company_address" value="{{ old('adresaFirme') }}"  autocomplete="company_adress" autofocus>
                         
@@ -351,7 +351,7 @@
 
                                 <div class="col" id="companyAssignee">
                                     <div class="row company-info">
-                                        <label for="odgovornoLice" class="label-text">Odgovorno Lice</label>
+                                        <label for="odgovornoLice" class="label-text">*Odgovorno Lice</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
                                         name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="assignee" autofocus>
                             
