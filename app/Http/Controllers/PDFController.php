@@ -76,12 +76,16 @@ class PDFController extends Controller
         }
 
         // generate pdf
-        // $timestamp = $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
+        $timestamp = $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
 
-        // get generated pdf
-        //$generatedPDF = Storage::get('public/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
-
-        return view('pdf');
+        // if file exist, abort generating pdf
+        if($timestamp === false){
+            abort(403);
+        } else {
+            // get generated pdf
+            //$generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
+            return view('pdf');
+        }
     }
 
     public function save(Request $request){

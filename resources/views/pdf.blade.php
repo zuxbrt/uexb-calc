@@ -32,6 +32,7 @@
         margin-left: auto;
         margin-right: auto;
         margin-top: 2em;
+        transition: transform .2s; /* Animation */
     }
 
     .decorated{
@@ -42,7 +43,7 @@
     }
 
     .button-back:hover{
-
+        transform: scale(1.05);
     }
 
 </style>
@@ -51,7 +52,7 @@
     <h1 class="centered">Predračun je generisan i poslat na vašu e-mail adresu.</h1>
     <div class="back">
         <div class="button-back">
-            <a class="decorated" href="https://uciexcel.ba">Nazad na Uciexcel.ba</a>
+            <a class="decorated" href="https://uciexcel.ba">Nazad na UciExcel.ba</a>
         </div>
     </div>
 </body>

@@ -5,16 +5,66 @@ namespace App\PDFWrappers;
 use PDF;
 use App;
 use Illuminate\Support\Facades\Storage;
-
-
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class HtmlWrapper
 {
     /**
-     * Generate PDF file from given data.
+    //  * Generate PDF file from given data.
      */
     public function generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount)
     {
+        $currentDateTime = date("Y-m-d_h:i");
+
+        $check = $this->checkIfExists($customerData['id'], $currentDateTime);
+
+        // if pdf exists
+        if($check === true){
+            return false;
+        } else {
+            return $this->createPDFFromHtml(
+                $customerData,
+                $companyInfo,
+                $coursesInfo,
+                $priceWithoutDiscount,
+                $currentDateTime, 
+                $customerData['id']
+            );
+        }
+
+    }
+
+    /**
+    //  * Check if pdf already exists.
+     */
+    public function checkIfExists($customerId, $currentDateTime)
+    {
+        $files = Storage::files('/public/pdfs');
+
+        if(empty($files)){
+            return false;
+        } else {
+            foreach($files as $singleFile){
+                // extract file name
+                $fileName = substr($singleFile, 12);
+                //dd($fileName, 'predracun-'.$customerId.'-'.$currentDateTime.'.pdf');
+                // if file exist, return true
+                if($fileName === 'predracun-'.$customerId.'-'.$currentDateTime.'.pdf'){
+                    return true;
+                } else {
+                    continue;
+                }
+            }
+            
+        }
+    }
+
+    /**
+    //  * Generate pdf with data and html
+     */
+    public function createPDFFromHtml($customerData,$companyInfo,$coursesInfo,$priceWithoutDiscount,$currentDateTime,$customerDataId){
+
+
         $customerInfoContent = '';
         if($customerData->status === 'fizicko'){
             $customerInfoContent = '
@@ -26,20 +76,16 @@ class HtmlWrapper
             </div>';
         } else {
             $customerInfoContent = '
-            <div class="row right-size" style="width:300px;margin-left:auto;margin-right:auto;">
-                <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;display: flex;flex-direction: row;flex-wrap: nowrap;">
-                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">Adresa firme: '.$companyInfo["company_address"].'</p>
-                </div>               
-            </div>
-            <div class="row right-size"  style="display: flex;flex-direction:row;flex-wrap:nowrap;display:flex;flex-direction:row;flex-wrap:nowrap;">
-                <div class="row" style="display:flex;flex-direction:row;flex-wrap:nowrap;">
-                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">ID: '.$companyInfo["company_id"].'</p>
-                </div> 
-            </div>
-            <div class="row right-size"  style="display:flex;flex-direction:row;flex-wrap:nowrap;display:flex;flex-direction:row;flex-wrap:nowrap;">
-                <div class="row" style="display:flex;flex-direction:row;flex-wrap:nowrap;">
-                    <p class="uncolored-text-full" style="margin:0;padding:0;line-height:1;border-bottom:1px solid black;font-size:18px;width:200px;margin-left:28px;">PDV: 4200736080005</p>
-                </div>        
+            <div style="padding-top: 40px;width: 100%;">
+                <div style="display:flex;flex-direction:column;flex-wrap:nowrap;">
+                <p class="uncolored-text" style="margin:0;padding:0;line-height:1;width:200px;font-size:14px;border-bottom: 1px solid black;margin-left:205px;">'.$companyInfo["company_address"].'</p>
+                </div>
+                <div style="display: flex;flex-direction:column;flex-wrap:nowrap;">
+                <p class="uncolored-text" style="margin:0;padding:0;line-height:1;width:200px;font-size:14px;border-bottom: 1px solid black;margin-left:205px;margin-top:10px;">'.$companyInfo["company_id"].'</p>
+                </div>   
+                <div style="display: flex;flex-direction:column;flex-wrap:nowrap;">
+                <p class="uncolored-text" style="margin:0;padding:0;line-height:1;width:200px;font-size:14px;border-bottom: 1px solid black;margin-left:205px;margin-top:10px;">PDV: 4200736080005</p>
+                </div>
             </div>
             ';
         }
@@ -98,7 +144,7 @@ class HtmlWrapper
     
         <hr class="fat-line" style="height: 4px;background: black;margin-top: 20px;margin-bottom: 20px;">
     
-        <div id="info-main" style="margin-top: 20px;width: 100%;">
+        <div id="info-main" style="margin-top: 40px;width: 100%;">
     
                 <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;">
                     <div style="border-bottom: 2px solid black; width: 150px; margin-left: 20px; text-align: center;">
@@ -140,7 +186,7 @@ class HtmlWrapper
                 
     
     
-            <div id="topContent" style="display: flex;flex-direction: row;flex-wrap: nowrap;">
+            <div id="topContent" style="display:flex;flex-direction:column;flex-wrap:nowrap;">
     
             '.$customerInfoContent.'
                 
@@ -249,12 +295,9 @@ class HtmlWrapper
     </body>
         ');
 
-    $currentTimeStamp = time();
-
-    $output = $pdf->output();
-    Storage::put('public/predracun-'.$customerData['id'].'-'.$currentTimeStamp.'.pdf',$output) ;
-
-    return $currentTimeStamp;
+        $output = $pdf->output();
+        Storage::put('public/pdfs/predracun-'.$customerDataId.'-'.$currentDateTime.'.pdf',$output);
+        return $currentDateTime;
     }
 }
 
