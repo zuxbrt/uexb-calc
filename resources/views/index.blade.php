@@ -642,15 +642,22 @@
 
             if(input.value.length > 24){
                 for (const key of Object.keys(coupons)) {
-                    //console.log(coupons[key]);
-                    if(coupons[key].code === input.value){
-                        document.getElementById('validCouponAlert').innerHTML  = coupons[key].name;
-                        document.getElementById('validCouponAlert').style.display = 'block';
-                        this.calculateDiscount(parseInt(coupons[key].discount));
+
+                    if(totalPrice > 0){
+                        if(coupons[key].code === input.value){
+                            document.getElementById('validCouponAlert').innerHTML  = coupons[key].name;
+                            document.getElementById('validCouponAlert').style.display = 'block';
+                            this.calculateDiscount(parseInt(coupons[key].discount));
+                        } else {
+                            document.getElementById('invalidCouponAlert').style.display = 'block;'
+                        }
                     } else {
-                        document.getElementById('invalidCouponAlert').style.display = 'block;'
+                        return;
                     }
+
                 }
+            } else {
+                return;
             }
 
         }

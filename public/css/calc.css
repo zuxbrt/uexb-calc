@@ -525,9 +525,10 @@ input:checked[type="checkbox"]:after {
     text-align: center;
     background-color: #73ae56;
     height: 50px;
-    padding-top: 10px;
+    padding-top: 8px;
     width: 150px;
     margin: 25px;
+    margin-top: 13px;
     margin-bottom: 80px;
     color: white;
     font-weight: 600;
