@@ -43,7 +43,7 @@ class MailToSend extends Mailable
         ];
 
         // check which type of contact we have and return appropriate data
-        if ($info->email == env('ADMIN_EMAIL') && !is_null($info->attached_file)) {
+        if ($info->email === env('ADMIN_EMAIL') && !is_null($info->attached_file)) {
             // set attachment path
             $attachment = $info->attached_file;
 
@@ -52,8 +52,6 @@ class MailToSend extends Mailable
                 ->view("parts.admin_template", ["data" => $d ])
                 ->attachFromStorage($attachment)
                 ->subject('UciExcelBa Calculator (admin)');
-
-            return view('/pdf');
 
         } else if (is_null($info->attached_file)) {
             // return data to queue

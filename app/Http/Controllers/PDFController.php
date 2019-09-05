@@ -105,8 +105,6 @@ class PDFController extends Controller
             abort(403);
         } else {
             $this->sendMails($timestamp, $customerData);
-            // get generated pdf
-            //$generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
             return view('pdf');
         }
     }
@@ -123,15 +121,13 @@ class PDFController extends Controller
         // create contact and push mail to queue
         $mailTemplate = new MailTemplate();
 
+        // create templates
         $customerTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, false);
         $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, env('ADMIN_EMAIL'));
 
+        // add mails to queue
         Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
         Mail::to([$customerData['email']])->queue(new MailToSend($customerTemplate));
-
-        dd('stani der');
-        // return message
-        // return redirect('/#contact')->with('message', 'Contact message successfully sent.');
     }
 
 }

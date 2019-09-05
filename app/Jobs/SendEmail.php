@@ -32,7 +32,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        $mailer = new MailerService(new LogService());
-        $mailer->sendEmail('New contact message from website', env('ADMIN_EMAIL'), ""); 
+        //$mailer = new MailerService(new LogService());
+        //$mailer->sendEmail('New contact message from website', env('ADMIN_EMAIL'), ""); 
     }
 }
