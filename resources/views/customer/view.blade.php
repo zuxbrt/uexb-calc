@@ -4,6 +4,7 @@
 
     #content{
         background-color: white;
+        height: 100%;
     }
 
     #sections{
@@ -31,6 +32,34 @@
 
     .padded-adjusted{
         margin-left: -10px;
+    }
+
+    #pdfContainer{
+        margin-top: 1.5rem !important;
+        width: 85%;
+        margin-left: 9%;
+        margin-right: 8%;
+        position: relative;
+    }
+    
+    #pdfPreview{
+        position: relative;
+        min-width: 300px;
+        max-width: 1000px;
+        height: 600px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .centered{
+        width: 100%;
+        position: relative;
+    }
+
+    .centered-button{
+        margin-left: auto;
+        margin-right: auto;
     }
 
 </style>
@@ -108,6 +137,12 @@
                     </div>
                 @endif
 
+            <div class="row col-lg centered mt-4" style="justify-content: center;">
+                <a href="/view-pdf/{{$customer->id}}" target="_blank">
+                    <button type="submit" class="btn btn-primary centered-button">
+                    Pogledaj predracun (PDF)</button>
+                </a>
+            </div>
 
 
             <form action="/customers/{{$customer->id}}" enctype="multipart/form-data" method="POST" style="margin: 0; position: absolute; right: 0;">

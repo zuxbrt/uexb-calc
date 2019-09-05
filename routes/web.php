@@ -26,6 +26,7 @@ Route::resource('coupons', 'CouponController');
 Route::resource('/customers', 'CustomerController');
 
 Route::get('/pdf', 'PDFController@index');
+Route::get('/view-pdf/{customer}', 'CustomerController@viewPDF');
 Route::post('/pdf/save', 'PDFController@save');
 
 Route::get('/administration', 'AdminController@index');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use PDF;
-use App\PDFWrappers\HtmlWrapper;
+use App\PDF\HtmlWrapper;
 use App;
 use App\Customer;
 use App\Course;
@@ -115,15 +115,18 @@ class PDFController extends Controller
      */
     public function sendMails($timestamp, $customerData){
         // get generated pdf
-        $fileName = 'public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf';
-        $generatedPDF = Storage::get($fileName);
+        $fileLocation = 'public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf';
+        $generatedPDF = Storage::get($fileLocation);
+
+        // set customer's pdf
+        $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);;
 
         // create contact and push mail to queue
         $mailTemplate = new MailTemplate();
 
         // create templates
-        $customerTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, false);
-        $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, env('ADMIN_EMAIL'));
+        $customerTemplate = $mailTemplate->createMailTemplate($customerData, $fileLocation, false);
+        $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileLocation, env('ADMIN_EMAIL'));
 
         // add mails to queue
         Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));

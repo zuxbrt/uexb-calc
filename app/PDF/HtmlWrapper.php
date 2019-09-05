@@ -1,6 +1,6 @@
 <?php
 
-namespace App\PDFWrappers;
+namespace App\PDF;
 
 use PDF;
 use App;

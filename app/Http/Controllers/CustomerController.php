@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use App;
+
 use App\Customer;
 use App\CustomersCourses;
 use App\CustomersCompanyInfo;
 use App\Helpers\DataExtractor;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class CustomerController extends Controller
 {
@@ -72,6 +78,17 @@ class CustomerController extends Controller
     }
 
     /**
+    //  * Preview customer pdf.
+     */
+    public function viewPDF(Customer $customer)
+    {
+        // form pdf link
+        $customer->pdf = '/storage/'.substr($customer->pdf, 7);
+        // return view
+        return view('customer.pdf-view', compact('customer'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Customer  $customer
@@ -105,6 +122,7 @@ class CustomerController extends Controller
         if(!auth()->User()){
             abort(403);
         } else {
+            Storage::delete($customer->pdf);
             $customer->delete();
             return redirect('/customers/');
         }

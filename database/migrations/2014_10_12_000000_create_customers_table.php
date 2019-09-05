@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('notes');
             $table->decimal('fee');
             $table->decimal('taxed_fee');
+            $table->string('pdf');
             $table->string('coupon');
             $table->decimal('discount');
             $table->string('bill_number');
