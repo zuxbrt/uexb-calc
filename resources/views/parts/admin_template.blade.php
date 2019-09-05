@@ -1,6 +1,6 @@
 <div>
-    <p>To: {{$data['email']}}</p>
-    <p>Subject: {{$data['subject']}}</p>
-    <p>Message: {{$data['message']}}</p>
-    <p>Sent: {{$data['date']}}</p>
+    <p>To: </p>
+    <p>Subject: </p>
+    <p>Message: </p>
+    <p>Sent: </p>
 </div>

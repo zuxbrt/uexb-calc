@@ -30,6 +30,7 @@ class MailerService
             $mail->Port = env('MAIL_PORT');
             $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             $mail->addAddress($recipient, 'Receiver');     // Add a recipient
+
             //Content
             $mail->isHTML(true);
             $mail->Subject = $subject;
@@ -39,7 +40,7 @@ class MailerService
             // check if attachment will be set
             if ($attachment) {
                 // add attachment to the email pdf
-                $mail->addAttachment('   pdf file   ');
+                $mail->addAttachment($attachment);
             }
 
             // send email
@@ -48,7 +49,6 @@ class MailerService
 
         } catch (Exception $e) {
             // add log
-            // $this->logService->setLog('ERROR', 'MailchimpService - sendEmail: ' . $mail->ErrorInfo);
         }
 
     }

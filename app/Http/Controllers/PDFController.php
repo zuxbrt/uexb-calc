@@ -107,7 +107,7 @@ class PDFController extends Controller
             $this->sendMails($timestamp, $customerData);
             // get generated pdf
             //$generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
-            // return view('pdf');
+            return view('pdf');
         }
     }
 

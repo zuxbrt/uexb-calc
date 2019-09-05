@@ -42,7 +42,6 @@ class MailToSend extends Mailable
             'date' => $info->created_at,
         ];
 
-
         // check which type of contact we have and return appropriate data
         if ($info->email == env('ADMIN_EMAIL') && !is_null($info->attached_file)) {
             // set attachment path
@@ -50,15 +49,17 @@ class MailToSend extends Mailable
 
             // return data to queue
             return $this->from('noreply@smartlab.ba','No Reply')
-                ->view("parts.customer_template", ["data" => $d ])
+                ->view("parts.admin_template", ["data" => $d ])
                 ->attachFromStorage($attachment)
-                ->subject('New bussiness contact mail');
+                ->subject('UciExcelBa Calculator (admin)');
+
+            return view('/pdf');
 
         } else if (is_null($info->attached_file)) {
             // return data to queue
             return $this->from('noreply@smartlab.ba','No Reply')
-                ->view("parts.admin_template", ["data" => $d ])
-                ->subject('New bussiness contact mail');
+                ->view("parts.custmer_template", ["data" => $d ])
+                ->subject('UciExcelBa');
         }
 
     }
