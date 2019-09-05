@@ -114,6 +114,7 @@ class PDFController extends Controller
     //  * Send emails to customer and to admin
      */
     public function sendMails($timestamp, $customerData){
+
         // get generated pdf
         $fileLocation = 'public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf';
         $generatedPDF = Storage::get($fileLocation);

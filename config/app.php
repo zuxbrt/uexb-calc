@@ -177,7 +177,7 @@ return [
         App\Providers\CourseServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-        Goodnesskay\LaravelPdfViewer\LaravelPdfViewerServiceProvider::class,
+        //Goodnesskay\LaravelPdfViewer\LaravelPdfViewerServiceProvider::class,
 
     ],
 

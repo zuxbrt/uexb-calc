@@ -152,11 +152,11 @@ class HtmlWrapper
             </div>
         </div>
     
-        <hr class="fat-line" style="height: 4px;background: black;margin-top: 20px;margin-bottom: 20px;">
+        <hr class="fat-line" style="height: 4px;background: black;margin-bottom: 20px;">
     
-        <div id="info-main" style="margin-top: 40px;width: 100%;">
+        <div id="info-main" style="margin-top: 50px;width: 100%;">
     
-                <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap;">
+                <div class="row" style="display: flex;flex-direction: row;flex-wrap: nowrap; ">
                     <div style="border-bottom: 2px solid black; width: 150px; margin-left: 20px; text-align: center;">
                         <p class="info-item" style="margin: 0;padding: 0;line-height: 1;font-weight: bolder;font-size: 21px;margin-left: 20px;margin-right: 20px;">Predračun</p>
                     </div>
@@ -288,7 +288,7 @@ class HtmlWrapper
                 </div>
             </div>
     
-            <div style="margin-top: 110px;"></div>
+            <div style="margin-top: 90px;"></div>
     
             <div id="director-info" style="width: 30%;margin-left: auto;margin-right: 0;text-align: center;padding-left: 20px;padding-right: 20px;">
                 Direktor

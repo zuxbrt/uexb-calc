@@ -98,8 +98,8 @@
                         </div>
 
                         <div class="row item">
-                            <div class="col">Cijena kurseva:</div>
-                            <div class="col">{{$customer->fee}}</div>
+                            <div class="col">Cijena kurseva (sa PDV-om):</div>
+                            <div class="col">{{$customer->taxed_fee}}</div>
                         </div>
                 </div>
 
