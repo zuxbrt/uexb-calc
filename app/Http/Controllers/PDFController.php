@@ -13,14 +13,22 @@ use App\CustomersCompanyInfo;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\DataExtractor;
 
+use App\Http\Services\MailerService;
+use App\Http\Services\MailTemplate;
+
 
 
 class PDFController extends Controller
 {
     public $dataExtractor;
+    private $mailer;
+    private $mailTemplate;
 
-    function __construct(){
+
+    public function __construct(MailTemplate $mailTemplate){
         $this->dataExtractor = new DataExtractor();
+        $this->mailer = new MailerService();
+        $this->mailTemplate = $mailTemplate;
     }
 
     /**
@@ -90,11 +98,35 @@ class PDFController extends Controller
         if($timestamp === false){
             abort(403);
         } else {
+
+            $this->sendMails($timestamp, $customerData);
             // get generated pdf
             //$generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
-            return view('pdf');
+            // return view('pdf');
         }
     }
 
+
+    /**
+    //  * Send emails to customer and to admin
+     */
+    public function sendMails($timestamp, $customerData){
+        // get generated pdf
+        $generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
+
+        // create contact and push mail to queue
+        $mailTemplate = new MailTemplate();
+
+        $customerTemplate = $mailTemplate->createMailTemplateForCustomer();
+        $adminTemplate = $mailTemplate->createMailTemplateForAdmin();
+
+        dd($customerTemplate, $adminTemplate);
+
+        Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
+
+
+        // return message
+        return redirect('/#contact')->with('message', 'Contact message successfully sent.');
+    }
 
 }
