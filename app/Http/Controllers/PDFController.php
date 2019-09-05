@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use PDF;
 use App\PDFWrappers\HtmlWrapper;
 use App;
@@ -10,12 +9,19 @@ use App\Customer;
 use App\Course;
 use App\CustomersCourses;
 use App\CustomersCompanyInfo;
-use Illuminate\Support\Facades\Storage;
 use App\Helpers\DataExtractor;
+use App\Email;
+use App\Mail\MailToSend;
+use App\Jobs\SendEmail;
 
 use App\Http\Services\MailerService;
 use App\Http\Services\MailTemplate;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
 
 
 class PDFController extends Controller
@@ -98,7 +104,6 @@ class PDFController extends Controller
         if($timestamp === false){
             abort(403);
         } else {
-
             $this->sendMails($timestamp, $customerData);
             // get generated pdf
             //$generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
@@ -112,21 +117,21 @@ class PDFController extends Controller
      */
     public function sendMails($timestamp, $customerData){
         // get generated pdf
-        $generatedPDF = Storage::get('public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf');
+        $fileName = 'public/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf';
+        $generatedPDF = Storage::get($fileName);
 
         // create contact and push mail to queue
         $mailTemplate = new MailTemplate();
 
-        $customerTemplate = $mailTemplate->createMailTemplateForCustomer();
-        $adminTemplate = $mailTemplate->createMailTemplateForAdmin();
-
-        dd($customerTemplate, $adminTemplate);
+        $customerTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, false);
+        $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileName, env('ADMIN_EMAIL'));
 
         Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
+        Mail::to([$customerData['email']])->queue(new MailToSend($customerTemplate));
 
-
+        dd('stani der');
         // return message
-        return redirect('/#contact')->with('message', 'Contact message successfully sent.');
+        // return redirect('/#contact')->with('message', 'Contact message successfully sent.');
     }
 
 }

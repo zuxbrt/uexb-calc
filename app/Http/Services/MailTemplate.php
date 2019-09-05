@@ -10,6 +10,7 @@ namespace App\Http\Services;
 
 
 use Illuminate\Support\Facades\View;
+use App\Email;
 
 class MailTemplate
 {
@@ -17,22 +18,22 @@ class MailTemplate
      * @param $data
      * @return string
      */
-    public function createMailTemplateForAdmin($data) {
+    public function createMailTemplate($customerData, $attachment, $customEmail) {
+        $mail = new Email();
 
-        $contact->name = $request->input('name');
-        $contact->lastname = $request->input('lastname');
-        $contact->email = $request->input('email');
-        $contact->subject = $request->input('subject');
-        $contact->message = $request->input('message');
-        $contact->save();
-        
+        if($customEmail !== false){
+            $mail->email = $customEmail;
+            $mail->subject = 'Predracun za '.$customerData['email'].'.';
+        } else {
+            $mail->email = $customerData['email'];
+            $mail->subject = 'Predracun';
+        }
+
+        $mail->message = 'Poruka';
+        $mail->attached_file = $attachment;
+
+        $mail->save();
+        return $mail;
     }
 
-    /**
-     * @param $data
-     * @return string
-     */
-    public function createMailTemplateForCustomer($data) {
-        // todo create mail for admin and for user
-    }
 }
