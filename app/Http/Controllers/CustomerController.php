@@ -61,7 +61,12 @@ class CustomerController extends Controller
         $courses = $this->dataExtractor->getCoursesData($coursesIds);
 
         // get company details
-        $companyInfo = CustomersCompanyInfo::where('customer_id', $customer['id'])->get();
+        $companyData = CustomersCompanyInfo::where('customer_id', $customer['id'])->get();
+        if(isset($companyData[0])){
+            $companyInfo = $companyData[0]->toArray();
+        } else {
+            $companyInfo = [];
+        }
 
         return view('customer.view', compact('customer', 'companyInfo', 'courses'));
     }
