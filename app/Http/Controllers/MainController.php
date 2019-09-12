@@ -133,15 +133,10 @@ class MainController extends Controller
         // set total price
         $attributes['fee'] = $priceWithDiscount;
         $attributes['discount'] = $discount;
+        $attributes['base_price'] = $totalPrice;
 
         // form bill number
-        $date = new \DateTime();
-        $date = date_format($date, 'd/m/Y');
-        $day = substr($date, 0, 2);
-        $month = substr($date, 3, 2);
-        $year = substr($date, 8, 11);
-        $bill_number = 'UCI-'.$day.'/'.$month.'/'.$year;
-        $attributes['bill_number'] = $bill_number;
+        $attributes['bill_number'] = $this->createBillNumber();
 
         // create customer, company info and return its id
         $customerId = Customer::insertGetId($attributes);
@@ -174,6 +169,19 @@ class MainController extends Controller
 
         return redirect('/pdf');
 
+    }
+
+    /**
+    //  * Create bill number
+     */
+    public function createBillNumber()
+    {
+        $date = new \DateTime();
+        $date = date_format($date, 'd/m/Y');
+        $day = substr($date, 0, 2);
+        $month = substr($date, 3, 2);
+        $year = substr($date, 8, 11);
+        return 'UCI-'.$day.'/'.$month.'/'.$year;
     }
 
 }

@@ -98,6 +98,11 @@
                         </div>
 
                         <div class="row item">
+                            <div class="col">Osnova:</div>
+                            <div class="col">{{$customer->base_price}}</div>
+                        </div>
+
+                        <div class="row item">
                             <div class="col">Cijena kurseva (sa PDV-om):</div>
                             <div class="col">{{$customer->taxed_fee}}</div>
                         </div>

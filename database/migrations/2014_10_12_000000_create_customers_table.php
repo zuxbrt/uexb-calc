@@ -22,6 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('city');
             $table->string('status');
             $table->string('notes');
+            $table->decimal('base_price');
             $table->decimal('fee');
             $table->decimal('taxed_fee');
             $table->string('pdf');

@@ -52,7 +52,6 @@ class PDFController extends Controller
 
         // format date
         $dateCreated = $customerData['created_at']->toDateTimeString();
-        //dd($dateCreated);
         $year = substr($dateCreated, 0, 4);
         $month = substr($dateCreated, 5, 2);
         $day = substr($dateCreated, 8, 2);
