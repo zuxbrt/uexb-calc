@@ -74,6 +74,7 @@ class MainController extends Controller
         $selectedCourses = [];
         $totalParticipants = 0;
         $totalPrice = 0;
+        $coursePrices = [];
 
         // extract course ids and course participants
         foreach($allAttributes as $key => $value){
@@ -87,7 +88,12 @@ class MainController extends Controller
         foreach($selectedCourses as $courseId => $courseParticipants){
             $courseData = Course::where('id', $courseId)->get();
             $coursePrice = $courseData->pluck('price');
-            $totalPrice += $coursePrice[0];
+            $coursesPrices[$courseId] = intval($coursePrice[0]) * intval($courseParticipants);
+        }
+
+        // calculate total price
+        foreach($coursesPrices as $aCourse => $aPrice){
+            $totalPrice += $aPrice;
         }
 
         // init values

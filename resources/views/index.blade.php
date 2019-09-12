@@ -406,8 +406,10 @@
         
         // global variables
         var courseParticipants = [];
+        var coursePrices = [];
         var totalPrice = 0;
         var totalParticipants = 0;
+        let coursesData = {!! json_encode($courses) !!};
 
         $("#person-type-2").click(function() {
             document.getElementById('personStateInput').checked = true;
@@ -477,6 +479,26 @@
 
             this.setTotalParticipants();
             this.calculateDiscount();
+            this.calculateTotalPrice(id);
+        }
+
+        // define total price of courses
+        function calculateTotalPrice(courseId){
+            let finalPrice = 0;
+                
+            for (const key of Object.keys(coursesData)) {
+                //console.log(courseParticipants);
+                if(coursesData[key].id === courseId){
+                    coursePrices[courseId] = coursesData[key].price * courseParticipants[courseId]; 
+                }
+            }    
+
+            coursePrices.forEach(function (totalCoursePrice){
+                finalPrice += totalCoursePrice;
+            });
+
+            totalPrice = finalPrice;
+            this.calculateDiscount();
         }
 
         // change person type
@@ -507,7 +529,7 @@
                 if(courses[key].id === courseId){
                     this.price = courses[key].price;
                 }
-            }
+            }            
 
             if(courseAdded === true){
                 totalPrice += parseInt(price);
@@ -518,7 +540,7 @@
                 // console.log(totalPrice);
             }
 
-            this.setPrice(totalPrice, courseParticipants);
+            // this.setPrice(totalPrice);
         }
 
         // set courses price
@@ -566,8 +588,6 @@
             }
 
             document.getElementById('popustValue').value = discount+'%';
-            // console.log("Price", priceWithDiscount);
-            // console.log('Participants', totalParticipants);
             this.setPrice(priceWithDiscount);
         }
 
@@ -617,8 +637,6 @@
         // toggle mobile menu
         function toggleMobileMenu(){
             let isDevice = this.checkDevice();
-
-            console.log(document.getElementById('mobile-menu-container').classList.contains('not-opened'));
 
             if(document.getElementById('mobile-menu-container').classList.contains('not-opened')){
                 document.getElementById('mobile-menu-container').style.display = "flex";

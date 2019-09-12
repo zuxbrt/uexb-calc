@@ -16,7 +16,6 @@ Route::post('/', 'MainController@store');
 
 // disable registration
 //Auth::routes();
-Auth::routes(['register' => false]);
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -30,3 +29,5 @@ Route::get('/view-pdf/{customer}', 'CustomerController@viewPDF');
 Route::post('/pdf/save', 'PDFController@save');
 
 Route::get('/administration', 'AdminController@index');
+
+Auth::routes(['register' => false]);

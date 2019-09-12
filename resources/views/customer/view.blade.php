@@ -101,6 +101,11 @@
                             <div class="col">Cijena kurseva (sa PDV-om):</div>
                             <div class="col">{{$customer->taxed_fee}}</div>
                         </div>
+
+                        <div class="row item">
+                            <div class="col">Ostvareni popust:</div>
+                            <div class="col">{{$customer->discount}}</div>
+                        </div>
                 </div>
 
                 <div class="content pl-5 pr-5 pt-4">
