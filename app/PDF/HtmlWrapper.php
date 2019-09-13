@@ -15,7 +15,7 @@ class HtmlWrapper
      */
     public function generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount, $priceWithDiscount)
     {
-        $currentDateTime = date("Y-m-d_h:i");
+        $currentDateTime = date("Y-m-d_h-i");
 
         $check = $this->checkIfExists($customerData['id'], $currentDateTime);
 
