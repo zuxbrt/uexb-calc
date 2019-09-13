@@ -85,7 +85,7 @@
             <div id="main-header">
                 <div id="logoContainer">
 
-                    <a href="http://uciexcel.ba/"><img id="logoImg" src="../images/logo.png"></a>
+                    <a href="http://uciexcel.ba/"><img id="logoImg" src={{asset('images/logo.png')}}></a>
 
                     <nav id="navigation-menu-desktop">
                         <ul id="links-ul" style="list-style-type:none;">
@@ -102,7 +102,7 @@
                 </div>
 
                 <div id="mobile-nav">
-                    <img id="mobile-nav-icon" src="../images/menu.svg" onclick="toggleMobileMenu()">
+                    <img id="mobile-nav-icon" src={{asset("images/menu.svg")}} onclick="toggleMobileMenu()">
                     <div id="mobile-menu-container"class="not-opened">
                         <div id="navigation-menu-mobile">
                             <ul id="links-ul-mobile" style="list-style-type:none;">
