@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&display=swap" rel="stylesheet">
 
         <!-- Bootstrap 4.0 css -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,7 +23,6 @@
                 color: black;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                height: 100vh;
                 margin: 0;
                 width: 100%;
                 overflow: auto;
@@ -37,6 +36,7 @@
                 align-items: center;
                 display: flex;
                 justify-content: center;
+                padding-top: 5.5rem !important;
             }
 
             .position-ref {
@@ -74,7 +74,22 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-
+            .logo-scrolled{
+            width: 184px !important;
+            height: 34px !important;
+            margin-top: 15px !important;
+        }
+        .main-header-scrolled{
+            height: 64px !important;
+        }
+        .navigation-menu-desktop-scrolled{
+            padding-top: 20px !important;
+        }
+            @media only screen and (max-width: 1049px) {
+                .flex-center{
+                    padding-top: 6.5rem !important;
+                }
+            }
             
         </style>
     </head>
@@ -144,13 +159,13 @@
 
                                         <input type="radio" class="courseSelection" id="{{$course->id}}.selected" onclick="toggleClass({{$course->id}})">
 
-                                    <div class="course-block not-selected" id="courseBlock.{{$course->id}}">
+                                    <div  class="course-block not-selected" id="courseBlock.{{$course->id}}">
 
-                                            <div class="course-column">
+                                            <label for="{{$course->id}}.selected" class="course-column">
                                                 <div id="{{$course->id}}">
                                                     {{$course->name}}
                                                 </div>
-                                            </div>
+                                            </label>
                         
                                             <div class="range-column">
                                                 <div class="custom-range-div">
@@ -174,7 +189,7 @@
 
                                         </div>
 
-                                    </div>
+        </div>
 
                                     @endforeach
 
@@ -410,7 +425,36 @@
         var totalPrice = 0;
         var totalParticipants = 0;
         let coursesData = {!! json_encode($courses) !!};
+        let logoImg = document.querySelector("#logoImg");
+        let mainHeader = document.querySelector("#main-header");
+        let navigationMenuDesktop = document.querySelector("#navigation-menu-desktop");
 
+        function onScroll(){
+            logoImg.classList.add("logo-scrolled");
+            mainHeader.classList.add("main-header-scrolled");
+            navigationMenuDesktop.classList.add("navigation-menu-desktop-scrolled");
+        }
+        let last_known_scroll_position = 0;
+let ticking = false;
+        window.addEventListener('scroll', function(e) {
+  last_known_scroll_position = window.scrollY;
+
+  if (!ticking) {
+        window.requestAnimationFrame(function() {
+      onScroll;
+      console.log(last_known_scroll_position);
+      if(last_known_scroll_position == 0){
+        logoImg.classList.remove("logo-scrolled");
+            mainHeader.classList.remove("main-header-scrolled");
+            navigationMenuDesktop.classList.remove("navigation-menu-desktop-scrolled");
+      }
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+        window.addEventListener("scroll", onScroll);
         $("#person-type-2").click(function() {
             document.getElementById('personStateInput').checked = true;
             document.getElementById('person-type-1').style.color = "#000000";

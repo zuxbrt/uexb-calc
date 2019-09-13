@@ -11,9 +11,10 @@
     box-shadow: 0 1px 0 rgba(0,0,0,.1); */
     font-weight: 500;
     line-height: 23px;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 7px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 7px 0 rgba(0,0,0,.1);
+    box-shadow: 0 0 7px rgba(0,0,0,.1)!important;
+    transition: all 0.3s linear;
 }
 
 #logoContainer{
@@ -21,23 +22,26 @@
     flex-direction: row;
     flex-wrap: nowrap;
     width: 80%;
+    height: 100%;
     max-width: 1080px;
     margin: auto;
 }
 
-#logoImg{
-    width: 250px;
-    height: auto;
-    margin-top: 22px;
+#logoImg {
+    width: 259px;
+    height: 47.59px;
+    margin-top: 21px;
+    transition: all 0.3s linear;
 }
 
 #navigation-menu-desktop{
-    padding-top: 30px;
+    padding-top: 33px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     margin-left: auto;
     margin-right: 0;
+    transition: all 0.3s linear;
 }
 
 #links-ul{
@@ -45,10 +49,31 @@
     flex-direction: row;
     flex-wrap: nowrap;
 }
-
+#links-ul a{
+    position: relative;
+}
+#links-ul a::after{
+    content: " ";
+    display: inline-block;
+    width: 0;
+    border-bottom: #73ae56;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    position: absolute;
+    bottom: 5%;
+    transition: 0.3s all linear;
+}
+#links-ul a:hover{
+    text-decoration: none;
+}
+#links-ul a:hover:after{
+    width: calc(100% - 25px);
+}
+.nohover::after{
+    display: none !important;
+}
 .link-menu, .link-menu-button{
-    margin-left: 15px;
-    margin-right: 15px;
+    padding-right: 26px;
     cursor: pointer;
     font-family: 'Work Sans',Helvetica,Arial,Lucida,sans-serif;
     font-weight: 600;
@@ -64,18 +89,19 @@
 
 .link-menu-button{
     color: white;
+    margin-right: 0;
 }
 
 .greytext, .link-menu-button{
     font-size: 16px;
 }
 
-.link-menu-button{
+.link-menu-button {
     background-color: #73ae56;
     width: 125px;
     height: 35px;
-    padding-left: 28px;
-    padding-top: 6px;
+    padding-left: 27px;
+    padding-top: 5px;
     border-radius: 25px;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
     -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
@@ -183,10 +209,12 @@
 }
 
 .course-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: #73ae56;
     height: 75px;
-    padding-top: 25px;
     width: 55%;
     margin-bottom: 20px;
     color: white;
@@ -196,7 +224,10 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border-radius: 30px;
 }
-
+.course-column div{
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
 /* RADIO CHECK STYLES */
 
