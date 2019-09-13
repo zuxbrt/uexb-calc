@@ -13,7 +13,7 @@ class HtmlWrapper
     /**
     //  * Generate PDF file from given data.
      */
-    public function generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount)
+    public function generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount, $priceWithDiscount)
     {
         $currentDateTime = date("Y-m-d_h:i");
 
@@ -24,6 +24,7 @@ class HtmlWrapper
             $companyInfo,
             $coursesInfo,
             $priceWithoutDiscount,
+            $priceWithDiscount,
             $currentDateTime, 
             $customerData['id']
         );
@@ -72,7 +73,7 @@ class HtmlWrapper
     /**
     //  * Generate pdf with data and html
      */
-    public function createPDFFromHtml($customerData,$companyInfo,$coursesInfo,$priceWithoutDiscount,$currentDateTime,$customerDataId){
+    public function createPDFFromHtml($customerData,$companyInfo,$coursesInfo,$priceWithoutDiscount,$priceWithDiscount,$currentDateTime,$customerDataId){
 
 
         $customerInfoContent = '';
@@ -245,7 +246,7 @@ class HtmlWrapper
                             <td class="empty" style="border: none;"></td>
                             <td class="empty" style="border: none;"></td>
                             <td class="ti" style="border-bottom: 1px solid black;text-align: right;font-size: 12px;padding: 5px;">Cijena sa popustom</td>
-                            <td class="ti-d bold" style="text-align: right;font-size: 12px;padding: 5px;border: 1px solid black;font-weight:700;">'.$customerData->fee.'</td>
+                            <td class="ti-d bold" style="text-align: right;font-size: 12px;padding: 5px;border: 1px solid black;font-weight:700;">'.$priceWithDiscount.'</td>
                         </tr>
                         <tr>
                             <td class="empty" style="border: none;"></td>

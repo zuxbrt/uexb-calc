@@ -85,7 +85,7 @@ class PDFController extends Controller
             $course_price = $courseData->pluck('price')[0];
             $course_participants = intval($val['course_participants']);
 
-            $priceWithoutDiscount += intval($course_price);
+            $priceWithoutDiscount += intval($course_price * $course_participants);
 
             $aCourse = [
                 'course_name' => $course_name,
@@ -96,8 +96,17 @@ class PDFController extends Controller
             array_push($coursesInfo, $aCourse);
         }
 
+        $discountVal = ($customerData['discount'] / 100) * intval($customerData['base_price']);
+        $priceWithDiscount = intval($customerData['base_price']) - intval($discountVal);
+
         // generate pdf
-        $timestamp = $wrapper->generatePDF($customerData, $companyInfo, $coursesInfo, $priceWithoutDiscount);
+        $timestamp = $wrapper->generatePDF(
+            $customerData, 
+            $companyInfo, 
+            $coursesInfo, 
+            $priceWithoutDiscount, 
+            $priceWithDiscount
+        );
 
         // if file exist, abort generating pdf
         if($timestamp === false){

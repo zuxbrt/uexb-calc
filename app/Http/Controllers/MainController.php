@@ -125,7 +125,7 @@ class MainController extends Controller
         // calculate final price
         if($discount !== 0){
             $discountValue = ($discount / 100) * $totalPrice;
-            $priceWithDiscount = $totalPrice - $discount;
+            $priceWithDiscount = $totalPrice - $discountValue;
         } else {
             $priceWithDiscount = $totalPrice;
         }

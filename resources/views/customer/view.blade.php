@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="row item">
-                            <div class="col">Cijena kurseva (sa PDV-om):</div>
+                            <div class="col">Cijena kurseva (sa PDV-om i popustom):</div>
                             <div class="col">{{$customer->taxed_fee}}</div>
                         </div>
 
