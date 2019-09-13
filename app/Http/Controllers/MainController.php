@@ -74,7 +74,7 @@ class MainController extends Controller
         $selectedCourses = [];
         $totalParticipants = 0;
         $totalPrice = 0;
-        $coursePrices = [];
+        $coursesPrices = [];
 
         // extract course ids and course participants
         foreach($allAttributes as $key => $value){
