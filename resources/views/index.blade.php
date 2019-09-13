@@ -556,7 +556,6 @@
         function calculateDiscount(couponDiscount){
             let discount = 0;
             let priceWithDiscount = 0;
-            let price = totalPrice;
 
             // set discount percentage
             if(totalParticipants > 1 && totalParticipants <= 2){
@@ -581,10 +580,13 @@
             }
 
             if(discount !== 0){
-                let discountValue = (discount / 100) * price;
-                priceWithDiscount = price - discount;
+                let discountValue = (discount / 100) * totalPrice;
+                priceWithDiscount = totalPrice - discountValue;
+                // console.log('Discount value:', discountValue);
+                // console.log('Price with discount: ', priceWithDiscount);
+                // console.log('Calculation: ', totalPrice, discountValue);
             } else {
-                priceWithDiscount = price;
+                priceWithDiscount = totalPrice;
             }
 
             document.getElementById('popustValue').value = discount+'%';
