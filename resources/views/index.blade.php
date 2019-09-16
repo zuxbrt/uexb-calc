@@ -118,8 +118,8 @@
 
                 <div id="mobile-nav">
                     <img id="mobile-nav-icon" src={{asset("images/menu.svg")}} onclick="toggleMobileMenu()">
-                    <div id="mobile-menu-container"class="not-opened">
-                        <div id="navigation-menu-mobile">
+                    <div id="mobile-menu-container" >
+                        <div id="navigation-menu-mobile" class="not-opened">
                             <ul id="links-ul-mobile" style="list-style-type:none;">
                                 <a href="http://uciexcel.ba/#pocetna"><li class="link-menu greytext">Početna</li></a>
                                 <a href="http://uciexcel.ba/#onama"><li class="link-menu greytext">O Nama</li></a>
@@ -435,26 +435,27 @@
             navigationMenuDesktop.classList.add("navigation-menu-desktop-scrolled");
         }
         let last_known_scroll_position = 0;
-let ticking = false;
-        window.addEventListener('scroll', function(e) {
-  last_known_scroll_position = window.scrollY;
-
-  if (!ticking) {
-        window.requestAnimationFrame(function() {
-      onScroll;
-      console.log(last_known_scroll_position);
-      if(last_known_scroll_position == 0){
-        logoImg.classList.remove("logo-scrolled");
-            mainHeader.classList.remove("main-header-scrolled");
-            navigationMenuDesktop.classList.remove("navigation-menu-desktop-scrolled");
-      }
-      ticking = false;
-    });
-
-    ticking = true;
-  }
-});
+        let ticking = false;
+        if(window.innerWidth > 1500){
+            window.addEventListener('scroll', function(e) {
+            last_known_scroll_position = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    onScroll;
+                    console.log(last_known_scroll_position);
+                    if(last_known_scroll_position == 0){
+                        logoImg.classList.remove("logo-scrolled");
+                        mainHeader.classList.remove("main-header-scrolled");
+                        navigationMenuDesktop.classList.remove("navigation-menu-desktop-scrolled");
+                    }
+                ticking = false;
+            });
+            ticking = true;
+            }
+    	});
         window.addEventListener("scroll", onScroll);
+        }
+        
         $("#person-type-2").click(function() {
             document.getElementById('personStateInput').checked = true;
             document.getElementById('person-type-1').style.color = "#000000";
@@ -684,12 +685,12 @@ let ticking = false;
         function toggleMobileMenu(){
             let isDevice = this.checkDevice();
 
-            if(document.getElementById('mobile-menu-container').classList.contains('not-opened')){
-                document.getElementById('mobile-menu-container').style.display = "flex";
-                document.getElementById('mobile-menu-container').classList.remove('not-opened')
+            if(document.getElementById('navigation-menu-mobile').classList.contains('not-opened')){
+                document.getElementById('navigation-menu-mobile').classList.add("menu-opened");
+                document.getElementById('navigation-menu-mobile').classList.remove('not-opened');
             } else {
-                document.getElementById('mobile-menu-container').style.display = "none";
-                document.getElementById('mobile-menu-container').classList.add('not-opened');
+                document.getElementById('navigation-menu-mobile').classList.remove("menu-opened");
+                document.getElementById('navigation-menu-mobile').classList.add('not-opened');
             }
         }
 
