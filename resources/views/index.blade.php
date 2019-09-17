@@ -9,6 +9,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap&subset=latin-ext" rel="stylesheet">
+
 
         <!-- Bootstrap 4.0 css -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,7 +23,7 @@
             html, body {
                 background-color: white;
                 color: black;
-                font-family: 'Nunito', sans-serif;
+                font-family: 'Open Sans', sans-serif;
                 font-weight: 200;
                 margin: 0;
                 width: 100%;
@@ -169,14 +171,15 @@
                         
                                             <div class="range-column">
                                                 <div class="custom-range-div">
+                                                <div class="label-range">
+                                                            <p>Broj polaznika</p>
+                                                        </div>
+                                                    </div>
                                                     <input id="{{$course->id}}.participants" name="polaznicikurs-{{$course->id}}" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
                                                         min="0" max="100" onInput="setParticipants({{$course->id}})" 
                                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
                                                         disabled value="0">
-                                                    <div class="label-range">
-                                                            <p>Broj polaznika: </span></p>
-                                                        </div>
-                                                    </div>
+                                                    
 
                                                     @error('polaznici{{$course->id}}kurs')
                                                         <span class="invalid-feedback" role="alert">
@@ -199,7 +202,7 @@
 
                                     <div class="row code-box">
                                         <label class="kupon-text" for="popustKupon">Kod posebnog popusta:</label>
-                                        <input id="popustKupon" type="text" class="form-control code-input @error('code') is-invalid @enderror" 
+                                        <input placeholder="Unesite ovdje..." id="popustKupon" type="text" class="form-control code-input @error('code') is-invalid @enderror" 
                                         name="code" value="{{ old('code') }}" autocomplete="code" autofocus oninput="validateCouponCode()">
                                         <div class="invalidCoupon" id="invalidCouponAlert">Neispravan kupon</div>
                                         <div class="validCoupon" id="validCouponAlert"></div>
@@ -227,12 +230,13 @@
                                 <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
                                 <input id="totalPriceValue" type="text" class="form-control code-input" name="fee"
                                     value="0 KM" disabled>
-
                             </div>
+                                <input id="totalPriceValueMobile" type="text" class="form-control code-input" name="fee"
+                                    value="0 KM" disabled>
                         
 
-                        <div class="row mt-5" style="width: 100%;">
-                            <p class="title" id="titleForma">Forma</p>
+                        <div class="row mt-5 obrazac-title" style="width: 100%;">
+                            <p class="title" id="titleForma">Obrazac za prijavu: </p>
                         </div>
                     
                     </div>
@@ -382,7 +386,7 @@
                 
                     
                     
-                                <div class="row mt-0">
+                                <div class="row mt-0 napomene">
                                     <label for="napomene" class="label-text">Napomene</label>
                                     <textarea type="text" id="napomene" class="form-control text-input" style="min-height:100px; max-height: 200px;" name="notes"></textarea>
                                 </div>
@@ -442,7 +446,7 @@
             if (!ticking) {
                 window.requestAnimationFrame(function() {
                     onScroll;
-                    console.log(last_known_scroll_position);
+                   
                     if(last_known_scroll_position == 0){
                         logoImg.classList.remove("logo-scrolled");
                         mainHeader.classList.remove("main-header-scrolled");
@@ -458,7 +462,7 @@
         
         $("#person-type-2").click(function() {
             document.getElementById('personStateInput').checked = true;
-            document.getElementById('person-type-1').style.color = "#000000";
+            document.getElementById('person-type-1').style.color = "rgba(0,0,0,0.6)";
             document.getElementById('person-type-2').style.color = "white";
             document.getElementById('company-details').style.height = "0";
         }); 
@@ -466,7 +470,7 @@
         $("#person-type-1").click(function() {
             document.getElementById('personStateInput').checked = false;
             document.getElementById('person-type-1').style.color = "white";
-            document.getElementById('person-type-2').style.color = "#000000";
+            document.getElementById('person-type-2').style.color = "rgba(0,0,0,0.6)";
 
             if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) ||
                 navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) ||
@@ -475,7 +479,12 @@
 
                 document.getElementById('company-details').style.height = "390px";
             } else {
-                document.getElementById('company-details').style.height = "127px";
+                if(window.innerWidth > 768){
+                    document.getElementById('company-details').style.height = "127px";
+                }else{
+                    document.getElementById('company-details').style.height = "390px";
+                }
+                
             }
             
         }); 
@@ -504,6 +513,7 @@
 
                 this.calculateCoursesPrice(id, false);
                 this.setCourseParticipants(id, false);
+                this.setParticipants(id);
                 this.setTotalParticipants();
                 this.calculateDiscount();
             }
@@ -543,6 +553,7 @@
             });
 
             totalPrice = finalPrice;
+           
             this.calculateDiscount();
         }
 
@@ -552,12 +563,12 @@
             let isDevice = this.checkDevice();
 
             if(value === true){
-                document.getElementById('person-type-1').style.color = "#000000";
+                document.getElementById('person-type-1').style.color = "rgba(0,0,0,0.6)";
                 document.getElementById('person-type-2').style.color = "white";
                 document.getElementById('company-details').style.height = "0";
             } else {
                 document.getElementById('person-type-1').style.color = "white";
-                document.getElementById('person-type-2').style.color = "#000000";
+                document.getElementById('person-type-2').style.color = "rgba(0,0,0,0.6)";
                 this.setDivHeight();
             }
         }
@@ -578,20 +589,23 @@
 
             if(courseAdded === true){
                 totalPrice += parseInt(price);
-                // console.log(totalPrice);
+               
 
             } else {
                 totalPrice -= parseInt(price);
-                // console.log(totalPrice);
+               
             }
-
-            // this.setPrice(totalPrice);
+            //this.setPrice(totalPrice);
+            
         }
 
         // set courses price
         function setPrice(price){
+            if(window.innerWidth <= 550){
+                document.getElementById('totalPriceValueMobile').value = price + ' KM';
+            }
+            
             document.getElementById('totalPriceValue').value = price + ' KM';
-
             setTimeout(function(){ 
                 document.getElementById('totalPriceValue').classList.remove("price-fade");
             }, 1000);   
@@ -674,7 +688,7 @@
             if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) ||
                 navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) ||
                 navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/) ||
-                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i)){
+                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i) || window.innerWidth < 768){
                 return true;
             } else {
                 return false;
