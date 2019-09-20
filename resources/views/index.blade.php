@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>UciExcel - Kalkulator</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -17,7 +17,7 @@
     
         <!-- custom styles -->
         <link href="{{ asset('css/calc.css') }}" rel="stylesheet" />
-
+        <link rel="icon" href="{{ asset('images/icon.png') }}" sizes="32x32">    
         <!-- Styles -->
         <style>
             html, body {
@@ -55,12 +55,12 @@
                 /* padding: 10%; */
                 /* padding-bottom: 5%; */
                 top: 0;
-                width: 100%;
+                width: 70%;
                 text-align: center;
             }
 
             .title {
-                font-size: 84px;
+                font-size: 30px;
             }
 
             .links > a {
@@ -139,7 +139,9 @@
             </div>
 
         @endif
+        <div id="scrollTarget">
 
+        </div>
         <div class="flex-center position-ref pt-4">
 
             <div class="content">
@@ -161,20 +163,20 @@
 
                                         <input type="radio" class="courseSelection" id="{{$course->id}}.selected" onclick="toggleClass({{$course->id}})">
 
-                                    <div  class="course-block not-selected" id="courseBlock.{{$course->id}}">
+                                    <div  class="course-block" >
 
-                                            <label for="{{$course->id}}.selected" class="course-column">
+                                            <label for="{{$course->id}}.selected" id="courseLabel.{{$course->id}}" class="course-column not-selected-course-name">
                                                 <div id="{{$course->id}}">
                                                     {{$course->name}}
                                                 </div>
                                             </label>
                         
-                                            <div class="range-column">
+                                            <label for="{{$course->id}}.participants" class="range-column  not-selected" id="courseBlock.{{$course->id}}" onclick="toggleDisabled({{$course->id}})">
                                                 <div class="custom-range-div">
                                                 <div class="label-range">
-                                                            <p>Broj polaznika</p>
-                                                        </div>
-                                                    </div>
+                                                        <p>Broj polaznika</p>
+                                                </div>
+                                                </div>
                                                     <input id="{{$course->id}}.participants" name="polaznicikurs-{{$course->id}}" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
                                                         min="0" max="100" onInput="setParticipants({{$course->id}})" 
                                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
@@ -188,11 +190,11 @@
                                                     @enderror
                                                         
                 
-                                                </div>
+                                            </label>
 
-                                        </div>
+                                    </div>
 
-        </div>
+                                </div>
 
                                     @endforeach
 
@@ -233,12 +235,18 @@
                             </div>
                                 <input id="totalPriceValueMobile" type="text" class="form-control code-input" name="fee"
                                     value="0 KM" disabled>
-                        
-
-                        <div class="row mt-5 obrazac-title" style="width: 100%;">
+                        <div class="row mt-5 obrazac-title" style="width: 100%; position: relative">
+                            <a id="scrollToTop" href="#scrollTarget">
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#FFFFFF">
+                                    <g>
+                                        <path d="M 11.218,20.2L 17,14.418l 5.782,5.782c 0.39,0.39, 1.024,0.39, 1.414,0c 0.39-0.39, 0.39-1.024,0-1.414 L 17.71,12.3C 17.514,12.104, 17.258,12.008, 17,12.008c-0.258,0-0.514,0.096-0.71,0.292L 9.804,18.786c-0.39,0.39-0.39,1.024,0,1.414 C 10.194,20.59, 10.828,20.59, 11.218,20.2z"></path>
+                                    </g>
+                                </svg>
+                            </a>
                             <p class="title" id="titleForma">Obrazac za prijavu: </p>
+                            
                         </div>
-                    
+                        
                     </div>
 
 
@@ -247,8 +255,7 @@
 
 
                     <div class="form-bottom-container" id="form-bottom">
-
-                            <div class="row mt-5" id="section-one">
+                        <div class="row mt-5" id="section-one">
 
                                     <div class="col">
                                         <div class="row input-box">
@@ -406,12 +413,42 @@
                                 </div>            
 
                     </div>
-
                 </form>
-
-
             </div>
         </div>
+        <footer>
+            <div id="footerContainer">
+                <div class="footer-left">
+                    <ul>
+                        <li>KONTAKT</li>
+                        <li><a href="tel:+38733956222">Telefon: +387 33 956 222</a></li>
+                        <li><a href="tel:+38761811394">Mobitel: +387 61 811 394</a></li>
+                        <li><a href="mailto: prijava@uciexcel.ba">prijava@uciexcel.ba</a></li>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/uciexcelba/" target="_blank"><img src="{{ asset('images/fb-icon.png') }}"></a>
+                            <a href="https://www.linkedin.com/in/rizahkabasi/" target="_blank"><img src="{{ asset('images/ln-icon.png') }}"></a>
+                        </div>
+                    </ul>
+                </div>
+                <div class="footer-mid">
+                    <p>Budite na vrijeme informisani  uslugama i akcijama. Prijavite se na našu mailing listu.</p>
+                    <form>
+                        <input class="form-input" type="email" name="emailaddress" placeholder="Email"><input class="form-button" type="submit" value="Ok">
+                    </form> 
+                </div>
+                <div class="footer-right">
+                    <div class="footer-logo-container" id="footerLogoContainer">
+                        <a href="https://edu.smartlab.ba" target="_blank"><img id="footerLogo" src="{{ asset('images/footer-logo.png') }}"></a>
+                        <p class="copyright">Copyright &copy; 2018 <a href="https://smartlab.ba" target="_blank">Smartlab.ba</a></p>
+                    </div>
+                    
+                </div>
+            </div>
+        </footer>
+        <div id="pozovi">
+            <a href="tel: +38733656222">Pozovi</a>
+        </div>
+        
     </body>
 
 
@@ -423,6 +460,22 @@
 
     <script>
         
+        
+        const footerLogo = document.querySelector('#footerLogo');
+        const footerLogoContainer = document.querySelector("#footerLogoContainer");
+        const options = {
+            rootMargin: '-200px 0px 0px 0px',
+            threshold: [0.25]
+        };
+        observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    footerLogo.classList.add("fadeInTop");
+                    observer.unobserve(entry.target);
+                }
+            })
+        }, options);
+        observer.observe(footerLogoContainer);
         // global variables
         var courseParticipants = [];
         var coursePrices = [];
@@ -432,33 +485,38 @@
         let logoImg = document.querySelector("#logoImg");
         let mainHeader = document.querySelector("#main-header");
         let navigationMenuDesktop = document.querySelector("#navigation-menu-desktop");
+        let scrollToTop = document.querySelector("#scrollToTop");
 
-        function onScroll(){
-            logoImg.classList.add("logo-scrolled");
-            mainHeader.classList.add("main-header-scrolled");
-            navigationMenuDesktop.classList.add("navigation-menu-desktop-scrolled");
-        }
         let last_known_scroll_position = 0;
         let ticking = false;
-        if(window.innerWidth > 1500){
-            window.addEventListener('scroll', function(e) {
+        
+        window.addEventListener('scroll', function(e) {
             last_known_scroll_position = window.scrollY;
             if (!ticking) {
                 window.requestAnimationFrame(function() {
-                    onScroll;
-                   
-                    if(last_known_scroll_position == 0){
+                    if(window.innerWidth > 1050){
+                        logoImg.classList.add("logo-scrolled");
+                        mainHeader.classList.add("main-header-scrolled");
+                        navigationMenuDesktop.classList.add("navigation-menu-desktop-scrolled");
+                        if(last_known_scroll_position == 0){
                         logoImg.classList.remove("logo-scrolled");
                         mainHeader.classList.remove("main-header-scrolled");
                         navigationMenuDesktop.classList.remove("navigation-menu-desktop-scrolled");
                     }
+                    }
+                    
+                    if(last_known_scroll_position > 600){
+                        scrollToTop.classList.add("fadeInRight");
+                    }else{
+                        scrollToTop.classList.remove("fadeInRight");
+                    }
                 ticking = false;
             });
             ticking = true;
-            }
-    	});
-        window.addEventListener("scroll", onScroll);
         }
+    });
+        
+        
         
         $("#person-type-2").click(function() {
             document.getElementById('personStateInput').checked = true;
@@ -490,23 +548,38 @@
         }); 
 
         // toggle active/inactive course
-        function toggleClass(id){
-            let classList = document.getElementById('courseBlock.'+id).classList;
-                        
-            // if not selected
-            if (classList.contains("not-selected")) {
+        function toggleDisabled(id){
                 document.getElementById('courseBlock.'+id).classList.remove('not-selected');
                 document.getElementById('courseBlock.'+id).classList.add('selected');
+                document.getElementById('courseLabel.'+id).classList.remove('not-selected-course-name');
+                document.getElementById('courseLabel.'+id).classList.add('selected-course-name');
                 document.getElementById(id+".selected").checked = true;
                 document.getElementById(id+".participants").disabled = false;
                 document.getElementById(id+'.participants').value = 1;
-
+                this.calculateCoursesPrice(id, true);                
+                this.setCourseParticipants(id, true);
+                this.setParticipants(id);
+        }
+        function toggleClass(id){
+            let classList = document.getElementById('courseBlock.'+id).classList;
+            let classListLabel = document.getElementById('courseLabel.'+id).classList;          
+            // if not selected
+            if (classList.contains("not-selected") || classListLabel.contains("not-selected-course-name")) {
+                document.getElementById('courseBlock.'+id).classList.remove('not-selected');
+                document.getElementById('courseBlock.'+id).classList.add('selected');
+                document.getElementById('courseLabel.'+id).classList.remove('not-selected-course-name');
+                document.getElementById('courseLabel.'+id).classList.add('selected-course-name');
+                document.getElementById(id+".selected").checked = true;
+                document.getElementById(id+".participants").disabled = false;
+                document.getElementById(id+'.participants').value = 1;
                 this.calculateCoursesPrice(id, true);                
                 this.setCourseParticipants(id, true);
                 this.setParticipants(id);
             } else {
                 document.getElementById('courseBlock.'+id).classList.remove('selected');
                 document.getElementById('courseBlock.'+id).classList.add('not-selected');
+                document.getElementById('courseLabel.'+id).classList.remove('selected-course-name');
+                document.getElementById('courseLabel.'+id).classList.add('not-selected-course-name');
                 document.getElementById(id+".selected").checked = false;
                 document.getElementById(id+".participants").disabled = true;
                 document.getElementById(id+'.participants').value = 0;
@@ -524,7 +597,7 @@
         function setParticipants(id) {
             let input = document.getElementById(id+".participants");
 
-            let inputValue = parseInt(input.value);
+            let inputValue = parseFloat(input.value);
 
             if(isNaN(inputValue)){
                 courseParticipants[id] = 0;
@@ -588,11 +661,11 @@
             }            
 
             if(courseAdded === true){
-                totalPrice += parseInt(price);
+                totalPrice += parseFloat(price);
                
 
             } else {
-                totalPrice -= parseInt(price);
+                totalPrice -= parseFloat(price);
                
             }
             //this.setPrice(totalPrice);
@@ -604,7 +677,7 @@
             if(window.innerWidth <= 550){
                 document.getElementById('totalPriceValueMobile').value = price + ' KM';
             }
-            
+            console.log(price)
             document.getElementById('totalPriceValue').value = price + ' KM';
             setTimeout(function(){ 
                 document.getElementById('totalPriceValue').classList.remove("price-fade");
@@ -647,7 +720,7 @@
             } else {
                 priceWithDiscount = totalPrice;
             }
-
+            console.log(totalPrice)
             document.getElementById('popustValue').value = discount+'%';
             this.setPrice(priceWithDiscount);
         }
@@ -676,7 +749,7 @@
             let isDevice = this.checkDevice();
 
             if(isDevice === true){
-                // alert('mobile');
+                //alert('mobile');
                 document.getElementById('company-details').style.height = "390px";
             } else {
                 document.getElementById('company-details').style.height = "127px";
@@ -688,7 +761,7 @@
             if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) ||
                 navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) ||
                 navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/) ||
-                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i) || window.innerWidth < 768){
+                navigator.userAgent.match(/Windows Phone/i) || navigator.userAgent.match(/ZuneWP7/i) || window.innerWidth <= 768){
                 return true;
             } else {
                 return false;
@@ -726,7 +799,7 @@
                         if(coupons[key].code === input.value){
                             document.getElementById('validCouponAlert').innerHTML  = coupons[key].name;
                             document.getElementById('validCouponAlert').style.display = 'block';
-                            this.calculateDiscount(parseInt(coupons[key].discount));
+                            this.calculateDiscount(parseFloat(coupons[key].discount));
                         } else {
                             document.getElementById('invalidCouponAlert').style.display = 'block;'
                         }

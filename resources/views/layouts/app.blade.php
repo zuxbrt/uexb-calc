@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link rel="icon" href="{{ asset('images/icon.png') }}" sizes="32x32">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -42,16 +43,16 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
                         @else
-                            {{-- <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret">Meni</span>  
                                 </a>
@@ -64,43 +65,43 @@
                                     <a class="nav-link dropdown-item" role="button" href="/administration">Administracija</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" style="padding: 8px;"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
 
-                                </div>
-
-                            </li> --}}
-                            <a class="nav-link dropdown-item" role="button" href="/courses">Kursevi</a>
-                            <a class="nav-link dropdown-item" role="button" href="/coupons">Kuponi</a>
-                            <a class="nav-link dropdown-item" role="button" href="/customers">Kupci</a>
-                            <a class="nav-link dropdown-item" role="button" href="/administration">Administracija</a>
-
-                            <a class="dropdown-item" href="{{ route('logout') }}" style="padding: 8px; font-weight: bold;"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-
-                        @endguest
-                    </ul>
                 </div>
-            </div>
-        </nav>
 
-        {{-- <main class="py-4"> --}}
-        <main>
-            @yield('content')
-        </main>
+                </li> --}}
+                <a class="nav-link dropdown-item" role="button" href="/courses">Kursevi</a>
+                <a class="nav-link dropdown-item" role="button" href="/coupons">Kuponi</a>
+                <a class="nav-link dropdown-item" role="button" href="/customers">Kupci</a>
+                <a class="nav-link dropdown-item" role="button" href="/administration">Administracija</a>
+
+                <a class="dropdown-item" href="{{ route('logout') }}" style="padding: 8px; font-weight: bold;" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+                @endguest
+                </ul>
+            </div>
+    </div>
+    </nav>
+
+    {{-- <main class="py-4"> --}}
+    <main>
+        @yield('content')
+    </main>
     </div>
 </body>
+
 </html>
