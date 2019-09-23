@@ -425,7 +425,7 @@ class HtmlWrapper
         $customer->save();
 
         $output = $pdf->output();
-        Storage::put('public/pdfs/predracun-' . $customerDataId . '-' . $currentDateTime . '.pdf', $output);
+        file_put_contents('../public/pdfs/predracun-' . $customerDataId . '-' . $currentDateTime . '.pdf',$output);
         return $currentDateTime;
     }
 }
