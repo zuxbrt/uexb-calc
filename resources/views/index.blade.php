@@ -399,17 +399,22 @@
                                 </div>
         
                                 
-                                @if ($errors->has('g-recaptcha-response'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                    </span>
-                                @endif
+                                
                             
                     
                                 <div class="row justify-content-end">
+
+                                    @if ($errors->has('g-recaptcha-response'))
+                                        <span class="help-block" style="margin-right: auto;margin-left: auto;margin-top: 23px;margin-bottom: 25px;color: #ff0000;">
+                                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                        </span>
+                                    @endif
+
                                         {!! NoCaptcha::renderJs() !!}
                                         {!! NoCaptcha::display() !!}
+
                                     <button type="submit" class="btn send-request">Pošalji zahtjev</button>
+
                                 </div>            
 
                     </div>
