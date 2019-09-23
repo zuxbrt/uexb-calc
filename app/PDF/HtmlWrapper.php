@@ -86,6 +86,8 @@ class HtmlWrapper
         } else {
             $customerInfoContent = '
             <div style="margin-left: 25%; margin-right: 5%;">
+
+                <p style="margin:0;padding:0 0 0 5px;border-bottom: 1px solid black;">' . $companyInfo["company_name"] . '</p>
                 
                 <p style="margin:0;padding:0 0 0 5px;border-bottom: 1px solid black;">' . $companyInfo["company_address"] . '</p>
                 

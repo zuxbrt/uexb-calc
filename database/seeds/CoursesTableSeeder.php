@@ -37,7 +37,7 @@ class CoursesTableSeeder extends Seeder
         ]);
 
         DB::table('courses')->insert([
-            'name' => 'Tajne uspješnog vizuelnog predstavljanja u Excelu',
+            'name' => 'Microsoft Excel Specialist',
             'price' => 250
         ]);
     }

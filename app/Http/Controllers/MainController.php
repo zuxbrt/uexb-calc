@@ -146,7 +146,7 @@ class MainController extends Controller
                 [   
                     'company_id' => 'required|numeric',
                     'company_address' => 'required',
-                    'assignee' => 'required'
+                    'company_name' => 'required'
                 ]
             );
 

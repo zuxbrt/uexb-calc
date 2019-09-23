@@ -18,7 +18,7 @@ class CreateCustomersCompanyInfoTable extends Migration
             $table->string('customer_id');
             $table->string('company_id');
             $table->string('company_address');
-            $table->string('assignee');
+            $table->string('company_name');
             
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

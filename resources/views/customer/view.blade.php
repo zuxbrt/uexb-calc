@@ -136,13 +136,13 @@
                         <div class="row info">
                             <div class="col">ID Kompanije</div>
                             <div class="col">Adresa kompanije</div>
-                            <div class="col">Odgovorno lice</div>
+                            <div class="col">Naziv firme</div>
                         </div>
 
                         <div class="row item">
                             <div class="col">{{$companyInfo['company_id']}}</div>
                             <div class="col">{{$companyInfo['company_address']}}</div>
-                            <div class="col">{{$companyInfo['assignee']}}</div>
+                            <div class="col">{{$companyInfo['company_name']}}</div>
                         </div>
                     </div>
                 @endif

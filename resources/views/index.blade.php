@@ -377,9 +377,9 @@
 
                                 <div class="col" id="companyAssignee">
                                     <div class="row company-info">
-                                        <label for="odgovornoLice" class="label-text">*Odgovorno Lice</label>
+                                        <label for="odgovornoLice" class="label-text">*Naziv Firme</label>
                                         <input id="odgovornoLice" type="text" class="form-control form-control-lg text-input @error('odgovornoLice') is-invalid @enderror" 
-                                        name="assignee" value="{{ old('odgovornoLice') }}" autocomplete="assignee" autofocus>
+                                        name="company_name" value="{{ old('odgovornoLice') }}" autocomplete="company_name" autofocus>
                             
                                         @error('odgovornoLice')
                                             <span class="invalid-feedback" role="alert">
