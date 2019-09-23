@@ -138,8 +138,8 @@ class PDFController extends Controller
         $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileLocation, env('ADMIN_EMAIL'));
 
         // add mails to queue
-        Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
-        Mail::to([$customerData['email']])->queue(new MailToSend($customerTemplate));
+        //Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
+        //Mail::to([$customerData['email']])->queue(new MailToSend($customerTemplate));
     }
 
 }
