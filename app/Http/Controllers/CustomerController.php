@@ -83,7 +83,7 @@ class CustomerController extends Controller
     public function viewPDF(Customer $customer)
     {
         // form pdf link
-        $customer->pdf = '../storage/'.substr($customer->pdf, 7);
+        $customer->pdf = '/storage/'.substr($customer->pdf, 7);
 
         //dd($customer);
         // return view

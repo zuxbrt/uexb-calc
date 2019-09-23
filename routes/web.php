@@ -19,6 +19,11 @@ Route::post('/', 'MainController@store');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+// setup storage link
+Route::get('/sus', function () { 
+    $output = shell_exec('ln -s /path/to/laravel/storage/app/public /path/to/public/storage');
+    dd($output);
+});
 
 Route::resource('/courses', 'CourseController');
 Route::resource('coupons', 'CouponController');
