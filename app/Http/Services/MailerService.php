@@ -53,4 +53,12 @@ class MailerService
 
     }
 
+
+    public function sendNotification($subject, $recipient, $emailBody, $attachment = false)
+    {
+        $mail = new PHPMailer(true);
+        //todo
+
+    }
+
 }

@@ -81,6 +81,7 @@
                 <a class="nav-link dropdown-item" role="button" href="/coupons">Kuponi</a>
                 <a class="nav-link dropdown-item" role="button" href="/customers">Kupci</a>
                 <a class="nav-link dropdown-item" role="button" href="/administration">Administracija</a>
+                <a class="nav-link dropdown-item" role="button" href="/logs" target="_blank">Logs</a>
 
                 <a class="dropdown-item" href="{{ route('logout') }}" style="padding: 8px; font-weight: bold;" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

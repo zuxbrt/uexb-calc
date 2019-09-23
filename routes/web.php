@@ -19,6 +19,10 @@ Route::post('/', 'MainController@store');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+//Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Route::get('logs', 'LogController@index');
+
+
 Route::resource('/courses', 'CourseController');
 Route::resource('coupons', 'CouponController');
 Route::resource('/customers', 'CustomerController');
@@ -29,4 +33,4 @@ Route::post('/pdf/save', 'PDFController@save');
 
 Route::get('/administration', 'AdminController@index');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false,]);
