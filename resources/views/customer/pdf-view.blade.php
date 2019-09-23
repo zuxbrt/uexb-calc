@@ -11,5 +11,5 @@ body{
 
 </style>
 <body>
-    <iframe src ="{{ ($customer->pdf) }}" id="pdfPreview"></iframe>
+    <iframe src ="{{asset($customer->pdf)}}" id="pdfPreview"></iframe>
 </body>
