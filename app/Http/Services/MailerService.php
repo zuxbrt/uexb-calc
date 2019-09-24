@@ -3,86 +3,55 @@
 namespace App\Http\Services;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+//use PHPMailer\PHPMailer\Exception;
 
 class MailerService
 {
     /**
-     * Mail sender function
-     *
-     * @param $subject
-     * @param $recipient
-     * @param $emailBody
+     * Call send email to user
+     * @param email
      */
-    public function sendEmail($subject, $recipient, $emailBody, $attachment = false) {
-
-        // create PHPMailer object
+    public function sendEmail($email)
+    {
         $mail = new PHPMailer(true);
-
-        try {
-            // set object properties
-            $mail->isSMTP();
-            $mail->Host = env('MAIL_HOST');
-            $mail->SMTPAuth = true;
-            $mail->Username = env('MAIL_USERNAME');
-            $mail->Password = env('MAIL_PASSWORD');
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = env('MAIL_PORT');
-            $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-            $mail->addAddress($recipient, 'Receiver');     // Add a recipient
-
-            //Content
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body    = $emailBody;
-            $mail->AltBody = 'Your email provider doesnt support sending HTML mails.';
-
-            // check if attachment will be set
-            if ($attachment) {
-                // add attachment to the email pdf
-                $mail->addAttachment($attachment);
-            }
-
-            // send email
-            $mail->send();
-
-
-        } catch (Exception $e) {
-            // add log
-        }
-
+        $this->sendEmail($mail, $email);
     }
 
     /**
-     * Send notification mail for admin
-     * 
-     * @param $subject
-     * @param $recipient
-     * @param $emailBody
+     * Call send notification mail to administrator.
+     * @param email
      */
-    public function sendNotification($subject, $recipient, $emailBody)
+    public function sendNotificationEmail($email)
     {
         $mail = new PHPMailer(true);
-        
-        // set object properties
-        $mail->isSMTP();
-        $mail->Host = env('MAIL_HOST');
-        $mail->SMTPAuth = true;
-        $mail->Username = env('MAIL_USERNAME');
-        $mail->Password = env('MAIL_PASSWORD');
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = env('MAIL_PORT');
-        $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-        $mail->addAddress($recipient, 'Receiver');     // Add a recipient
-
-        //Content
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body    = $emailBody;
-        $mail->AltBody = 'Your email provider doesnt support sending HTML mails.';
-
-        // send email
-        $mail->send();
+        $this->sendEmail($mail, $email);
     }
 
+    /**
+     * Construct email and send it via phpmailer.
+     * @param PHPMailer
+     * @param email
+     */
+    public function send(PHPMailer $mail, $email)
+    {
+        //$mail->SMTPDebug = 2;                            // Enable verbose debug output
+        $mail->isSMTP();                                   // Set mailer to use SMTP
+        $mail->Host = env('MAIL_HOST');                    // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                            // Enable SMTP authentication
+        $mail->Username = env('MAIL_USERNAME');            // SMTP username
+        $mail->Password = env('MAIL_PASSWORD');            // Password of the account from which emails are sended (in this case it is hashed)
+        $mail->SMTPSecure = 'tls';                         // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = env('MAIL_PORT');                    // TCP port to connect to
+        //Recipients
+        $mail->setFrom(env('ADMIN_EMAIL'), 'UciExcel Kalkulator');
+        $mail->addAddress($toEmail);                       // Add a recipient
+        //Content
+        $mail->isHTML(true);                               // Set email format to HTML
+        $mail->Subject = $heading;
+        $mail->Body    = $text;
+        //$mail->AltBody = 'Alt body';
+        dd($mail);
+        // $mail->send();
+        echo 'Message has been sent';
+    }
 }

@@ -15,7 +15,6 @@ use App\Mail\MailToSend;
 use App\Jobs\SendEmail;
 
 use App\Http\Services\MailerService;
-use App\Http\Services\MailTemplate;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -27,14 +26,12 @@ use Illuminate\Support\Facades\Storage;
 class PDFController extends Controller
 {
     public $dataExtractor;
-    private $mailer;
-    private $mailTemplate;
+    private $mailerService;
 
-
-    public function __construct(MailTemplate $mailTemplate){
+    public function __construct()
+    {
         $this->dataExtractor = new DataExtractor();
-        $this->mailer = new MailerService();
-        $this->mailTemplate = $mailTemplate;
+        $this->mailerService = new MailerService();
     }
 
     /**
@@ -128,14 +125,20 @@ class PDFController extends Controller
         $generatedPDF = file_get_contents('../public'.$fileLocation);
 
         // set customer's pdf
-        $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);;
+        $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
+
+        dd($customerData);
+        $email = new Email();
+        $email->email = $customerData['email'];
+        $email->subject = 'UčiExcelBa Predračun';
 
         // create contact and push mail to queue
-        $mailTemplate = new MailTemplate();
+        //$mailTemplate = new MailTemplate();
 
         // create templates
-        $customerTemplate = $mailTemplate->createMailTemplate($customerData, $fileLocation, false);
-        $adminTemplate = $mailTemplate->createMailTemplate($customerData, $fileLocation, env('ADMIN_EMAIL'));
+        //$customerTemplate = $mailTemplate->createCustomerMail($customerData, $fileLocation);
+        //$adminTemplate = $mailTemplate->createAdminMail($customerData, $fileLocation, env('ADMIN_EMAIL'));
+        
 
         // add mails to queue
         //Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
