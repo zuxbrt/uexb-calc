@@ -127,10 +127,10 @@ class PDFController extends Controller
         // set customer's pdf
         $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
 
-        dd($customerData);
-        $email = new Email();
-        $email->email = $customerData['email'];
-        $email->subject = 'UčiExcelBa Predračun';
+        //dd($customerData);
+        //$email = new Email();
+        //$email->email = $customerData['email'];
+        //$email->subject = 'UčiExcelBa Predračun';
 
         // create contact and push mail to queue
         //$mailTemplate = new MailTemplate();
