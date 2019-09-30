@@ -127,35 +127,13 @@ class PDFController extends Controller
         // set customer's pdf
         $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
 
-<<<<<<< HEAD
-        $email = new Email();
-        $email->email = $customerData['email'];
-        $email->subject = 'UčiExcelBa Predračun';
-        $email->mesage = 'Predračun kurseva sa UčiExcelBa';
-        //$email->attached_file = $generatedPDF;
-=======
-        dd($customerData);
-        $email = new Email();
-        $email->email = $customerData['email'];
-        $email->subject = 'UčiExcelBa Predračun';
->>>>>>> parent of 80ec1a8... Update PDFController.php
-
-        $notificationMail = new Email();
-
-        $notificationMail->email = env('ADMIN_EMAIL');
-        $notificationMail->subject = 'Predracun od '.$customerData['name'].' '.$customerData['surname'];
-        $notificationMail->message = $customerData['bill_number'];
-
-        //$this->mailerService->sendEmail($email);
-        //$this->mailerService->sendNotificationEmail($notificationMail);
         // create contact and push mail to queue
-        //$mailTemplate = new MailTemplate();
+        $mailTemplate = new MailTemplate();
 
         // create templates
-        //$customerTemplate = $mailTemplate->createCustomerMail($customerData, $fileLocation);
-        //$adminTemplate = $mailTemplate->createAdminMail($customerData, $fileLocation, env('ADMIN_EMAIL'));
+        $customerTemplate = $mailTemplate->createCustomerMail($customerData, $fileLocation);
+        $adminTemplate = $mailTemplate->createAdminMail($customerData, $fileLocation, env('ADMIN_EMAIL'));
         
-
         // add mails to queue
         Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($notificationMail));
         Mail::to([$customerData['email']])->queue(new MailToSend($email));
