@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Services;
+use App\Email;
 
 class MailTemplate
 {
@@ -11,6 +12,7 @@ class MailTemplate
      */
     public function createTemplate($customerData, $attachment, $customEmail)
     {
+        $mail = new Email();
         if($customEmail !== false){
             $mail->email = $customEmail;
             $mail->subject = 'Predracun za '.$customerData['email'].'.';
@@ -20,6 +22,7 @@ class MailTemplate
         }
         $mail->message = 'Poruka';
         $mail->attached_file = $attachment;
+    
         $mail->save();
         return $mail;
     }

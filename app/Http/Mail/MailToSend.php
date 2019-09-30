@@ -25,20 +25,31 @@ class MailToSend extends Mailable
      */
     public function build()
     {
-        $infos = json_encode($this->email);
+        $infos = $this->email;
+        $encodedData = json_encode($this->email);
+
+        $date = new \DateTime();
+        $date = date_format($date, 'd/m/Y');
+
+        $d = [
+            'email' => $infos['email'],
+            'subject' => $infos['subject'],
+            'message' => $infos['message'],
+            'date' => $date,
+        ];
 
         // define what type of mail (notification/email)
-        if ($info->type == 'email' && !is_null($info->file_path)) {
+        if ($infos['email'] == env('ADMIN_EMAIL') && !is_null($infos['attached_file'])) {
             // set attachment path
-            $attachment = $info->file_path;
+            $attachment = $infos['attached_file'];
             // return data to queue
             return $this->from('noreply@smartlab.ba','No Reply')
                 ->view("parts.customer_template", ["data" => $d ])
-                ->attachFromStorage($attachment)
+                ->attach($attachment)
                 ->subject('UčiExcelBa Predračun');
-        } else if ($info->type == 'bussiness' && is_null($info->file_path)) {
-            // return data to queue
-            return $this->from('noreply@smartlab.ba','No Reply')
+            } else {
+                // return data to queue
+                return $this->from('noreply@smartlab.ba','No Reply')
                 ->view("parts.admin_template", ["data" => $d ])
                 ->subject('Novi predračun generisan');
         }     

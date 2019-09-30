@@ -15,6 +15,7 @@ use App\Mail\MailToSend;
 use App\Jobs\SendEmail;
 
 use App\Http\Services\MailerService;
+use App\Http\Services\MailTemplate;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -129,14 +130,21 @@ class PDFController extends Controller
 
         // create contact and push mail to queue
         $mailTemplate = new MailTemplate();
-
+        
         // create templates
-        $customerTemplate = $mailTemplate->createCustomerMail($customerData, $fileLocation);
-        $adminTemplate = $mailTemplate->createAdminMail($customerData, $fileLocation, env('ADMIN_EMAIL'));
+        $customerTemplate = $mailTemplate->createTemplate(
+            $customerData, 
+            public_path().$fileLocation,
+            false);
+
+        $adminTemplate = $mailTemplate->createTemplate(
+            $customerData, 
+            public_path().$fileLocation,
+            env('ADMIN_EMAIL'));
         
         // add mails to queue
-        Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($notificationMail));
-        Mail::to([$customerData['email']])->queue(new MailToSend($email));
+        Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($customerTemplate));
+        Mail::to([$customerData['email']])->queue(new MailToSend($adminTemplate));
     }
 
 }
