@@ -127,11 +127,18 @@ class PDFController extends Controller
         // set customer's pdf
         $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
 
+<<<<<<< HEAD
         $email = new Email();
         $email->email = $customerData['email'];
         $email->subject = 'UčiExcelBa Predračun';
         $email->mesage = 'Predračun kurseva sa UčiExcelBa';
         //$email->attached_file = $generatedPDF;
+=======
+        dd($customerData);
+        $email = new Email();
+        $email->email = $customerData['email'];
+        $email->subject = 'UčiExcelBa Predračun';
+>>>>>>> parent of 80ec1a8... Update PDFController.php
 
         $notificationMail = new Email();
 
