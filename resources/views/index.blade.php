@@ -682,7 +682,7 @@
             if(window.innerWidth <= 550){
                 document.getElementById('totalPriceValueMobile').value = price + ' KM';
             }
-            console.log(price)
+            //console.log(price)
             document.getElementById('totalPriceValue').value = price + ' KM';
             setTimeout(function(){ 
                 document.getElementById('totalPriceValue').classList.remove("price-fade");
@@ -725,7 +725,7 @@
             } else {
                 priceWithDiscount = totalPrice;
             }
-            console.log(totalPrice)
+            //console.log(totalPrice)
             document.getElementById('popustValue').value = discount+'%';
             this.setPrice(priceWithDiscount);
         }
