@@ -127,11 +127,20 @@ class PDFController extends Controller
         // set customer's pdf
         $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
 
-        //dd($customerData);
-        //$email = new Email();
-        //$email->email = $customerData['email'];
-        //$email->subject = 'UčiExcelBa Predračun';
+        $email = new Email();
+        $email->email = $customerData['email'];
+        $email->subject = 'UčiExcelBa Predračun';
+        $email->mesage = 'Predračun kurseva sa UčiExcelBa';
+        //$email->attached_file = $generatedPDF;
 
+        $notificationMail = new Email();
+
+        $notificationMail->email = env('ADMIN_EMAIL');
+        $notificationMail->subject = 'Predracun od '.$customerData['name'].' '.$customerData['surname'];
+        $notificationMail->message = $customerData['bill_number'];
+
+        //$this->mailerService->sendEmail($email);
+        //$this->mailerService->sendNotificationEmail($notificationMail);
         // create contact and push mail to queue
         //$mailTemplate = new MailTemplate();
 
@@ -141,8 +150,8 @@ class PDFController extends Controller
         
 
         // add mails to queue
-        //Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($adminTemplate));
-        //Mail::to([$customerData['email']])->queue(new MailToSend($customerTemplate));
+        Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($notificationMail));
+        Mail::to([$customerData['email']])->queue(new MailToSend($email));
     }
 
 }

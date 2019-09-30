@@ -14,17 +14,7 @@ class MailerService
     public function sendEmail($email)
     {
         $mail = new PHPMailer(true);
-        $this->sendEmail($mail, $email);
-    }
-
-    /**
-     * Call send notification mail to administrator.
-     * @param email
-     */
-    public function sendNotificationEmail($email)
-    {
-        $mail = new PHPMailer(true);
-        $this->sendEmail($mail, $email);
+        return $this->sendEmail($email);
     }
 
     /**
@@ -44,14 +34,14 @@ class MailerService
         $mail->Port = env('MAIL_PORT');                    // TCP port to connect to
         //Recipients
         $mail->setFrom(env('ADMIN_EMAIL'), 'UciExcel Kalkulator');
-        $mail->addAddress($toEmail);                       // Add a recipient
+        $mail->addAddress($email['email']);                       // Add a recipient
         //Content
         $mail->isHTML(true);                               // Set email format to HTML
-        $mail->Subject = $heading;
-        $mail->Body    = $text;
+        $mail->Subject = $email['subject'];
+        $mail->Body    = $email['message'];
         //$mail->AltBody = 'Alt body';
-        dd($mail);
-        // $mail->send();
+        //dd($mail);
+        $mail->send();
         echo 'Message has been sent';
     }
 }

@@ -26,7 +26,6 @@ class MailToSend extends Mailable
     public function build()
     {
         $infos = json_encode($this->email);
-        dd($infos);
 
         // define what type of mail (notification/email)
         if ($info->type == 'email' && !is_null($info->file_path)) {
