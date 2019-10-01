@@ -17,6 +17,7 @@
     
         <!-- custom styles -->
         <link href="{{ asset('css/calc.css') }}" rel="stylesheet" />
+        <script src="{{asset('js/your_js_file.js')}}"></script>
         <link rel="icon" href="{{ asset('images/icon.png') }}" sizes="32x32">    
         <!-- Styles -->
         <style>
@@ -413,11 +414,12 @@
                                         {!! NoCaptcha::renderJs() !!}
                                         {!! NoCaptcha::display() !!}
 
-                                    <button type="submit" class="btn send-request">Pošalji zahtjev</button>
+                                    <button id="sendB" type="submit" class="btn send-request" disabled>Pošalji zahtjev</button>
 
                                 </div>            
 
                     </div>
+
                 </form>
             </div>
         </div>
@@ -747,6 +749,12 @@
             });
 
             totalParticipants = count;
+            if(totalParticipants === 0){
+                document.getElementById('sendB').disabled = true;
+            } else {
+                document.getElementById('sendB').disabled = false;
+                document.getElementById('sendB').style = 'cursor: pointer; !important'
+            }
         }
         
         // set div height
@@ -793,7 +801,6 @@
             this.calculateDiscount();
 
             let coupons = {!! json_encode($coupons) !!};
-            //console.log(coupons);
             let input = document.getElementById('popustKupon');
 
 
