@@ -12,6 +12,7 @@
     .centered{
         text-align: center !important;
         margin-top: 10em;
+        font-weight: 300;
     }
 
     .back{
@@ -22,7 +23,7 @@
     .button-back{
         background-color: #73ae56;
         width: 250px;
-        height: 38px;
+        height: 36px;
         border-radius: 25px;
         -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
         -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
@@ -38,7 +39,7 @@
     .decorated{
         text-decoration: none;
         color: white;
-        font-weight: 500;
+        font-weight: 300;
         font-size: 18px;
     }
 
@@ -49,10 +50,10 @@
 </style>
 
 <body>
-    <h1 class="centered">Predračun je generisan i poslat na vašu e-mail adresu.</h1>
+    <h1 class="centered">Predračun je kreiran i poslan na vašu e-mail adresu.</h1>
     <div class="back">
         <div class="button-back">
-            <a class="decorated" href="https://uciexcel.ba">Nazad na UciExcel.ba</a>
+            <a class="decorated" href="https://uciexcel.ba">Nazad na UčiExcel.ba</a>
         </div>
     </div>
 </body>
