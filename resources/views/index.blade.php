@@ -17,7 +17,6 @@
     
         <!-- custom styles -->
         <link href="{{ asset('css/calc.css') }}" rel="stylesheet" />
-        <script src="{{asset('js/your_js_file.js')}}"></script>
         <link rel="icon" href="{{ asset('images/icon.png') }}" sizes="32x32">    
         <!-- Styles -->
         <style>
