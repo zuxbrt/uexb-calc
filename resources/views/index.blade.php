@@ -229,7 +229,11 @@
                             </div>
                             
                             <div class="mt-2" id="priceContainer">
+                                <div>
                                 <p class="totalText">Ukupna vrijednost predračuna sa ostvarenim popustima iznosi:</p>
+                                <span class="pdv-info">Navedene cijene izražene su bez PDV-a.</span>
+                                </div>
+                                
                                 <input id="totalPriceValue" type="text" class="form-control code-input" name="fee"
                                     value="0 KM" disabled>
                             </div>
