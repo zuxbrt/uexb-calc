@@ -10,19 +10,13 @@ class MailTemplate
      * @param view
      * @param data
      */
-    public function createTemplate($customerData, $attachment, $customEmail)
+    public function createTemplate($customerData, $attachment)
     {
         $mail = new Email();
-        if($customEmail !== false){
-            $mail->email = $customEmail;
-            $mail->subject = 'Predracun za '.$customerData['email'].'.';
-        } else {
-            $mail->email = $customerData['email'];
-            $mail->subject = 'Predracun';
-        }
+        $mail->email = $customerData['email'];
+        $mail->subject = 'Predracun za '.$customerData['email'].'.';
         $mail->message = 'Poruka';
-        $mail->attached_file = $attachment;
-    
+        $mail->attached_file = $attachment;    
         $mail->save();
         return $mail;
     }

@@ -26,15 +26,19 @@ class MailerService
     {
         //$mail->SMTPDebug = 2;                            // Enable verbose debug output
         $mail->isSMTP();                                   // Set mailer to use SMTP
-        $mail->Host = env('MAIL_HOST');                    // Specify main and backup SMTP servers
+        $mail->Host = env('MAIL_HOST');                     // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                            // Enable SMTP authentication
         $mail->Username = env('MAIL_USERNAME');            // SMTP username
         $mail->Password = env('MAIL_PASSWORD');            // Password of the account from which emails are sended (in this case it is hashed)
         $mail->SMTPSecure = 'tls';                         // Enable TLS encryption, `ssl` also accepted
         $mail->Port = env('MAIL_PORT');                    // TCP port to connect to
+
         //Recipients
         $mail->setFrom(env('ADMIN_EMAIL'), 'UciExcel Kalkulator');
-        $mail->addAddress($email['email']);                       // Add a recipient
+
+        // address
+        $mail->addAddress($email['email']);
+
         //Content
         $mail->isHTML(true);                               // Set email format to HTML
         $mail->Subject = $email['subject'];
