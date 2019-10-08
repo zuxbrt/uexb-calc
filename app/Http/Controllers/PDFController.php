@@ -41,7 +41,7 @@ class PDFController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         // create html wrapper for pdf
         $wrapper = new HtmlWrapper();
 
@@ -53,7 +53,7 @@ class PDFController extends Controller
         $year = substr($dateCreated, 0, 4);
         $month = substr($dateCreated, 5, 2);
         $day = substr($dateCreated, 8, 2);
-        $formattedDate = $day.'.'.$month.'.'.$year;
+        $formattedDate = $day . '.' . $month . '.' . $year;
         $customerData['date_created'] = $formattedDate;
 
         // set discount value
@@ -61,23 +61,23 @@ class PDFController extends Controller
         $customerData['fee'] = intval($customerData['fee']);
 
         // if customer status is not default, get customer company details
-        if($customerData['status'] === 'pravno'){
+        if ($customerData['status'] === 'pravno') {
             $companyInfo = CustomersCompanyInfo::where('customer_id', $customerData['id'])->get()->toArray()[0];
-        }  else {
+        } else {
             $companyInfo = [];
         }
 
         // extracting courses data ---- todo replace with dataextractor
         $coursesData = CustomersCourses::where('customer_id', $customerData['id'])->get()->toArray();
         $courseIds = [];
-        foreach($coursesData as $key => $value){
+        foreach ($coursesData as $key => $value) {
             array_push($courseIds, $value['course_id']);
         }
-        
+
         $coursesInfo = [];
         $priceWithoutDiscount = 0;
 
-        foreach($coursesData as $item => $val){
+        foreach ($coursesData as $item => $val) {
             $courseData = Course::where('id', $val['course_id'])->get();
             $course_name = $courseData->pluck('name')[0];
             $course_price = $courseData->pluck('price')[0];
@@ -89,25 +89,25 @@ class PDFController extends Controller
                 'course_name' => $course_name,
                 'course_price' => $course_price,
                 'course_participants' => $course_participants
-            ]; 
+            ];
 
             array_push($coursesInfo, $aCourse);
         }
-
         $discountVal = ($customerData['discount'] / 100) * intval($customerData['base_price']);
         $priceWithDiscount = intval($customerData['base_price']) - intval($discountVal);
-
+        $pdvValue = $priceWithDiscount * 0.17;
         // generate pdf
         $timestamp = $wrapper->generatePDF(
-            $customerData, 
-            $companyInfo, 
-            $coursesInfo, 
-            $priceWithoutDiscount, 
-            $priceWithDiscount
+            $customerData,
+            $companyInfo,
+            $coursesInfo,
+            $priceWithoutDiscount,
+            $priceWithDiscount,
+            $pdvValue
         );
 
         // if file exist, abort generating pdf
-        if($timestamp === false){
+        if ($timestamp === false) {
             abort(403);
         } else {
             $this->sendMails($timestamp, $customerData);
@@ -119,28 +119,29 @@ class PDFController extends Controller
     /**
     //  * Send emails to customer and to admin
      */
-    public function sendMails($timestamp, $customerData){
+    public function sendMails($timestamp, $customerData)
+    {
 
         // get generated pdf
-        $fileLocation = '/pdfs/predracun-'.$customerData['id'].'-'.$timestamp.'.pdf';
-        $generatedPDF = file_get_contents('../public'.$fileLocation);
+        $fileLocation = '/pdfs/predracun-' . $customerData['id'] . '-' . $timestamp . '.pdf';
+        $generatedPDF = file_get_contents('../public' . $fileLocation);
 
         // set customer's pdf
         $customer = Customer::where('id', $customerData['id'])->update(['pdf' => $fileLocation]);
 
         // create contact and push mail to queue
         $mailTemplate = new MailTemplate();
-        
+
         // create templates
         $template = $mailTemplate->createTemplate(
-            $customerData, 
-            public_path().$fileLocation);
-                
+            $customerData,
+            public_path() . $fileLocation
+        );
+
         // add mails to queue
         Mail::to([$customerData['email'], env('ADMIN_EMAIL')])
             ->queue(new MailToSend($template));
         // Mail::to([env('ADMIN_EMAIL')])->queue(new MailToSend($customerTemplate));
         // Mail::to([$customerData['email']])->queue(new MailToSend($adminTemplate));
     }
-
 }

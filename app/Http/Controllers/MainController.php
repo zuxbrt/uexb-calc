@@ -20,8 +20,8 @@ class MainController extends Controller
     }
 
     /**
-    * Calculate customer's price of courses.
-    */
+     * Calculate customer's price of courses.
+     */
     public function store()
     {
         // captcha validation
@@ -30,7 +30,7 @@ class MainController extends Controller
                 'g-recaptcha-response' => 'required|captcha'
             ]
         );
-         
+
         // extracting all attributes
         $allAttributes = request()->all();
 
@@ -41,35 +41,34 @@ class MainController extends Controller
                 'name' => 'required|min:3',
                 'surname' => 'required|min:3',
                 'email' => 'required',
-                'phone' => 'required|numeric',
+                'phone' => 'required|string',
                 'city' => 'required|min:3',
             ]
         );
 
         // check person status
-        if(request('person') === 'f'){
+        if (request('person') === 'f') {
             $attributes['status'] = 'fizicko';
         } else {
             $attributes['status'] = 'pravno';
         }
 
         // validate coupon code if exists
-        if(request('code') !== null){
+        if (request('code') !== null) {
             $coupon = Coupon::where('code', request('code'))->get();
 
             // validate coupon
-            if(isset($coupon[0])){
+            if (isset($coupon[0])) {
                 $couponName = $coupon->pluck('name')[0];
-                $couponDiscount =$coupon->pluck('discount')[0];
+                $couponDiscount = $coupon->pluck('discount')[0];
                 $attributes['coupon'] = $couponName;
             } else {
                 $attributes['coupon'] = '';
             }
-
         } else {
             $coupon = null;
         }
-        
+
         // init values
         $selectedCourses = [];
         $totalParticipants = 0;
@@ -77,22 +76,22 @@ class MainController extends Controller
         $coursesPrices = [];
 
         // extract course ids and course participants
-        foreach($allAttributes as $key => $value){
-            if(preg_match('/polaznicikurs-/',$key)){
+        foreach ($allAttributes as $key => $value) {
+            if (preg_match('/polaznicikurs-/', $key)) {
                 $selectedCourses[substr($key, 14)] = $value;
                 $totalParticipants += $value;
             }
         }
 
         // get courses price
-        foreach($selectedCourses as $courseId => $courseParticipants){
+        foreach ($selectedCourses as $courseId => $courseParticipants) {
             $courseData = Course::where('id', $courseId)->get();
             $coursePrice = $courseData->pluck('price');
             $coursesPrices[$courseId] = intval($coursePrice[0]) * intval($courseParticipants);
         }
 
         // calculate total price
-        foreach($coursesPrices as $aCourse => $aPrice){
+        foreach ($coursesPrices as $aCourse => $aPrice) {
             $totalPrice += $aPrice;
         }
 
@@ -101,29 +100,29 @@ class MainController extends Controller
         $priceWithDiscount = 0;
 
         // set discount percentage
-        if($totalParticipants > 1 && $totalParticipants <= 2){
+        if ($totalParticipants > 1 && $totalParticipants <= 2) {
             $discount = 5;
-        } elseif($totalParticipants >= 3 && $totalParticipants <= 5){
+        } elseif ($totalParticipants >= 3 && $totalParticipants <= 5) {
             $discount = 10;
-        } elseif($totalParticipants >= 6 && $totalParticipants <= 10){
+        } elseif ($totalParticipants >= 6 && $totalParticipants <= 10) {
             $discount = 15;
-        } elseif($totalParticipants >= 11 && $totalParticipants <= 15){
+        } elseif ($totalParticipants >= 11 && $totalParticipants <= 15) {
             $discount = 20;
-        } elseif($totalParticipants >= 15 && $totalParticipants <= 20){
+        } elseif ($totalParticipants >= 15 && $totalParticipants <= 20) {
             $discount = 25;
-        } elseif($totalParticipants >= 21){
+        } elseif ($totalParticipants >= 21) {
             $discount = 30;
         } else {
             $discount = 0;
         }
 
         // if coupon discount exists
-        if(isset($coupon[0])){
+        if (isset($coupon[0])) {
             $discount = $discount + $couponDiscount;
         }
 
         // calculate final price
-        if($discount !== 0){
+        if ($discount !== 0) {
             $discountValue = ($discount / 100) * $totalPrice;
             $priceWithDiscount = $totalPrice - $discountValue;
         } else {
@@ -140,10 +139,9 @@ class MainController extends Controller
 
         // create customer, company info and return its id
         $customerId = Customer::insertGetId($attributes);
-
-        if($attributes['status'] === 'pravno'){
-            $companyAttributes =request()->validate(
-                [   
+        if ($attributes['status'] === 'pravno') {
+            $companyAttributes = request()->validate(
+                [
                     'company_id' => 'required|numeric',
                     'company_address' => 'required',
                     'company_name' => 'required'
@@ -156,7 +154,7 @@ class MainController extends Controller
         }
 
         // store customer selected courses
-        foreach($selectedCourses as $singleCourseId => $singleCourseParticipants){
+        foreach ($selectedCourses as $singleCourseId => $singleCourseParticipants) {
 
             $customerCourses = CustomersCourses::create([
                 'customer_id' => $customerId,
@@ -168,7 +166,6 @@ class MainController extends Controller
         //Customer::create($attributes)->save();
 
         return redirect('/pdf');
-
     }
 
     /**
@@ -181,7 +178,6 @@ class MainController extends Controller
         $day = substr($date, 0, 2);
         $month = substr($date, 3, 2);
         $year = substr($date, 8, 11);
-        return 'UCI-'.$day.'/'.$month.'/'.$year;
+        return 'UCI-' . $day . '/' . $month . '/' . $year;
     }
-
 }

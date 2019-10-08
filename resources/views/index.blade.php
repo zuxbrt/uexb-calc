@@ -313,7 +313,7 @@
                                         <div class="row input-box">
                                             <label for="telefon" class="label-text">*Telefon</label>
                                             <input id="telefon" type="text" class="form-control form-control-lg text-input @error('phone') is-invalid @enderror" 
-                                            name="phone" value="{{ old('telefon') }}"  autocomplete="phone" autofocus>
+                                            name="phone" value="{{ old('telefon') }}"  autocomplete="phone" pattern="^[0-9*/#+ -]+$" minlength=6 autofocus>
                     
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
