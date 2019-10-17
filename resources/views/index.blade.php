@@ -608,7 +608,16 @@
             let input = document.getElementById(id+".participants");
 
             let inputValue = parseFloat(input.value);
-
+            if(inputValue == 0){
+                document.getElementById('courseBlock.'+id).classList.remove('selected');
+                document.getElementById('courseBlock.'+id).classList.add('not-selected');
+                document.getElementById('courseLabel.'+id).classList.remove('selected-course-name');
+                document.getElementById('courseLabel.'+id).classList.add('not-selected-course-name');
+                document.getElementById(id+".selected").checked = false;
+                document.getElementById(id+".participants").disabled = true;
+                document.getElementById(id+'.participants').value = 0;
+                courseParticipants[id] = 0;
+            }
             if(isNaN(inputValue)){
                 courseParticipants[id] = 0;
             } else {

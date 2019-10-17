@@ -184,7 +184,6 @@ html {
 }
 
 .courses-data {
-	width: 80%;
 	margin: 0 auto;
 }
 #personStateInput,
@@ -239,10 +238,13 @@ input[type="text"]:not(:disabled) {
 	flex-wrap: nowrap;
 	margin-left: 20px;
 	flex-basis: 35%;
-	height: 75px;
+	height: 65px;
 	margin-bottom: 20px;
 	border: 3px solid #73ae56;
-	border-radius: 30px;
+	border-radius: 20px;
+	-webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	-moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .course-column {
@@ -251,7 +253,7 @@ input[type="text"]:not(:disabled) {
 	align-items: center;
 	text-align: center;
 	/*background-color: #706f6f;*/
-	height: 75px;
+	height: 65px;
 	flex-basis: 63%;
 	margin-bottom: 20px;
 	color: white;
@@ -259,7 +261,7 @@ input[type="text"]:not(:disabled) {
 	-webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	-moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-	border-radius: 30px;
+	border-radius: 20px;
 }
 .course-column div {
 	padding-left: 30px;
@@ -338,7 +340,7 @@ input[type='radio']:checked:after {
 	margin-bottom: 0;
 }
 #discountContainer {
-	width: 25%;
+	width: 30%;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -372,7 +374,7 @@ input[type='radio']:checked:after {
 	-webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	-moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-	border-radius: 30px;
+	border-radius: 20px;
 	justify-content: center;
 }
 
@@ -400,10 +402,10 @@ input[type='radio']:checked:after {
 
 .code-input,
 #popustValue {
-	height: 65px;
+	height: 60px;
 	border: 3px solid #73ae56;
 	background: white;
-	border-radius: 30px;
+	border-radius: 20px;
 	outline: none;
 }
 
@@ -412,7 +414,7 @@ input[type='radio']:checked:after {
 	max-width: 100px;
 	border: 3px solid #73ae56;
 	background: white;
-	border-radius: 20px;
+	border-radius: 13px;
 	outline: none;
 	text-align: center;
 	width: 75%;
@@ -443,7 +445,6 @@ input[type='radio']:checked:after {
 }
 
 #priceContainer {
-	width: 80%;
 	max-width: 1080px;
 	display: flex;
 	margin-left: auto;
@@ -456,7 +457,7 @@ input[type='radio']:checked:after {
 	-moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	border: 3px solid rgba(0, 0, 0, 0.03);
-	border-radius: 30px;
+	border-radius: 20px;
 }
 
 #totalPrice {
@@ -497,7 +498,9 @@ input[type='radio']:checked:after {
 	font-weight: 500;
 	font-family: 'Work Sans', Helvetica, Arial, Lucida, sans-serif;
 }
-
+.obrazac-title {
+	margin: 0 auto;
+}
 .title:after {
 	content: ""; /* This is necessary for the pseudo element to work. */
 	display: block; /* This will put the pseudo element on its own line. */
@@ -508,7 +511,6 @@ input[type='radio']:checked:after {
 }
 
 #form-bottom {
-	width: 80%;
 	max-width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
@@ -518,7 +520,7 @@ input[type='radio']:checked:after {
 	height: 65px;
 	border: 3px solid #eeeeee;
 	background: #f5f5f5;
-	border-radius: 30px;
+	border-radius: 20px;
 	outline: none;
 	margin-bottom: 30px;
 	padding-left: 20px;
@@ -641,7 +643,7 @@ input:checked[type="checkbox"]:after {
 	margin-bottom: 80px;
 	color: white;
 	font-weight: 600;
-	border-radius: 30px;
+	border-radius: 20px;
 	transition: color 0.5s ease-in-out;
 }
 
@@ -656,7 +658,7 @@ input:checked[type="checkbox"]:after {
 	text-align: center;
 	height: 65px;
 	background: #73ae56;
-	border-radius: 30px;
+	border-radius: 20px;
 	outline: none;
 	width: 300px;
 	margin-top: auto;
@@ -877,10 +879,6 @@ input:checked[type="checkbox"]:after {
 }
 /* For mobile phones: */
 @media only screen and (max-width: 768px) {
-	#formTopContainer {
-		margin-top: 90px !important;
-	}
-
 	.singleCourse {
 		width: 100% !important;
 	}
@@ -915,14 +913,15 @@ input:checked[type="checkbox"]:after {
 		height: 100px;
 		max-width: 100%;
 		width: 100%;
-		border-radius: 0 0 20px 20px;
+		border-radius: 0 0 10px 10px;
 	}
 
 	.courses-data {
-		padding-left: 15px !important;
-		padding-right: 15px !important;
+		width: 80%;
 	}
-
+	#form-bottom {
+		width: 80%;
+	}
 	#logoContainer {
 		/* margin-left: 20px !important; */
 	}
@@ -1036,6 +1035,7 @@ input:checked[type="checkbox"]:after {
 	}
 	.course-column {
 		width: 100% !important;
+		height: 65px;
 	}
 	input[type='radio'] {
 		display: none;
