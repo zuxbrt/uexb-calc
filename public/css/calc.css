@@ -1062,6 +1062,23 @@ input:checked[type="checkbox"]:after {
 		left: 0px;
 	}
 }
+@media only screen and (max-width: 425px) {
+	.course-column {
+		margin-bottom: 0;
+		border-radius: 20px 20px 0 0;
+	}
+	.label-range {
+		padding: 10px;
+	}
+	.range-column {
+		width: 100%;
+		border-radius: 0 0 20px 20px;
+		border-top: none;
+	}
+	.participants-input {
+		height: 35px;
+	}
+}
 @media only screen and (min-width: 600px) {
 	/* For tablets: */
 }
