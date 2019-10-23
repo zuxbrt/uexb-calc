@@ -161,7 +161,7 @@
 
                                     <div class="courseInfo">
 
-                                        <input type="radio" class="courseSelection" id="{{$course->id}}.selected" onclick="toggleClass({{$course->id}})">
+                                        <input type="radio" class="courseSelection" id="{{$course->id}}.selected" onclick="toggleClass({{$course->id}})" >
 
                                     <div  class="course-block" >
 
@@ -180,7 +180,7 @@
                                                     <input id="{{$course->id}}.participants" name="polaznicikurs-{{$course->id}}" type='text' class='participants-input @error('polaznici{{$course->id}}kurs') is-invalid @enderror' 
                                                         min="0" max="100" onInput="setParticipants({{$course->id}})" 
                                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"
-                                                        disabled value="0">
+                                                        disabled value="0" autofocus>
                                                     
 
                                                     @error('polaznici{{$course->id}}kurs')
@@ -456,7 +456,7 @@
             </div>
         </footer>
         <div id="pozovi">
-            <a href="tel: +38733656222">Pozovi</a>
+            <p>Ukupna vrijednost predračuna sa ostvarenim popustima iznosi: </p>
         </div>
         
     </body>
