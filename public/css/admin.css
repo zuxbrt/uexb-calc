@@ -1,0 +1,27 @@
+#generateButton {
+    position: absolute;
+    right: 13px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    top: 31px;
+    height: 45px;
+    color: black;
+    background-color: white;
+    border: 1px solid #ced4da;
+    cursor: pointer;
+    padding-top: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none;    /* Firefox all             */
+    -ms-user-select: none;     /* IE 10+                  */
+     user-select: none;        /* Likely future           */
+    transition: color 0.5s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#generateButton:hover{
+    background-color: #3490dc;
+    color: #e9ecef;
+}
